@@ -73,7 +73,7 @@ export async function sendCustomerConfirmation(brand: BrandData, lead: Lead) {
   const fromEmail = process.env.SENDGRID_FROM_EMAIL || brand.supportEmail || 'info@bluecrest-group.com';
   const fromName = process.env.SENDGRID_FROM_NAME || brand.company_name;
   const replyTo = process.env.SENDGRID_REPLY_TO || fromEmail;
-  
+
   const msg = {
     to: lead.email,
     from: { email: fromEmail, name: fromName },
@@ -81,7 +81,7 @@ export async function sendCustomerConfirmation(brand: BrandData, lead: Lead) {
     templateId: SENDGRID_TEMPLATE_ID,
     dynamicTemplateData: { ...brand, lead },
   };
-  
+
   try {
     await sgMail.send(msg);
     console.log('Customer confirmation email sent to:', lead.email);
@@ -108,7 +108,6 @@ export async function sendInternalNotifications(brand: BrandData, lead: Lead) {
   const fromName = process.env.SENDGRID_FROM_NAME || brand.company_name;
   const replyTo = process.env.SENDGRID_REPLY_TO || fromEmail;
   const recipients = [
-    'jack@sitereviver.com',
     'info@bluecrest-group.com',
   ].filter(Boolean) as string[];
 
@@ -126,7 +125,7 @@ export async function sendInternalNotifications(brand: BrandData, lead: Lead) {
       dynamicTemplateData: { ...brand, lead },
     })
   );
-  
+
   try {
     await Promise.all(sends);
     console.log('Internal notification emails sent to:', recipients.join(', '));
