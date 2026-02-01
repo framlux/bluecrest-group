@@ -1,26 +1,9 @@
 FROM node:20-slim AS base
-
-ARG NEXT_PUBLIC_SANITY_DATASET
-ARG SENDGRID_TEMPLATE_ID
-ARG SENDGRID_TEMPLATE_CONFIRMATION
-ARG SENDGRID_REPLY_TO
-ARG SENDGRID_FROM_EMAIL
-ARG SENDGRID_FROM_NAME
-ENV NEXT_PUBLIC_SANITY_DATASET=$NEXT_PUBLIC_SANITY_DATASET
-ENV SENDGRID_TEMPLATE_ID=$SENDGRID_TEMPLATE_ID
-ENV SENDGRID_TEMPLATE_CONFIRMATION=$SENDGRID_TEMPLATE_CONFIRMATION
-ENV SENDGRID_REPLY_TO=$SENDGRID_REPLY_TO
-ENV SENDGRID_FROM_EMAIL=$SENDGRID_FROM_EMAIL
-ENV SENDGRID_FROM_NAME=$SENDGRID_FROM_NAME
-
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
-COPY . /app
 WORKDIR /app
-
-FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+COPY . .
 
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
@@ -30,7 +13,20 @@ RUN --mount=type=secret,id=SENDGRID_API_KEY,env=SENDGRID_API_KEY \
     --mount=type=secret,id=NEXT_PUBLIC_TURNSTILE_SITE_KEY,env=NEXT_PUBLIC_TURNSTILE_SITE_KEY \
     pnpm run build
 
-FROM base
-COPY --from=build /app/.next /app/.next
+FROM node:20-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# If you use /public assets (favicons, images, etc.)
+COPY --from=build /app/public ./public
+
+# Standalone server + traced deps (puts server.js in /app/server.js)
+COPY --from=build /app/.next/standalone ./
+
+# Next expects to find these at /app/.next/static
+COPY --from=build /app/.next/static ./.next/static
+
 EXPOSE 3000
-CMD [ "node", "/app/.next/standalone/server.js" ]
+CMD ["node", "server.js"]
