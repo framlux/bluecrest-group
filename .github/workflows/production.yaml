@@ -27,8 +27,9 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v6
         with:
+          context: .
           push: true
-          tags: framlux/bluecrest/web:latest
+          tags: ghcr.io/framlux/bluecrest/web:latest
           secrets: |
             NEXT_PUBLIC_SANITY_PROJECT_ID=${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
             SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}
