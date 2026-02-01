@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
   experimental: {
     taint: true,
   },
+  output: 'standalone',
 };
 
 export default nextConfig;
