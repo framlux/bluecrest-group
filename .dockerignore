@@ -4,3 +4,12 @@ npm-cache
 .gitignore
 *.md
 dist
+
+# SSL/TLS Certificates - should never be in Docker image
+*.pem
+*.crt
+*.key
+*.cer
+*.p12
+*.pfx
+*.der
