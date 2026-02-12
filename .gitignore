@@ -48,14 +48,14 @@ coverage
 *.tsbuildinfo
 next-env.d.ts
 
-# Misc
-*.pem
-*.log
-
 # SSL/TLS Certificates (explicit exclusion for security)
+*.pem
 *.crt
 *.key
 *.cer
 *.p12
 *.pfx
 *.der
+
+# Misc
+*.log
