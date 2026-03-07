@@ -7,7 +7,6 @@ export function OrganizationSchema() {
     name: siteConfig.businessName,
     description: `${siteConfig.businessName} provides fractional CFO, accounting, and business advisory services to growing businesses in ${siteConfig.region}.`,
     url: `https://${siteConfig.website}`,
-    telephone: siteConfig.phone,
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
@@ -49,7 +48,6 @@ export function LocalBusinessSchema() {
     name: siteConfig.businessName,
     description: `Fractional CFO and accounting services for businesses in ${siteConfig.region}`,
     url: `https://${siteConfig.website}`,
-    telephone: siteConfig.phone,
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
