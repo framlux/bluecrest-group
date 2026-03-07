@@ -152,9 +152,6 @@ export default function PrivacyPage() {
                   <p className="text-gray-600">
                     Email: <a href={`mailto:${siteConfig.email}`} className="text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] transition-colors">{siteConfig.email}</a>
                   </p>
-                  <p className="text-gray-600">
-                    Phone: <a href={`tel:${siteConfig.phoneRaw}`} className="text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] transition-colors">{siteConfig.phone}</a>
-                  </p>
                 </div>
               </div>
 

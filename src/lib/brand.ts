@@ -33,8 +33,6 @@ export function getBrand() {
 
     // CTA buttons
     call_cta_label: "Call Our Team",
-    call_phone: "949-628-6123",
-    call_phone_plain: "19496286123",
     site_cta_label: "Visit Website",
     site_url: "https://bluecrest-group.com",
 
@@ -46,7 +44,6 @@ export function getBrand() {
     brand_title: 'BlueCrest Group',
     brand_tagline: 'Strategic CFO Services for Growing Businesses',
     brand_dark_bg: COLORS.dark,
-    supportPhone: '949-628-6123',
     supportEmail: 'info@bluecrest-group.com',
     service_area: 'Serving Orange County and Southern California',
     portfolio_url: 'https://bluecrest-group.com/about',

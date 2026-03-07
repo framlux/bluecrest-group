@@ -137,12 +137,12 @@ export default function Header() {
               </button>
 
               {/* Invisible bridge to prevent hover gap issues */}
-              <div 
+              <div
                 className={`absolute top-full left-0 w-full h-4 ${servicesOpen ? 'block' : 'hidden'}`}
                 onMouseEnter={handleServicesEnter}
               />
 
-              <div 
+              <div
                 className={`absolute top-full left-0 pt-2 transition-all duration-200 ${servicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
                 onMouseEnter={handleServicesEnter}
                 onMouseLeave={handleServicesLeave}
@@ -203,12 +203,12 @@ export default function Header() {
               </button>
 
               {/* Invisible bridge to prevent hover gap issues */}
-              <div 
+              <div
                 className={`absolute top-full left-0 w-full h-4 ${locationsOpen ? 'block' : 'hidden'}`}
                 onMouseEnter={handleLocationsEnter}
               />
 
-              <div 
+              <div
                 className={`absolute top-full left-0 pt-2 transition-all duration-200 ${locationsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
                 onMouseEnter={handleLocationsEnter}
                 onMouseLeave={handleLocationsLeave}
@@ -376,12 +376,6 @@ export default function Header() {
               </Link>
 
               <div className="pt-4 flex flex-col gap-3">
-                <a
-                  href={`tel:${siteConfig.phoneRaw}`}
-                  className="btn btn-outline w-full"
-                >
-                  Call {siteConfig.phone}
-                </a>
                 <Link
                   href="/contact"
                   className="btn btn-primary w-full"

@@ -159,12 +159,6 @@ export default function NotFound() {
                 >
                   Schedule Your Free Consultation
                 </Link>
-                <a
-                  href={`tel:${siteConfig.phoneRaw}`}
-                  className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
-                >
-                  Call {siteConfig.phone}
-                </a>
               </div>
             </div>
           </div>

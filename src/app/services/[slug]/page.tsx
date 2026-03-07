@@ -83,12 +83,6 @@ export default async function ServicePage({ params }: Props) {
               >
                 Get a Free Consultation
               </Link>
-              <a
-                href={`tel:${siteConfig.phoneRaw}`}
-                className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-200 text-gray-900 rounded-full font-semibold hover:border-[var(--color-brand-blue)] hover:text-[var(--color-brand-blue)] transition-colors"
-              >
-                Call {siteConfig.phone}
-              </a>
             </div>
           </div>
         </div>
@@ -299,12 +293,6 @@ export default async function ServicePage({ params }: Props) {
               >
                 Schedule Your Free Consultation
               </Link>
-              <a
-                href={`tel:${siteConfig.phoneRaw}`}
-                className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
-              >
-                Call {siteConfig.phone}
-              </a>
             </div>
           </div>
         </div>
