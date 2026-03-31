@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import EmailProvider from "next-auth/providers/email";
+import Nodemailer from "next-auth/providers/nodemailer";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -17,7 +17,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     error: "/portal/login",
   },
   providers: [
-    EmailProvider({
+    Nodemailer({
+      server: { host: "localhost", port: 25, auth: { user: "", pass: "" } },
+      from: "noreply@bluecrest-group.com",
       sendVerificationRequest: async ({ identifier: email, url }) => {
         await sendMagicLinkEmail(email, url);
       },

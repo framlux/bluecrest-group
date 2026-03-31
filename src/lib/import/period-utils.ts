@@ -64,7 +64,7 @@ export function getQuarterDateRange(
 ): { start: Date; end: Date } {
   // Calculate the calendar month where this quarter starts
   const quarterStartOffset = (quarter - 1) * 3;
-  let startMonth = ((fiscalYearStartMonth - 1 + quarterStartOffset) % 12) + 1;
+  const startMonth = ((fiscalYearStartMonth - 1 + quarterStartOffset) % 12) + 1;
 
   // Calculate the calendar year for the start of this quarter
   let startYear: number;
@@ -83,11 +83,8 @@ export function getQuarterDateRange(
   const start = new Date(startYear, startMonth - 1, 1);
 
   // End is the last day of the 3rd month of the quarter
-  let endMonth = ((startMonth - 1 + 3) % 12) + 1;
-  let endYear = startYear;
-  if (endMonth <= startMonth && startMonth > 3) {
-    endYear = startYear + 1;
-  }
+  const endMonth = ((startMonth - 1 + 3) % 12) + 1;
+  const endYear = (endMonth <= startMonth && startMonth > 3) ? startYear + 1 : startYear;
   // Last day of endMonth - 1 (since we want end of the 3rd month)
   // Actually, get the first day of the month after, then subtract 1 day
   const end = new Date(endYear, endMonth - 1 + 1, 0); // day 0 = last day of previous month

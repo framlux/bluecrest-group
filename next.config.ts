@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     taint: true,
   },
   output: 'standalone',
+  serverExternalPackages: ['postgres'],
 };
 
 export default nextConfig;

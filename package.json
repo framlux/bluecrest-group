@@ -27,6 +27,7 @@
     "next": "^15.1.6",
     "next-auth": "5.0.0-beta.30",
     "next-sanity": "^12.0.16",
+    "nodemailer": "^8.0.4",
     "postgres": "^3.4.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.10.10",
+    "@types/nodemailer": "^7.0.11",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "drizzle-kit": "^0.31.10",
