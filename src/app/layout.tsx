@@ -1,4 +1,5 @@
 import { Poppins } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -23,7 +24,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col antialiased">
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
