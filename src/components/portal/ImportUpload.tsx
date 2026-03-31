@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import * as XLSX from "xlsx";
 import { parseQboPnl, type ParsedPnlData } from "@/lib/import/qbo-parser";
 import { inferPeriodType } from "@/lib/import/period-utils";
 import { importFinancialData } from "@/app/(portal)/portal/admin/import/actions";
