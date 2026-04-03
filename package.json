@@ -13,7 +13,10 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx src/lib/db/seed.ts",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",
@@ -41,11 +44,13 @@
     "@types/nodemailer": "^7.0.11",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "@vitest/coverage-v8": "^4.1.2",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.2"
   },
   "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
