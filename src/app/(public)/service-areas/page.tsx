@@ -1,15 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig } from "@/data/site-config";
-import { locations, getPrimaryLocation, getLocationsByPopulation, getLocationImagePath } from "@/data/locations";
+import { getPrimaryLocation, getLocationsByPopulation, getLocationImagePath } from "@/data/locations";
 import { services } from "@/data/services";
 import { getServiceIcon } from "@/utils/service-icons";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
-export const metadata: Metadata = {
-  title: `Service Areas | ${siteConfig.name}`,
-  description: `${siteConfig.name} provides fractional CFO, accounting, and business advisory services throughout Orange County, California including ${locations.slice(0, 5).map(l => l.name).join(", ")}, and surrounding areas.`,
-};
+export const metadata: Metadata = buildMetadata(pageMeta.serviceAreas);
 
 export default function ServiceAreasPage() {
   const primaryLocation = getPrimaryLocation();

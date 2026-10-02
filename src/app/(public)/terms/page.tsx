@@ -1,11 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
-export const metadata: Metadata = {
-  title: `Terms of Service | ${siteConfig.businessName}`,
-  description: `Terms of service for ${siteConfig.businessName}. Review our terms and conditions for using our fractional CFO and accounting services.`,
-};
+export const metadata: Metadata = buildMetadata(pageMeta.terms);
 
 export default function TermsPage() {
   return (

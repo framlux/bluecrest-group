@@ -3,11 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import ContactForm from "@/components/ContactForm";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
-export const metadata: Metadata = {
-  title: `Contact ${siteConfig.businessName} | ${siteConfig.city}, ${siteConfig.stateAbbr}`,
-  description: `Contact ${siteConfig.businessName} for fractional CFO and accounting services in ${siteConfig.region}. Schedule your free consultation today.`,
-};
+export const metadata: Metadata = buildMetadata(pageMeta.contact);
 
 export default function ContactPage() {
   return (

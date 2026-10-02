@@ -3,6 +3,7 @@ export interface Service {
   slug: string;
   name: string;
   shortDescription: string;
+  metaDescription?: string;
   category: "accounting" | "cfo" | "tax" | "consulting";
   priority: number;
 }
@@ -185,4 +186,9 @@ export function getRelatedServices(currentSlug: string, limit = 4): Service[] {
   const otherCategory = services.filter((s) => s.slug !== currentSlug && s.category !== current.category);
 
   return [...sameCategory, ...otherCategory].slice(0, limit);
+}
+
+/** Per-page meta description: the supplied override, else the short description alone (T7). */
+export function serviceMetaDescription(service: Service): string {
+  return service.metaDescription ?? service.shortDescription;
 }

@@ -1,15 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig } from "@/data/site-config";
 import { services, serviceCategories } from "@/data/services";
 import { getServiceIcon } from "@/utils/service-icons";
 import ServicesCategorySection from "@/components/ServicesCategorySection";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
-export const metadata: Metadata = {
-  title: `Financial Services | Fractional CFO and Accounting`,
-  description: `Explore our comprehensive fractional CFO, accounting, and business consulting services for growing businesses in ${siteConfig.city}, ${siteConfig.stateAbbr} and ${siteConfig.region}.`,
-};
+export const metadata: Metadata = buildMetadata(pageMeta.services);
 
 export default function ServicesPage() {
   return (

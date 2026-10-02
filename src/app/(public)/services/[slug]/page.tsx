@@ -2,10 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
-import { services, getServiceBySlug, getRelatedServices } from "@/data/services";
+import { services, getServiceBySlug, getRelatedServices, serviceMetaDescription } from "@/data/services";
 import { getServiceContent } from "@/data/service-content";
 import ContactForm from "@/components/ContactForm";
 import FAQSection from "@/components/FAQSection";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -22,13 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = getServiceBySlug(slug);
 
   if (!service) {
-    return { title: "Service Not Found" };
+    return { title: pageMeta.notFound.title };
   }
 
-  return {
+  return buildMetadata({
     title: `${service.name} in ${siteConfig.region}, ${siteConfig.stateAbbr}`,
-    description: `${service.shortDescription} Professional ${service.name.toLowerCase()} services for businesses in ${siteConfig.region}, ${siteConfig.stateAbbr}.`,
-  };
+    description: serviceMetaDescription(service),
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServicePage({ params }: Props) {

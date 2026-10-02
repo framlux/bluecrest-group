@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { client, featuredArticlesQuery } from "@/lib/sanity";
 import HomePageClient from "@/components/HomePageClient";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
+
+export const metadata: Metadata = buildMetadata(pageMeta.home);
 
 interface Article {
   _id: string;

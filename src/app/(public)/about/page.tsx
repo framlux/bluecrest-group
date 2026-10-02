@@ -2,11 +2,10 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
-export const metadata: Metadata = {
-  title: `About ${siteConfig.businessName} | ${siteConfig.city}, ${siteConfig.stateAbbr}`,
-  description: `Learn about ${siteConfig.businessName} and founder ${siteConfig.founder.name}. We provide fractional CFO and accounting services to growing businesses in ${siteConfig.region}.`,
-};
+export const metadata: Metadata = buildMetadata(pageMeta.about);
 
 export default function AboutPage() {
   return (

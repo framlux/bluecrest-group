@@ -2,12 +2,13 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig } from "@/data/site-config";
 import { locations, getLocationBySlug, getNearbyLocations, getLocationImagePath } from "@/data/locations";
 import { getLocationContent } from "@/data/location-content";
 import { services } from "@/data/services";
 import ContactForm from "@/components/ContactForm";
 import FAQSection from "@/components/FAQSection";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -24,13 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const location = getLocationBySlug(slug);
 
   if (!location) {
-    return { title: "Location Not Found" };
+    return { title: pageMeta.notFound.title };
   }
 
-  return {
-    title: `Fractional CFO & Accounting Services in ${location.name}, ${location.stateAbbr} | ${siteConfig.name}`,
-    description: `${location.shortDescription} Professional fractional CFO, accounting, and business advisory services for ${location.name} businesses.`,
-  };
+  return buildMetadata({
+    title: `Fractional CFO & Accounting in ${location.name}, ${location.stateAbbr}`,
+    description: location.metaDescription ?? location.shortDescription,
+    path: `/service-areas/${location.slug}`,
+  });
 }
 
 export default async function LocationPage({ params }: Props) {

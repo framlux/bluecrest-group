@@ -7,6 +7,7 @@ export interface Location {
   state: string;
   stateAbbr: string;
   shortDescription: string;
+  metaDescription?: string;
   isPrimary: boolean;
   population?: number;
 }
