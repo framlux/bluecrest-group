@@ -181,7 +181,7 @@ export default function ContactForm({
           className={inputClasses}
         >
           <option value="">Select a service</option>
-          {services.sort((a, b) => a.name.localeCompare(b.name)).map((service) => (
+          {[...services].sort((a, b) => a.name.localeCompare(b.name)).map((service) => (
             <option key={service.slug} value={service.name}>
               {service.name}
             </option>

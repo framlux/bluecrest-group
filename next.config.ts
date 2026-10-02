@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { redirects as siteRedirects } from "./src/data/redirects";
 
 const nextConfig: NextConfig = {
   images: {
@@ -15,6 +16,9 @@ const nextConfig: NextConfig = {
   },
   output: 'standalone',
   serverExternalPackages: ['postgres'],
+  async redirects() {
+    return siteRedirects;
+  },
 };
 
 export default nextConfig;

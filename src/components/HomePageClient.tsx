@@ -88,7 +88,7 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
             </h1>
             <p className="text-lg text-gray-700 mb-10 leading-relaxed drop-shadow-md font-medium">
               Scale your business with strategic CFO services and expert accounting support.
-              From bookkeeping and payroll to financial modeling, tax strategy, and more –
+              From bookkeeping and month-end close to financial modeling, tax strategy, and more –
               everything you need to grow with clarity and confidence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -121,7 +121,7 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
             </div>
             <div className="hidden sm:block w-px h-12 bg-gray-200" />
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-brand-gold)]">18</div>
+              <div className="text-3xl font-bold text-[var(--color-brand-gold)]">{services.length}</div>
               <div className="text-gray-500 text-sm">Services Offered</div>
             </div>
           </div>

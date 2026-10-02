@@ -6,6 +6,8 @@ export interface Service {
   metaDescription?: string;
   category: "accounting" | "cfo" | "tax" | "consulting";
   priority: number;
+  relatedSlugs: string[];
+  updatedAt: string;
 }
 
 export const services: Service[] = [
@@ -17,6 +19,8 @@ export const services: Service[] = [
     shortDescription: "Expert controller oversight for clean books, accurate reporting, and team guidance without the full time cost.",
     category: "accounting",
     priority: 1,
+    relatedSlugs: ["month-end-close-financial-statements", "bookkeeping-and-reconciliation", "accounting-system-setup"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 2,
@@ -25,6 +29,8 @@ export const services: Service[] = [
     shortDescription: "Accurate bookkeeping, reconciliations, and general ledger management to keep your finances organized.",
     category: "accounting",
     priority: 2,
+    relatedSlugs: ["month-end-close-financial-statements", "accounts-payable-receivable", "fractional-controller-services"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 3,
@@ -33,6 +39,8 @@ export const services: Service[] = [
     shortDescription: "Full month end close processes and GAAP compliant financial statements delivered on time.",
     category: "accounting",
     priority: 3,
+    relatedSlugs: ["bookkeeping-and-reconciliation", "fractional-controller-services", "audit-preparation"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 4,
@@ -41,14 +49,8 @@ export const services: Service[] = [
     shortDescription: "Streamlined AP and AR management with cash flow optimization to improve working capital.",
     category: "accounting",
     priority: 4,
-  },
-  {
-    id: 5,
-    slug: "payroll-processing",
-    name: "Payroll Processing",
-    shortDescription: "Comprehensive payroll processing and tax compliance filings to keep your team paid accurately.",
-    category: "accounting",
-    priority: 5,
+    relatedSlugs: ["bookkeeping-and-reconciliation", "budgeting-and-forecasting", "accounting-system-setup"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 6,
@@ -57,6 +59,8 @@ export const services: Service[] = [
     shortDescription: "Setup, migration, and automation for QuickBooks, Xero, NetSuite, and other accounting platforms.",
     category: "accounting",
     priority: 6,
+    relatedSlugs: ["bookkeeping-and-reconciliation", "fractional-controller-services", "operational-efficiency-consulting"],
+    updatedAt: "2026-10-02",
   },
 
   // Strategic Fractional CFO Services
@@ -67,6 +71,8 @@ export const services: Service[] = [
     shortDescription: "Strategic financial leadership and executive advisory tailored to your business growth stage.",
     category: "cfo",
     priority: 1,
+    relatedSlugs: ["budgeting-and-forecasting", "financial-modeling", "fundraising-support"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 8,
@@ -75,6 +81,8 @@ export const services: Service[] = [
     shortDescription: "Comprehensive budgeting, forecasting, and rolling cash flow projections for informed planning.",
     category: "cfo",
     priority: 2,
+    relatedSlugs: ["financial-modeling", "scaling-growth-support", "month-end-close-financial-statements"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 9,
@@ -83,14 +91,8 @@ export const services: Service[] = [
     shortDescription: "Detailed financial modeling, scenario analysis, and profitability insights to drive decisions.",
     category: "cfo",
     priority: 3,
-  },
-  {
-    id: 10,
-    slug: "kpi-dashboards-reporting",
-    name: "KPI Dashboards and Performance Reporting",
-    shortDescription: "Custom KPI development, dashboards, and performance reporting for real time visibility.",
-    category: "cfo",
-    priority: 4,
+    relatedSlugs: ["budgeting-and-forecasting", "fundraising-support", "mergers-acquisitions-advisory"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 11,
@@ -99,6 +101,8 @@ export const services: Service[] = [
     shortDescription: "Pitch deck development, investor materials, and capital raise support for growth funding.",
     category: "cfo",
     priority: 5,
+    relatedSlugs: ["financial-modeling", "startup-business-services", "mergers-acquisitions-advisory"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 12,
@@ -107,6 +111,8 @@ export const services: Service[] = [
     shortDescription: "M and A due diligence, exit planning, and transaction advisory for strategic moves.",
     category: "cfo",
     priority: 6,
+    relatedSlugs: ["financial-modeling", "audit-preparation", "fundraising-support"],
+    updatedAt: "2026-10-02",
   },
 
   // Tax & Audit Support
@@ -117,6 +123,8 @@ export const services: Service[] = [
     shortDescription: "Proactive tax strategy, planning, and optimization coordination to minimize liability.",
     category: "tax",
     priority: 1,
+    relatedSlugs: ["sales-tax-compliance", "audit-preparation", "budgeting-and-forecasting"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 14,
@@ -125,6 +133,8 @@ export const services: Service[] = [
     shortDescription: "Sales and use tax compliance and multi state filings to keep you compliant everywhere.",
     category: "tax",
     priority: 2,
+    relatedSlugs: ["tax-strategy-planning", "accounting-system-setup", "bookkeeping-and-reconciliation"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 15,
@@ -133,6 +143,8 @@ export const services: Service[] = [
     shortDescription: "Audit readiness, preparation, and coordination to ensure smooth audit processes.",
     category: "tax",
     priority: 3,
+    relatedSlugs: ["month-end-close-financial-statements", "tax-strategy-planning", "fractional-controller-services"],
+    updatedAt: "2026-10-02",
   },
 
   // Business Consulting & Partnerships
@@ -143,6 +155,8 @@ export const services: Service[] = [
     shortDescription: "Specialized financial support for startups and small businesses ready to scale.",
     category: "consulting",
     priority: 1,
+    relatedSlugs: ["bookkeeping-and-reconciliation", "fundraising-support", "scaling-growth-support"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 17,
@@ -151,6 +165,8 @@ export const services: Service[] = [
     shortDescription: "Process improvement consulting to streamline operations and reduce costs.",
     category: "consulting",
     priority: 2,
+    relatedSlugs: ["scaling-growth-support", "accounting-system-setup", "fractional-controller-services"],
+    updatedAt: "2026-10-02",
   },
   {
     id: 18,
@@ -159,6 +175,8 @@ export const services: Service[] = [
     shortDescription: "Systems, hiring, and growth infrastructure support for businesses ready to expand.",
     category: "consulting",
     priority: 3,
+    relatedSlugs: ["operational-efficiency-consulting", "budgeting-and-forecasting", "startup-business-services"],
+    updatedAt: "2026-10-02",
   },
 ];
 
@@ -177,15 +195,19 @@ export function getServicesByCategory(category: Service["category"]): Service[] 
   return services.filter((s) => s.category === category).sort((a, b) => a.priority - b.priority);
 }
 
-export function getRelatedServices(currentSlug: string, limit = 4): Service[] {
+const ANCHOR_SERVICE = "fractional-cfo-services";
+
+/** Every service page links to Fractional CFO Services plus its curated related services (T13). */
+export function getRelatedServices(currentSlug: string): Service[] {
   const current = getServiceBySlug(currentSlug);
-  if (!current) return services.slice(0, limit);
-
-  // Get services from same category first, then others
-  const sameCategory = services.filter((s) => s.slug !== currentSlug && s.category === current.category);
-  const otherCategory = services.filter((s) => s.slug !== currentSlug && s.category !== current.category);
-
-  return [...sameCategory, ...otherCategory].slice(0, limit);
+  const slugs = [
+    ...(currentSlug === ANCHOR_SERVICE ? [] : [ANCHOR_SERVICE]),
+    ...(current?.relatedSlugs ?? []),
+  ];
+  return [...new Set(slugs)]
+    .filter((slug) => slug !== currentSlug)
+    .map((slug) => getServiceBySlug(slug))
+    .filter((s): s is Service => Boolean(s));
 }
 
 /** Per-page meta description: the supplied override, else the short description alone (T7). */

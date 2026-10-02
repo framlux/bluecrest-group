@@ -1,32 +1,31 @@
 export interface ServiceContent {
   slug: string;
   mainIntroduction: string;
-  whatsIncluded: {
+  whatsIncluded?: {
     heading: string;
     content: string;
     bulletPoints: string[];
   };
-  processSection: {
+  processSection?: {
     heading: string;
     intro: string;
     steps: { heading: string; content: string }[];
   };
-  applicationsSection: {
+  applicationsSection?: {
     heading: string;
     intro: string;
     applications: { heading: string; content: string }[];
   };
-  whyChooseSection: {
+  whyChooseSection?: {
     heading: string;
     content: string;
   };
-  pricingFactorsSection: {
+  pricingFactorsSection?: {
     heading: string;
     intro: string;
     factors: { heading: string; content: string }[];
   };
-  serviceAreaCoverage: string;
-  faqs: { question: string; answer: string }[];
+  faqs?: { question: string; answer: string }[];
 }
 
 export const serviceContent: Record<string, ServiceContent> = {
@@ -131,7 +130,6 @@ Most importantly, we operate as a true partner in your success. We are invested 
       ],
     },
 
-    serviceAreaCoverage: "We serve businesses throughout Orange County including Newport Beach, Irvine, Costa Mesa, Huntington Beach, Laguna Beach, Santa Ana, Anaheim, and surrounding communities. Our services are delivered through a combination of on site meetings and remote support, allowing us to work effectively with clients throughout Southern California.",
 
     faqs: [
       {
@@ -260,7 +258,6 @@ We understand that every business is different, and we adapt our approach to mat
       ],
     },
 
-    serviceAreaCoverage: "We provide fractional controller services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, and surrounding areas. Our team works both on site and remotely to provide the oversight your business needs.",
 
     faqs: [
       {
@@ -389,7 +386,6 @@ We understand that every business has unique needs and preferences. Some clients
       ],
     },
 
-    serviceAreaCoverage: "We provide bookkeeping and reconciliation services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, Santa Ana, and surrounding communities.",
 
     faqs: [
       {
@@ -518,7 +514,6 @@ We understand that financial statements serve multiple audiences, from managemen
       ],
     },
 
-    serviceAreaCoverage: "We provide month end close and financial statement services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, and the greater Southern California region.",
 
     faqs: [
       {
@@ -647,7 +642,6 @@ Our team brings experience and best practices to these functions. We implement c
       ],
     },
 
-    serviceAreaCoverage: "We serve businesses throughout Orange County with accounts payable and receivable management, including companies in Newport Beach, Irvine, Costa Mesa, Huntington Beach, and surrounding communities.",
 
     faqs: [
       {
@@ -673,135 +667,6 @@ Our team brings experience and best practices to these functions. We implement c
       {
         question: "Do you manage vendor relationships?",
         answer: "We handle routine vendor communication including payment status inquiries and statement reconciliation. For strategic vendor negotiations, we support with data and analysis while you maintain the relationship.",
-      },
-    ],
-  },
-
-  "payroll-processing": {
-    slug: "payroll-processing",
-    mainIntroduction: `Payroll is one of the most critical and sensitive functions in any business. Your employees depend on accurate, timely paychecks, and regulatory compliance is non negotiable. For businesses in Newport Beach and Orange County, professional payroll processing ensures your team is paid correctly while keeping you compliant with federal, state, and local requirements.
-
-Many small business owners handle payroll themselves or use basic software, which works until it does not. Missing a tax deposit, calculating withholdings incorrectly, or failing to file timely reports can result in penalties and employee frustration. Our payroll processing services take this burden off your plate, ensuring accuracy and compliance so you can focus on running your business.`,
-
-    whatsIncluded: {
-      heading: "What Our Payroll Processing Services Include",
-      content: "We provide comprehensive payroll management that handles the entire payroll cycle from timekeeping to tax filings.",
-      bulletPoints: [
-        "Payroll processing for regular pay cycles including hourly, salary, and commission",
-        "Direct deposit setup and management for all employees",
-        "Federal, state, and local tax withholding calculations",
-        "Quarterly and annual payroll tax return preparation and filing",
-        "W 2 and 1099 preparation and distribution",
-        "New hire reporting and onboarding support",
-        "Benefits deduction management coordination",
-        "Paid time off tracking and accrual management",
-        "Workers compensation reporting support",
-        "Payroll register and summary reporting",
-      ],
-    },
-
-    processSection: {
-      heading: "How Our Payroll Process Works",
-      intro: "We follow a systematic approach to ensure every payroll runs smoothly and accurately.",
-      steps: [
-        {
-          heading: "Setup and Configuration",
-          content: "We configure your payroll in our system, including employee information, pay rates, deductions, and tax jurisdictions. We verify all settings are correct before the first payroll runs.",
-        },
-        {
-          heading: "Time and Pay Collection",
-          content: "Each pay period, we collect hours worked, commission earnings, bonuses, and any other variable pay. We have systems to receive this information however works best for you.",
-        },
-        {
-          heading: "Processing and Review",
-          content: "We process payroll, calculate gross pay, deductions, and net pay. Every payroll is reviewed for accuracy before funds are released. You receive a preview for approval.",
-        },
-        {
-          heading: "Payment and Filing",
-          content: "On pay date, funds are deposited to employee accounts. We file all required tax deposits and returns on schedule, maintaining compliance with all jurisdictions.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "Businesses We Support With Payroll Services",
-      intro: "Our payroll services support businesses of all sizes with various pay structures and requirements.",
-      applications: [
-        {
-          heading: "Small Businesses",
-          content: "Companies with five to fifty employees get reliable payroll processing at a predictable cost. We handle the complexity so you do not have to become a payroll expert.",
-        },
-        {
-          heading: "Multi State Employers",
-          content: "Remote work has created multi state payroll complexity for many businesses. We manage the tax requirements for employees in multiple states.",
-        },
-        {
-          heading: "Companies With Variable Pay",
-          content: "Sales commissions, performance bonuses, and piece rate pay require careful calculation. We handle complex pay structures accurately.",
-        },
-        {
-          heading: "Businesses With Contractors",
-          content: "Managing both employees and independent contractors requires tracking different requirements. We process 1099 payments alongside regular payroll.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Professional Payroll Processing",
-      content: `Payroll mistakes create real problems. Employees lose trust, tax authorities issue penalties, and you spend time fixing issues instead of growing your business. Professional payroll processing eliminates these risks.
-
-We stay current on changing regulations so you do not have to. Our processes include multiple verification steps to catch errors before they affect your team. And when questions arise, you have experts to call rather than navigating complex payroll issues alone.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Payroll Service Pricing Factors",
-      intro: "Payroll pricing typically depends on frequency and complexity of your payroll needs.",
-      factors: [
-        {
-          heading: "Number of Employees",
-          content: "More employees means more processing, more tax calculations, and more potential for questions. Employee count is a primary pricing driver.",
-        },
-        {
-          heading: "Pay Frequency",
-          content: "Weekly payrolls require more processing than bi weekly or semi monthly. More frequent payrolls have higher annual costs.",
-        },
-        {
-          heading: "Pay Complexity",
-          content: "Multiple pay rates, commissions, bonuses, and special deductions add complexity to each payroll cycle.",
-        },
-        {
-          heading: "State Requirements",
-          content: "Employees in multiple states require additional tax registrations and filings, adding to the compliance workload.",
-        },
-      ],
-    },
-
-    serviceAreaCoverage: "We provide payroll processing services to businesses throughout Orange County and Southern California, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, and beyond.",
-
-    faqs: [
-      {
-        question: "What is the deadline to submit payroll information?",
-        answer: "We typically need payroll information two to three business days before pay date to ensure accurate processing and timely deposits. We establish a specific schedule based on your pay dates and can accommodate tighter turnarounds when needed.",
-      },
-      {
-        question: "How do you handle payroll corrections?",
-        answer: "If an error is discovered after payroll runs, we process corrections in the next payroll cycle. For urgent corrections, we can process off cycle payments. We investigate root causes to prevent recurring errors.",
-      },
-      {
-        question: "Can you handle California specific requirements?",
-        answer: "Absolutely. California has some of the most complex payroll requirements in the country. We manage sick leave tracking, meal and rest break compliance, overtime calculations, and all California specific reporting requirements.",
-      },
-      {
-        question: "Do you integrate with time tracking systems?",
-        answer: "Yes, we work with popular time tracking and HR systems to import hours directly. This reduces manual entry errors and streamlines the payroll process.",
-      },
-      {
-        question: "What happens if there is a tax notice or audit?",
-        answer: "We handle tax agency correspondence and audits related to payroll. Our accurate processing and documentation typically resolve issues quickly. We stand behind our work.",
-      },
-      {
-        question: "Can employees access their pay stubs online?",
-        answer: "Yes, employees can access current and historical pay stubs, W 2s, and tax documents through a secure online portal. This reduces administrative burden and gives employees the information they need.",
       },
     ],
   },
@@ -905,7 +770,6 @@ We combine financial modeling expertise with business understanding to create bu
       ],
     },
 
-    serviceAreaCoverage: "We provide budgeting and forecasting services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, and Southern California more broadly.",
 
     faqs: [
       {
@@ -1034,7 +898,6 @@ Our models are built to be used, not just presented. We design for flexibility s
       ],
     },
 
-    serviceAreaCoverage: "We provide financial modeling services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, and the greater Southern California region.",
 
     faqs: [
       {
@@ -1163,7 +1026,6 @@ We have supported raises across industries and know what investors expect. Our w
       ],
     },
 
-    serviceAreaCoverage: "We provide fundraising support to companies throughout Orange County and Southern California, including Newport Beach, Irvine, Costa Mesa, and beyond.",
 
     faqs: [
       {
@@ -1292,7 +1154,6 @@ We bring objectivity to transactions that can become emotional. Our analysis hel
       ],
     },
 
-    serviceAreaCoverage: "We provide M and A advisory services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, and the greater Southern California region.",
 
     faqs: [
       {
@@ -1318,135 +1179,6 @@ We bring objectivity to transactions that can become emotional. Our analysis hel
       {
         question: "How do you help protect against deal risks?",
         answer: "We identify risks during due diligence, quantify potential exposures, and help negotiate appropriate protections such as representations, warranties, indemnification, or purchase price adjustments.",
-      },
-    ],
-  },
-
-  "kpi-dashboards-reporting": {
-    slug: "kpi-dashboards-reporting",
-    mainIntroduction: `Key performance indicators provide the metrics that matter most to your business success. For companies in Newport Beach and Orange County, having clear visibility into performance through well designed dashboards means making faster, better informed decisions and catching problems before they become crises.
-
-Many businesses track too many metrics or the wrong ones, creating information overload without insight. Our KPI dashboard and reporting services help you identify the measures that truly drive your business, then build reporting systems that keep those metrics visible and actionable.`,
-
-    whatsIncluded: {
-      heading: "What Our KPI Dashboard Services Include",
-      content: "We develop comprehensive performance reporting tailored to your business and management needs.",
-      bulletPoints: [
-        "KPI identification and definition aligned with business objectives",
-        "Dashboard design and development using appropriate platforms",
-        "Automated data integration from accounting and operational systems",
-        "Visual design optimized for clarity and quick comprehension",
-        "Drill down capabilities to investigate variances",
-        "Trend analysis and historical comparison views",
-        "Exception reporting for items requiring attention",
-        "Mobile accessible dashboards for on the go visibility",
-        "Scheduled distribution of key reports",
-        "Training for dashboard users and ongoing support",
-      ],
-    },
-
-    processSection: {
-      heading: "How We Develop Your Dashboard Solution",
-      intro: "Our process ensures dashboards deliver real value rather than just looking impressive.",
-      steps: [
-        {
-          heading: "Discovery",
-          content: "We understand your business model, strategic priorities, and decision making needs. We identify what questions you need answered and how frequently.",
-        },
-        {
-          heading: "KPI Selection",
-          content: "We work with you to select the metrics that truly matter, avoiding vanity metrics that look good but do not drive action. Each KPI is clearly defined with targets and thresholds.",
-        },
-        {
-          heading: "Data Assessment",
-          content: "We evaluate your data sources and quality to ensure reliable reporting. This may involve improving data collection processes before dashboard development.",
-        },
-        {
-          heading: "Build and Deploy",
-          content: "We construct dashboards, configure data connections, and test thoroughly. After deployment, we train users and establish refresh schedules.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "Businesses That Benefit From KPI Dashboards",
-      intro: "Performance dashboards help businesses across industries gain better operational visibility.",
-      applications: [
-        {
-          heading: "Multi Location Businesses",
-          content: "Companies with multiple locations need standardized metrics to compare performance, identify best practices, and spot underperformance quickly.",
-        },
-        {
-          heading: "SaaS and Subscription Businesses",
-          content: "Subscription metrics like MRR, churn, CAC, and LTV require specialized tracking and visualization to manage growth effectively.",
-        },
-        {
-          heading: "Service Businesses",
-          content: "Professional services firms benefit from utilization, realization, and profitability tracking by client, project, and team member.",
-        },
-        {
-          heading: "Manufacturing and Distribution",
-          content: "Inventory turns, fill rates, and production efficiency metrics help optimize operations and working capital.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Dashboard Services",
-      content: `The best dashboards balance comprehensiveness with clarity. They show you what you need to know without overwhelming you with data that does not matter.
-
-We bring both technical dashboard building skills and business understanding to every project. We help you define the right metrics, present them effectively, and use them to drive improvement. Our dashboards become tools your team actually uses, not reports that get ignored.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "KPI Dashboard Pricing Factors",
-      intro: "Dashboard project pricing depends on scope and technical requirements.",
-      factors: [
-        {
-          heading: "Number of Dashboards",
-          content: "Executive summaries, operational details, and departmental views may each require separate dashboards with different designs.",
-        },
-        {
-          heading: "Data Integration Complexity",
-          content: "Simple connections to QuickBooks differ significantly from integrating multiple systems with data transformation requirements.",
-        },
-        {
-          heading: "Platform Selection",
-          content: "Dashboard platform choice affects development effort and ongoing costs. Options range from Excel to Power BI to custom solutions.",
-        },
-        {
-          heading: "Refresh Frequency",
-          content: "Real time dashboards require different infrastructure than daily or weekly updated reports.",
-        },
-      ],
-    },
-
-    serviceAreaCoverage: "We provide KPI dashboard and reporting services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, and across Southern California.",
-
-    faqs: [
-      {
-        question: "What dashboard platforms do you work with?",
-        answer: "We work with Microsoft Power BI, Google Looker Studio, Tableau, and Excel based dashboards. Platform selection depends on your existing technology, budget, and requirements. We recommend the best fit for your situation.",
-      },
-      {
-        question: "How do we identify the right KPIs?",
-        answer: "We use a structured process to identify metrics that connect to your strategic objectives and are actionable. The goal is a focused set of measures that drive decisions, not an exhaustive list that overwhelms.",
-      },
-      {
-        question: "How often are dashboards updated?",
-        answer: "Update frequency depends on the metric and your needs. Financial dashboards typically update monthly after close. Operational dashboards may update daily or even in real time. We configure appropriate refresh schedules.",
-      },
-      {
-        question: "Can dashboards pull data from multiple systems?",
-        answer: "Yes, modern dashboard platforms can integrate data from accounting software, CRM, operations systems, and more. Data integration is often the most complex part of dashboard projects.",
-      },
-      {
-        question: "Who can access the dashboards?",
-        answer: "Access is configurable based on your needs. You might have an executive dashboard visible to leadership and separate operational dashboards for department managers with role appropriate information.",
-      },
-      {
-        question: "What happens when our data changes?",
-        answer: "Dashboards may need updates when you add new products, change systems, or modify business processes. We can provide ongoing maintenance or train your team to make updates independently.",
       },
     ],
   },
@@ -1550,7 +1282,6 @@ Professional setup means getting it right the first time. We bring experience ac
       ],
     },
 
-    serviceAreaCoverage: "We provide accounting system setup and migration services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Anaheim, and the greater Southern California region.",
 
     faqs: [
       {
@@ -1679,7 +1410,6 @@ Tax planning should be integrated with your business strategy, not an afterthoug
       ],
     },
 
-    serviceAreaCoverage: "We provide tax strategy and planning services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, and the broader Southern California area.",
 
     faqs: [
       {
@@ -1808,7 +1538,6 @@ Professional management ensures complete compliance while freeing your team from
       ],
     },
 
-    serviceAreaCoverage: "We provide sales tax compliance services to businesses throughout Orange County and California, as well as managing multi state obligations for clients selling nationally.",
 
     faqs: [
       {
@@ -1937,7 +1666,6 @@ We understand what auditors look for and how to present information clearly. Our
       ],
     },
 
-    serviceAreaCoverage: "We provide audit preparation and coordination services to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, and the broader Southern California region.",
 
     faqs: [
       {
@@ -2066,7 +1794,6 @@ We understand startup dynamics and investor expectations. We help you avoid comm
       ],
     },
 
-    serviceAreaCoverage: "We provide startup and small business services throughout Orange County, including Newport Beach, Irvine, Costa Mesa, and the broader Southern California startup ecosystem.",
 
     faqs: [
       {
@@ -2195,7 +1922,6 @@ Our approach balances quick wins with sustainable change. We look for opportunit
       ],
     },
 
-    serviceAreaCoverage: "We provide operational efficiency consulting to businesses throughout Orange County, including Newport Beach, Irvine, Costa Mesa, and the greater Southern California region.",
 
     faqs: [
       {
@@ -2324,7 +2050,6 @@ Growth is exciting but risky. Moving too fast creates chaos, too slow loses oppo
       ],
     },
 
-    serviceAreaCoverage: "We provide scaling and growth support to businesses throughout Orange County and Southern California, including Newport Beach, Irvine, Costa Mesa, and beyond.",
 
     faqs: [
       {

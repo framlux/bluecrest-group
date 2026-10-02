@@ -19,6 +19,8 @@ export async function generateStaticParams() {
   }));
 }
 
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
@@ -43,7 +45,7 @@ export default async function ServicePage({ params }: Props) {
   }
 
   const content = getServiceContent(slug);
-  const relatedServices = getRelatedServices(slug, 4);
+  const relatedServices = getRelatedServices(slug);
 
   return (
     <>
@@ -109,96 +111,100 @@ export default async function ServicePage({ params }: Props) {
                   </div>
 
                   {/* What's Included */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.whatsIncluded.heading}</h2>
-                    <p className="text-gray-600 mb-6">{content.whatsIncluded.content}</p>
-                    <div className="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 lg:p-8">
-                      <ul className="space-y-4">
-                        {content.whatsIncluded.bulletPoints.map((point, i) => (
-                          <li key={i} className="flex items-start gap-4">
-                            <div className="w-6 h-6 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-full flex items-center justify-center shrink-0 mt-0.5">
-                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                            </div>
-                            <span className="text-gray-700">{point}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  {content.whatsIncluded && (
+                    <div className="mb-12">
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.whatsIncluded.heading}</h2>
+                      <p className="text-gray-600 mb-6">{content.whatsIncluded.content}</p>
+                      <div className="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 lg:p-8">
+                        <ul className="space-y-4">
+                          {content.whatsIncluded.bulletPoints.map((point, i) => (
+                            <li key={i} className="flex items-start gap-4">
+                              <div className="w-6 h-6 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                              <span className="text-gray-700">{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Process Section */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.processSection.heading}</h2>
-                    <p className="text-gray-600 mb-8">{content.processSection.intro}</p>
-                    <div className="space-y-4">
-                      {content.processSection.steps.map((step, i) => (
-                        <div key={i} className="bg-slate-50 rounded-2xl p-6 lg:p-8 border border-gray-100">
-                          <div className="flex items-start gap-5">
-                            <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-xl flex items-center justify-center text-white font-bold shrink-0">
-                              {i + 1}
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                                {step.heading}
-                              </h3>
-                              <p className="text-gray-600">{step.content}</p>
+                  {content.processSection && (
+                    <div className="mb-12">
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.processSection.heading}</h2>
+                      <p className="text-gray-600 mb-8">{content.processSection.intro}</p>
+                      <div className="space-y-4">
+                        {content.processSection.steps.map((step, i) => (
+                          <div key={i} className="bg-slate-50 rounded-2xl p-6 lg:p-8 border border-gray-100">
+                            <div className="flex items-start gap-5">
+                              <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-xl flex items-center justify-center text-white font-bold shrink-0">
+                                {i + 1}
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                  {step.heading}
+                                </h3>
+                                <p className="text-gray-600">{step.content}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Applications Section */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.applicationsSection.heading}</h2>
-                    <p className="text-gray-600 mb-8">{content.applicationsSection.intro}</p>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      {content.applicationsSection.applications.map((app, i) => (
-                        <div key={i} className="bg-white rounded-2xl shadow-soft border border-gray-100 p-6">
-                          <h3 className="text-lg font-bold text-gray-900 mb-3">{app.heading}</h3>
-                          <p className="text-gray-600">{app.content}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Why Choose Section */}
-                  <div className="mb-12">
-                    <div className="bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-3xl p-8 lg:p-10 text-white relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-
-                      <div className="relative z-10">
-                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">{content.whyChooseSection.heading}</h2>
-                        {content.whyChooseSection.content.split("\n\n").map((paragraph, i) => (
-                          <p key={i} className="text-white/80 mb-4 last:mb-0">{paragraph}</p>
                         ))}
                       </div>
                     </div>
-                  </div>
+                  )}
+
+                  {/* Applications Section */}
+                  {content.applicationsSection && (
+                    <div className="mb-12">
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.applicationsSection.heading}</h2>
+                      <p className="text-gray-600 mb-8">{content.applicationsSection.intro}</p>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        {content.applicationsSection.applications.map((app, i) => (
+                          <div key={i} className="bg-white rounded-2xl shadow-soft border border-gray-100 p-6">
+                            <h3 className="text-lg font-bold text-gray-900 mb-3">{app.heading}</h3>
+                            <p className="text-gray-600">{app.content}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Why Choose Section */}
+                  {content.whyChooseSection && (
+                    <div className="mb-12">
+                      <div className="bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-3xl p-8 lg:p-10 text-white relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+
+                        <div className="relative z-10">
+                          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">{content.whyChooseSection.heading}</h2>
+                          {content.whyChooseSection.content.split("\n\n").map((paragraph, i) => (
+                            <p key={i} className="text-white/80 mb-4 last:mb-0">{paragraph}</p>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Pricing Factors */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.pricingFactorsSection.heading}</h2>
-                    <p className="text-gray-600 mb-8">{content.pricingFactorsSection.intro}</p>
-                    <div className="space-y-6">
-                      {content.pricingFactorsSection.factors.map((factor, i) => (
-                        <div key={i} className="border-l-4 border-[var(--color-brand-blue)] pl-6">
-                          <h3 className="text-lg font-bold text-gray-900 mb-2">{factor.heading}</h3>
-                          <p className="text-gray-600">{factor.content}</p>
-                        </div>
-                      ))}
+                  {content.pricingFactorsSection && (
+                    <div className="mb-12">
+                      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.pricingFactorsSection.heading}</h2>
+                      <p className="text-gray-600 mb-8">{content.pricingFactorsSection.intro}</p>
+                      <div className="space-y-6">
+                        {content.pricingFactorsSection.factors.map((factor, i) => (
+                          <div key={i} className="border-l-4 border-[var(--color-brand-blue)] pl-6">
+                            <h3 className="text-lg font-bold text-gray-900 mb-2">{factor.heading}</h3>
+                            <p className="text-gray-600">{factor.content}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Service Area */}
-                  <div className="mb-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Service Area Coverage</h2>
-                    <p className="text-gray-600">{content.serviceAreaCoverage}</p>
-                  </div>
+                  )}
 
                   {/* FAQs */}
                   {content.faqs && content.faqs.length > 0 && (
@@ -211,18 +217,7 @@ export default async function ServicePage({ params }: Props) {
                   )}
                 </>
               ) : (
-                /* Fallback content when no rich content exists */
-                <div>
-                  <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                    {service.shortDescription} Our team brings extensive experience and a
-                    commitment to delivering measurable results for businesses throughout
-                    {siteConfig.region}.
-                  </p>
-                  <p className="text-gray-600 mb-8">
-                    Contact us to learn more about how our {service.name.toLowerCase()} services
-                    can support your business goals.
-                  </p>
-                </div>
+                <p className="text-gray-600 text-lg leading-relaxed mb-8">{service.shortDescription}</p>
               )}
             </div>
 
