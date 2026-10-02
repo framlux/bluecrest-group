@@ -1,34 +1,51 @@
-import { auth } from "@/lib/auth";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
+import { isPortalEnabled } from "@/lib/portal/flag";
 
-export default auth((req) => {
-  const { pathname } = req.nextUrl;
+type PortalHandler = (req: NextRequest, event: NextFetchEvent) => Response | Promise<Response>;
 
-  // Allow login page and auth API routes without auth
-  if (
-    pathname === "/portal/login" ||
-    pathname.startsWith("/api/auth")
-  ) {
-    return NextResponse.next();
-  }
+async function portalMiddleware(req: NextRequest, event: NextFetchEvent) {
+  // Imported lazily: @/lib/auth pulls in postgres, which throws while the Edge runtime
+  // evaluates the module, so a static import would 500 before the flag check ran.
+  const { auth } = await import("@/lib/auth");
 
-  // Check if user is authenticated
-  if (!req.auth) {
-    const loginUrl = new URL("/portal/login", req.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
+  const handler = auth((authReq) => {
+    const { pathname } = authReq.nextUrl;
 
-  // Admin-only routes
-  if (pathname.startsWith("/portal/admin")) {
-    if (req.auth.user.role !== "admin") {
-      return NextResponse.redirect(new URL("/portal/dashboard", req.url));
+    // Allow login page and auth API routes without auth
+    if (
+      pathname === "/portal/login" ||
+      pathname.startsWith("/api/auth")
+    ) {
+      return NextResponse.next();
     }
-  }
 
-  return NextResponse.next();
-});
+    // Check if user is authenticated
+    if (!authReq.auth) {
+      const loginUrl = new URL("/portal/login", authReq.url);
+      loginUrl.searchParams.set("callbackUrl", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    // Admin-only routes
+    if (pathname.startsWith("/portal/admin")) {
+      if (authReq.auth.user.role !== "admin") {
+        return NextResponse.redirect(new URL("/portal/dashboard", authReq.url));
+      }
+    }
+
+    return NextResponse.next();
+  });
+
+  return (handler as unknown as PortalHandler)(req, event);
+}
+
+export default async function middleware(req: NextRequest, event: NextFetchEvent) {
+  if (!isPortalEnabled()) {
+    return new NextResponse(null, { status: 404 });
+  }
+  return portalMiddleware(req, event);
+}
 
 export const config = {
-  matcher: ["/portal/:path*"],
+  matcher: ["/portal/:path*", "/api/auth/:path*"],
 };

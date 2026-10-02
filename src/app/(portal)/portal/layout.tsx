@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { isPortalEnabled } from "@/lib/portal/flag";
 import PortalSidebar from "@/components/portal/PortalSidebar";
 
 export const metadata = {
@@ -9,11 +10,17 @@ export const metadata = {
   },
 };
 
+// The flag check below runs before auth() (which reads headers), so without this
+// Next would prerender portal pages at build time and hit the database.
+export const dynamic = "force-dynamic";
+
 export default async function PortalLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  if (!isPortalEnabled()) notFound();
+
   const session = await auth();
 
   if (!session?.user) {
