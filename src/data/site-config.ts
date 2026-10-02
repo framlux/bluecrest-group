@@ -12,7 +12,11 @@ export const siteConfig = {
 
   // Contact
   email: "info@bluecrest-group.com",
-  website: "www.bluecrest-group.com",
+  url: "https://bluecrest-group.com",
+  // T15: supplied by Josh. Empty renders nothing.
+  phone: "" as string,
+  // S1: Google Business Profile URL. Empty renders nothing.
+  googleBusinessProfileUrl: "" as string,
 
   // Founder
   founder: {
@@ -30,6 +34,24 @@ In addition to his experience in start ups, Josh has also held senior financial 
   // Business details
   targetRevenue: "$1M+",
   serviceArea: "Orange County and Southern California",
+  // T4: flip to true once three articles are published. Restores Insights in nav, footer, sitemap, and indexing.
+  insightsEnabled: false as boolean,
+  // D3: cities listed on the Service Areas hub and in JSON-LD areaServed. Placeholder until Josh confirms.
+  serviceAreaCities: [
+    "Newport Beach",
+    "Corona del Mar",
+    "Irvine",
+    "Costa Mesa",
+    "Huntington Beach",
+    "Laguna Beach",
+    "Orange",
+    "Santa Ana",
+    "Anaheim",
+    "Fullerton",
+    "Tustin",
+    "Mission Viejo",
+    "Lake Forest",
+  ],
 
   // Hours
   hours: "Monday through Friday, 8:00 AM to 6:00 PM",
