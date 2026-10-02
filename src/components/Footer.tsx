@@ -2,12 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import { services } from "@/data/services";
-import { getLocationsByPopulation } from "@/data/locations";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const allServices = services;
-  const allLocations = getLocationsByPopulation();
 
   return (
     <footer className="bg-white pt-20 pb-0">
@@ -138,43 +136,6 @@ export default function Footer() {
                       {service.name}
                     </Link>
                   ))}
-                </div>
-              </div>
-
-              {/* All Locations and Map */}
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* All Locations */}
-                <div>
-                  <h4 className="font-semibold mb-6 text-[var(--color-brand-gold)] text-lg">Service Areas</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3">
-                    {allLocations.map((location) => (
-                      <Link
-                        key={location.slug}
-                        href={`/service-areas/${location.slug}`}
-                        className="text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors text-sm"
-                      >
-                        {location.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Google Maps Embed */}
-                <div>
-                  <h4 className="font-semibold mb-6 text-[var(--color-brand-gold)] text-lg">Our Service Area</h4>
-                  <div className="rounded-xl overflow-hidden shadow-lg border border-white/10">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212270.28414308854!2d-117.7803964!3d33.640814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dc925c54d5f7cf%3A0xdea6c3618ff0d607!2sOrange%20County%2C%20CA!5e0!3m2!1sen!2sus!4v1738182400000!5m2!1sen!2sus"
-                      width="100%"
-                      height="300"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Orange County Service Area"
-                      className="w-full"
-                    />
-                  </div>
                 </div>
               </div>
             </div>

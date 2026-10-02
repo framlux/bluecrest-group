@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site-config";
 import { serviceCategories } from "@/data/services";
-import { locations } from "@/data/locations";
+import { getPrimaryLocation } from "@/data/locations";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -65,7 +65,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const topLocations = locations.slice(0, 8);
+  const primaryLocation = getPrimaryLocation();
 
   const handleCategoryClick = (categoryId: string, e: React.MouseEvent) => {
     setServicesOpen(false);
@@ -220,16 +220,13 @@ export default function Header() {
                     </span>
                   </div>
                   <div className="py-2">
-                    {topLocations.map((location) => (
-                      <Link
-                        key={location.slug}
-                        href={`/service-areas/${location.slug}`}
-                        className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[var(--color-brand-blue)] transition-colors"
-                        onClick={() => setLocationsOpen(false)}
-                      >
-                        {location.name}, {location.stateAbbr}
-                      </Link>
-                    ))}
+                    <Link
+                      href={`/service-areas/${primaryLocation.slug}`}
+                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[var(--color-brand-blue)] transition-colors"
+                      onClick={() => setLocationsOpen(false)}
+                    >
+                      {primaryLocation.name}, {primaryLocation.stateAbbr}
+                    </Link>
                   </div>
                   <div className="px-4 pt-3 border-t border-gray-100">
                     <Link
@@ -237,7 +234,7 @@ export default function Header() {
                       className="text-sm font-semibold text-[var(--color-brand-blue)] hover:underline"
                       onClick={() => setLocationsOpen(false)}
                     >
-                      View All {locations.length} Service Areas
+                      View All Service Areas
                     </Link>
                   </div>
                 </div>
@@ -339,16 +336,13 @@ export default function Header() {
               <div className="py-3 border-b border-gray-100">
                 <div className="font-semibold text-gray-900 mb-2">Service Areas</div>
                 <div className="pl-4 flex flex-col gap-2">
-                  {topLocations.slice(0, 5).map((location) => (
-                    <Link
-                      key={location.slug}
-                      href={`/service-areas/${location.slug}`}
-                      className="text-gray-600 hover:text-[var(--color-brand-blue)]"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {location.name}
-                    </Link>
-                  ))}
+                  <Link
+                    href={`/service-areas/${primaryLocation.slug}`}
+                    className="text-gray-600 hover:text-[var(--color-brand-blue)]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {primaryLocation.name}
+                  </Link>
                   <Link
                     href="/service-areas"
                     className="text-[var(--color-brand-blue)] font-medium"

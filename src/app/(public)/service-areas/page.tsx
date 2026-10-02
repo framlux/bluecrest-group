@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPrimaryLocation, getLocationsByPopulation, getLocationImagePath } from "@/data/locations";
+import { getPrimaryLocation, getLocationImagePath } from "@/data/locations";
+import { siteConfig } from "@/data/site-config";
 import { services } from "@/data/services";
 import { getServiceIcon } from "@/utils/service-icons";
 import { buildMetadata } from "@/lib/metadata";
@@ -11,7 +12,6 @@ export const metadata: Metadata = buildMetadata(pageMeta.serviceAreas);
 
 export default function ServiceAreasPage() {
   const primaryLocation = getPrimaryLocation();
-  const sortedLocations = getLocationsByPopulation();
   const featuredServices = services.filter(s => s.priority <= 3).slice(0, 6);
 
   return (
@@ -72,7 +72,7 @@ export default function ServiceAreasPage() {
       {/* Location Grid */}
       <section className="py-20 lg:py-28">
         <div className="container-site">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-12">
             <span className="inline-block text-[var(--color-brand-blue)] font-semibold text-sm tracking-wide uppercase mb-4">
               Our Locations
             </span>
@@ -80,49 +80,37 @@ export default function ServiceAreasPage() {
               Communities We Serve
             </h2>
             <p className="text-xl text-gray-600">
-              We work with businesses throughout Orange County, providing the same high
-              level of service regardless of location. Click on any city to learn more
-              about our services in that area.
+              Based in {primaryLocation.name}, we work with businesses throughout Orange County, including:
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedLocations.map((location) => (
-              <Link
-                key={location.slug}
-                href={`/service-areas/${location.slug}`}
-                className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
-              >
-                <div className="relative h-48 w-full overflow-hidden">
-                  <Image
-                    src={getLocationImagePath(location)}
-                    alt={`${location.name}, ${location.stateAbbr}`}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  {location.isPrimary && (
-                    <span className="absolute top-4 right-4 bg-gradient-to-r from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] text-white text-xs font-bold px-3 py-1 rounded-full">
-                      HQ
-                    </span>
-                  )}
-                </div>
-                <div className="p-6 lg:p-8">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-3">
-                    {location.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-5">
-                    {location.shortDescription}
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-[var(--color-brand-blue)] font-semibold text-sm">
-                    Learn more
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 max-w-4xl mx-auto mb-12 text-lg text-gray-700">
+            {siteConfig.serviceAreaCities.map((city) => (
+              <li key={city}>{city}, {siteConfig.stateAbbr}</li>
             ))}
+          </ul>
+
+          <div className="max-w-xl mx-auto">
+            <Link
+              href={`/service-areas/${primaryLocation.slug}`}
+              className="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
+            >
+              <div className="relative h-48 w-full overflow-hidden">
+                <Image
+                  src={getLocationImagePath(primaryLocation)}
+                  alt={`${primaryLocation.name}, ${primaryLocation.stateAbbr}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 576px"
+                />
+              </div>
+              <div className="p-6 lg:p-8">
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-3">
+                  Fractional CFO Services in {primaryLocation.name}
+                </h3>
+                <p className="text-gray-600 text-sm">{primaryLocation.shortDescription}</p>
+              </div>
+            </Link>
           </div>
         </div>
       </section>

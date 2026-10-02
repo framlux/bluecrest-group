@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { locations, getLocationBySlug, getNearbyLocations, getLocationImagePath } from "@/data/locations";
+import { locations, getLocationBySlug, getLocationImagePath } from "@/data/locations";
 import { getLocationContent } from "@/data/location-content";
 import { services } from "@/data/services";
 import ContactForm from "@/components/ContactForm";
@@ -13,6 +13,8 @@ import { pageMeta } from "@/data/page-meta";
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return locations.map((location) => ({
@@ -44,7 +46,6 @@ export default async function LocationPage({ params }: Props) {
   }
 
   const content = getLocationContent(slug);
-  const nearbyLocations = getNearbyLocations(slug, 5);
   const featuredServices = services.filter(s => s.priority <= 2).slice(0, 6);
 
   return (
@@ -245,37 +246,6 @@ export default async function LocationPage({ params }: Props) {
                   </p>
                   <ContactForm variant="default" prefilledLocation={location.name} />
                 </div>
-
-                {/* Nearby Locations */}
-                {nearbyLocations.length > 0 && (
-                  <div className="bg-slate-50 rounded-3xl p-6 lg:p-8">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">
-                      Nearby Service Areas
-                    </h3>
-                    <div className="space-y-3">
-                      {nearbyLocations.map((nearby) => (
-                        <Link
-                          key={nearby.slug}
-                          href={`/service-areas/${nearby.slug}`}
-                          className="flex items-center gap-2 text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] font-medium transition-colors"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                          {nearby.name}, {nearby.stateAbbr}
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="mt-6 pt-6 border-t border-gray-200">
-                      <Link
-                        href="/service-areas"
-                        className="text-sm font-semibold text-gray-700 hover:text-[var(--color-brand-blue)] transition-colors"
-                      >
-                        View All Service Areas
-                      </Link>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>

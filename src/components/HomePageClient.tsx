@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import { services, serviceCategories, getServicesByCategory } from "@/data/services";
-import { getLocationImagePath, getLocationBySlug, locations } from "@/data/locations";
+import { getLocationImagePath, getPrimaryLocation } from "@/data/locations";
 import { getServiceIcon } from "@/utils/service-icons";
 import ContactForm from "@/components/ContactForm";
 import FeaturedInsights from "@/components/FeaturedInsights";
@@ -28,24 +27,7 @@ interface HomePageClientProps {
 }
 
 export default function HomePageClient({ featuredArticles }: HomePageClientProps) {
-  const [showMoreLocations, setShowMoreLocations] = useState(false);
-
-  const initialLocationSlugs = [
-    "newport-beach-ca",
-    "corona-del-mar-ca",
-    "irvine-ca",
-    "costa-mesa-ca",
-    "huntington-beach-ca",
-    "laguna-beach-ca",
-  ];
-
-  const initialLocations = initialLocationSlugs
-    .map((slug) => getLocationBySlug(slug))
-    .filter((location): location is NonNullable<typeof location> => Boolean(location));
-
-  const remainingLocations = locations.filter(
-    (location) => !initialLocationSlugs.includes(location.slug)
-  );
+  const primaryLocation = getPrimaryLocation();
 
   const scrollToCategory = (categoryId: string) => {
     const element = document.getElementById(`category-${categoryId}`);
@@ -403,89 +385,42 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {initialLocations.map((location) => (
-              <Link
-                key={location.slug}
-                href={`/service-areas/${location.slug}`}
-                className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
-              >
-                <div className="relative h-40 w-full overflow-hidden">
-                  <Image
-                    src={getLocationImagePath(location)}
-                    alt={`${location.name}, ${location.stateAbbr}`}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  {location.isPrimary && (
-                    <span className="absolute top-3 right-3 bg-gradient-to-r from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] text-white text-xs font-bold px-2 py-1 rounded-full">
-                      HQ
-                    </span>
-                  )}
-                </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
-                    {location.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm line-clamp-2">
-                    {location.shortDescription}
-                  </p>
-                </div>
-              </Link>
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 max-w-4xl mx-auto mb-10 text-gray-700">
+            {siteConfig.serviceAreaCities.map((city) => (
+              <li key={city}>{city}</li>
             ))}
-          </div>
+          </ul>
 
-          {showMoreLocations && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 animate-in fade-in duration-300">
-              {remainingLocations.map((location) => (
-                <Link
-                  key={location.slug}
-                  href={`/service-areas/${location.slug}`}
-                  className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
-                >
-                  <div className="relative h-40 w-full overflow-hidden">
-                    <Image
-                      src={getLocationImagePath(location)}
-                      alt={`${location.name}, ${location.stateAbbr}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {location.isPrimary && (
-                      <span className="absolute top-3 right-3 bg-gradient-to-r from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] text-white text-xs font-bold px-2 py-1 rounded-full">
-                        HQ
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
-                      {location.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm line-clamp-2">
-                      {location.shortDescription}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          <div className="text-center">
-            <button
-              onClick={() => setShowMoreLocations(!showMoreLocations)}
-              className="inline-flex items-center text-[var(--color-brand-gold)] font-semibold hover:gap-3 transition-all gap-2"
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
+            <Link
+              href={`/service-areas/${primaryLocation.slug}`}
+              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
             >
-              {showMoreLocations ? "Show Less Locations" : "Show More Locations"}
-              <svg
-                className={`w-5 h-5 transition-transform duration-300 ${showMoreLocations ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src={getLocationImagePath(primaryLocation)}
+                  alt={`${primaryLocation.name}, ${primaryLocation.stateAbbr}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
+                  {primaryLocation.name}
+                </h3>
+                <p className="text-gray-600 text-sm line-clamp-2">{primaryLocation.shortDescription}</p>
+              </div>
+            </Link>
+            <Link
+              href="/service-areas"
+              className="group bg-slate-50 rounded-2xl border border-gray-100 p-8 flex flex-col justify-center hover:border-[var(--color-brand-blue)]/30 transition-all"
+            >
+              <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
+                All Service Areas
+              </h3>
+              <p className="text-gray-600 text-sm">See every community we serve across Orange County.</p>
+            </Link>
           </div>
         </div>
       </section>
