@@ -20,14 +20,14 @@ export default function HeroVideo() {
   }, []);
 
   return (
-    <>
+    <div className="absolute inset-0 z-0 opacity-60">
       <Image
         src={POSTER_SRC}
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover opacity-60 z-0"
+        className="object-cover"
       />
       {showVideo && (
         <video
@@ -36,12 +36,11 @@ export default function HeroVideo() {
           muted
           playsInline
           preload="none"
-          poster={POSTER_SRC}
-          className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src={VIDEO_SRC} type="video/mp4" />
         </video>
       )}
-    </>
+    </div>
   );
 }
