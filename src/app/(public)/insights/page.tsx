@@ -5,6 +5,9 @@ import { fetchSanity, articlesQuery, urlFor } from "@/lib/sanity";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { shouldIndexInsights } from "@/lib/insights";
+import { siteConfig } from "@/data/site-config";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const revalidate = 300; // keep equal to SANITY_REVALIDATE_SECONDS
 
@@ -47,6 +50,12 @@ export default async function InsightsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+        ])}
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-24 relative overflow-hidden">
         <Image
@@ -80,7 +89,7 @@ export default async function InsightsPage() {
       {/* Articles Grid */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {articles.length === 0 ? (
+          {!siteConfig.insightsEnabled || articles.length === 0 ? (
             <div className="text-center py-20">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
                 <svg
