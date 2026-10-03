@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { services } from "@/data/services";
+import { siteConfig } from "@/data/site-config";
 
 interface ContactFormProps {
   variant?: "default" | "compact";
@@ -26,6 +28,8 @@ export default function ContactForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -57,14 +61,16 @@ export default function ContactForm({
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       if (!response.ok) throw new Error("Failed to submit form");
 
       setSubmitted(true);
     } catch {
-      setError("There was an error submitting your request. Please try again or call us directly.");
+      setError(`There was an error submitting your request. Please try again or email us at ${siteConfig.email}.`);
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     } finally {
       setIsSubmitting(false);
     }
@@ -235,9 +241,18 @@ export default function ContactForm({
         </div>
       )}
 
+      <Turnstile
+        ref={turnstileRef}
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
+        onSuccess={setTurnstileToken}
+        onExpire={() => setTurnstileToken("")}
+        onError={() => setTurnstileToken("")}
+        options={{ size: "flexible" }}
+      />
+
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !turnstileToken}
         className={`w-full py-4 text-lg font-semibold rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
           variant === "compact"
             ? "bg-gradient-to-r from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] text-white hover:from-[var(--color-brand-gold)] hover:to-[var(--color-brand-coral)] shadow-lg"

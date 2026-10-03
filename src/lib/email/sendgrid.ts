@@ -10,7 +10,17 @@ if (!process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 }
 
-export const SENDGRID_TEMPLATE_ID = process.env.SENDGRID_TEMPLATE_ID || 'd-15217ab1c55347b5847c2421b1a82847';
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`${name} is not set`);
+  return value;
+}
+
+/** Internal lead recipients: CONTACT_NOTIFY_TO (comma-separated), defaulting to the firm inbox. */
+export function getNotifyRecipients(): string[] {
+  const raw = process.env.CONTACT_NOTIFY_TO || 'info@bluecrest-group.com';
+  return raw.split(',').map((s) => s.trim()).filter(Boolean);
+}
 
 type Lead = {
   name: string;
@@ -65,10 +75,7 @@ type BrandData = {
 };
 
 export async function sendCustomerConfirmation(brand: BrandData, lead: Lead) {
-  if (!process.env.SENDGRID_API_KEY) {
-    console.error('SENDGRID_API_KEY not set, skipping customer confirmation email');
-    return;
-  }
+  sgMail.setApiKey(requireEnv('SENDGRID_API_KEY'));
 
   const fromEmail = process.env.SENDGRID_FROM_EMAIL || brand.supportEmail || 'info@bluecrest-group.com';
   const fromName = process.env.SENDGRID_FROM_NAME || brand.company_name;
@@ -78,7 +85,7 @@ export async function sendCustomerConfirmation(brand: BrandData, lead: Lead) {
     to: lead.email,
     from: { email: fromEmail, name: fromName },
     replyTo: replyTo,
-    templateId: SENDGRID_TEMPLATE_ID,
+    templateId: requireEnv('SENDGRID_TEMPLATE_CONFIRMATION'),
     dynamicTemplateData: { ...brand, lead },
   };
 
@@ -97,23 +104,18 @@ export async function sendCustomerConfirmation(brand: BrandData, lead: Lead) {
   }
 }
 
-// Same email content, different recipients, sent separately (no cc/bcc)
+// Internal lead notification: one send per recipient (no cc/bcc)
 export async function sendInternalNotifications(brand: BrandData, lead: Lead) {
-  if (!process.env.SENDGRID_API_KEY) {
-    console.error('SENDGRID_API_KEY not set, skipping internal notification emails');
-    return;
-  }
+  sgMail.setApiKey(requireEnv('SENDGRID_API_KEY'));
 
   const fromEmail = process.env.SENDGRID_FROM_EMAIL || brand.supportEmail || 'info@bluecrest-group.com';
   const fromName = process.env.SENDGRID_FROM_NAME || brand.company_name;
   const replyTo = process.env.SENDGRID_REPLY_TO || fromEmail;
-  const recipients = [
-    'info@bluecrest-group.com',
-  ].filter(Boolean) as string[];
+  const recipients = getNotifyRecipients();
+  const templateId = requireEnv('SENDGRID_TEMPLATE_ID');
 
   if (recipients.length === 0) {
-    console.warn('No internal notification recipients configured');
-    return;
+    throw new Error('CONTACT_NOTIFY_TO has no valid recipients');
   }
 
   const sends = recipients.map(email =>
@@ -121,7 +123,7 @@ export async function sendInternalNotifications(brand: BrandData, lead: Lead) {
       to: email,
       from: { email: fromEmail, name: fromName },
       replyTo: replyTo,
-      templateId: SENDGRID_TEMPLATE_ID,
+      templateId,
       dynamicTemplateData: { ...brand, lead },
     })
   );
