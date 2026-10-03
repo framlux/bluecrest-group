@@ -84,7 +84,7 @@ export default function Footer() {
             {/* Footer Links and Content */}
             <div className="lg:col-span-8 text-white pt-8">
               <Link
-                href="/contact"
+                href="/contact#contact-form"
                 className="text-[var(--color-brand-gold)] text-xl font-semibold hover:text-white transition-colors flex items-center gap-2 mb-12 inline-flex"
               >
                 Connect Your Business to Success
