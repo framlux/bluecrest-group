@@ -22,6 +22,20 @@ describe("verifyTurnstile", () => {
     expect(body.get("remoteip")).toBe("1.2.3.4");
   });
 
+  it("gives siteverify an abort signal so a hung Cloudflare cannot stall the request", async () => {
+    const f = vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true })));
+    await verifyTurnstile("tok", undefined, f);
+    expect(f.mock.calls[0][1].signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it("returns false when the siteverify request fails or times out", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const aborted = vi.fn().mockRejectedValue(new DOMException("The operation timed out.", "TimeoutError"));
+    expect(await verifyTurnstile("tok", undefined, aborted)).toBe(false);
+    expect(consoleError).toHaveBeenCalled();
+    consoleError.mockRestore();
+  });
+
   it("returns false on an expired token or a Cloudflare error", async () => {
     const expired = vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: false, "error-codes": ["timeout-or-duplicate"] })));
     expect(await verifyTurnstile("tok", undefined, expired)).toBe(false);

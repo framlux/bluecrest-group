@@ -1,4 +1,5 @@
 const SITEVERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const SITEVERIFY_TIMEOUT_MS = 5000;
 
 /** Server-side check of a Cloudflare Turnstile token. False for missing, expired, or reused tokens. */
 export async function verifyTurnstile(
@@ -14,7 +15,11 @@ export async function verifyTurnstile(
   if (remoteIp) body.set("remoteip", remoteIp);
 
   try {
-    const res = await fetchImpl(SITEVERIFY_URL, { method: "POST", body });
+    const res = await fetchImpl(SITEVERIFY_URL, {
+      method: "POST",
+      body,
+      signal: AbortSignal.timeout(SITEVERIFY_TIMEOUT_MS),
+    });
     if (!res.ok) return false;
     const data = (await res.json()) as { success?: boolean };
     return data.success === true;
