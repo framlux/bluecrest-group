@@ -1,4 +1,7 @@
 import { createClient } from "@sanity/client";
+import { SANITY_CACHE_TAG, SANITY_REVALIDATE_SECONDS } from "./sanity.cache";
+
+export { SANITY_CACHE_TAG, SANITY_REVALIDATE_SECONDS };
 
 export const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
@@ -12,7 +15,7 @@ export async function fetchSanity<T>(
   query: string,
   params: Record<string, unknown> = {}
 ): Promise<T> {
-  return sanityClient.fetch<T>(query, params, { 
-    cache: "force-cache"
+  return sanityClient.fetch<T>(query, params, {
+    next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: [SANITY_CACHE_TAG] },
   });
 }

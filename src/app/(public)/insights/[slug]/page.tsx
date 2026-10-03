@@ -3,14 +3,28 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
-import { client, urlFor, articleBySlugQuery, articleSlugsQuery } from "@/lib/sanity";
+import { fetchSanity, urlFor, articleBySlugQuery, articleSlugsQuery } from "@/lib/sanity";
 import { portableTextComponents } from "@/components/PortableTextComponents";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
+import { articleMetadataInput } from "@/lib/insights";
+import { getServiceBySlug } from "@/data/services";
+import { JsonLd } from "@/components/JsonLd";
+import { articleSchema, breadcrumbSchema } from "@/lib/structured-data";
+
+export const revalidate = 300; // keep equal to SANITY_REVALIDATE_SECONDS
 
 interface Article {
   _id: string;
   title: string;
   slug: { current: string };
   excerpt?: string;
+  seoDescription?: string;
+  updatedAt?: string;
+  relatedService?: string;
+  ogImage?: {
+    [key: string]: unknown;
+  };
   body?: Array<{
     _type: string;
     [key: string]: unknown;
@@ -33,7 +47,7 @@ interface Article {
 
 async function getArticle(slug: string): Promise<Article | null> {
   try {
-    const article = await client.fetch<Article | null>(articleBySlugQuery, { slug });
+    const article = await fetchSanity<Article | null>(articleBySlugQuery, { slug });
     return article;
   } catch (error) {
     console.error("Failed to fetch article", error);
@@ -43,7 +57,7 @@ async function getArticle(slug: string): Promise<Article | null> {
 
 export async function generateStaticParams() {
   try {
-    const slugs = await client.fetch<{ slug: string }[]>(articleSlugsQuery);
+    const slugs = await fetchSanity<{ slug: string }[]>(articleSlugsQuery);
     return slugs.map((item) => ({
       slug: item.slug,
     }));
@@ -62,24 +76,18 @@ export async function generateMetadata({
   const article = await getArticle(slug);
 
   if (!article) {
-    return {
-      title: "Not Found — BlueCrest Group",
-    };
+    return { title: pageMeta.notFound.title };
   }
-
-  const imageUrl = article.mainImage
-    ? urlFor(article.mainImage).width(1200).height(630).url()
-    : undefined;
-
-  return {
-    title: `${article.title} — BlueCrest Group Insights`,
-    description: article.excerpt || "Expert insights from BlueCrest Group",
-    openGraph: {
-      title: article.title,
-      description: article.excerpt || "Expert insights from BlueCrest Group",
-      images: imageUrl ? [{ url: imageUrl }] : [],
-    },
-  };
+  const ogSource = article.ogImage ?? article.mainImage;
+  return buildMetadata(articleMetadataInput({
+    title: article.title,
+    slug: article.slug.current,
+    excerpt: article.excerpt,
+    seoDescription: article.seoDescription,
+    publishedAt: article.publishedAt,
+    updatedAt: article.updatedAt,
+    ogImageUrl: ogSource ? urlFor(ogSource).width(1200).height(630).url() : undefined,
+  }));
 }
 
 export default async function ArticlePage({
@@ -103,9 +111,19 @@ export default async function ArticlePage({
     day: "numeric",
     year: "numeric",
   });
+  const updatedDate = article.updatedAt
+    ? new Date(article.updatedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+    : undefined;
+  const relatedService = article.relatedService ? getServiceBySlug(article.relatedService) : undefined;
+  const path = `/insights/${article.slug.current}`;
+  const description = article.seoDescription || article.excerpt || article.title;
 
   return (
-    <main className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen">
+      <JsonLd data={[
+        articleSchema({ headline: article.title, description, path, image: heroImageUrl, datePublished: article.publishedAt, dateModified: article.updatedAt }),
+        breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Insights", path: "/insights" }, { name: article.title, path }]),
+      ]} />
       {/* Hero Section */}
       {heroImageUrl && (
         <section className="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
@@ -148,6 +166,12 @@ export default async function ArticlePage({
               <time dateTime={article.publishedAt} className="text-xs uppercase tracking-wide text-gray-500">
                 {publishedDate}
               </time>
+              {updatedDate && (
+                <>
+                  <span className="text-gray-300">|</span>
+                  <span className="text-xs uppercase tracking-wide text-gray-500">Updated {updatedDate}</span>
+                </>
+              )}
             </div>
 
             {/* Title */}
@@ -196,6 +220,14 @@ export default async function ArticlePage({
               <PortableText value={article.body} components={portableTextComponents} />
             </div>
           )}
+          {relatedService && (
+            <p className="mt-12 pt-8 border-t border-gray-100 text-lg">
+              Related service:{" "}
+              <Link href={`/services/${relatedService.slug}`} className="text-[var(--color-brand-blue)] font-semibold hover:underline">
+                {relatedService.name}
+              </Link>
+            </p>
+          )}
         </div>
 
         {/* CTA Section */}
@@ -234,6 +266,6 @@ export default async function ArticlePage({
           </div>
         </div>
       </article>
-    </main>
+    </div>
   );
 }

@@ -33,7 +33,7 @@ export function businessSchema(): JsonLdObject {
       { "@type": "AdministrativeArea", name: `${siteConfig.region}, ${siteConfig.stateAbbr}` },
       ...siteConfig.serviceAreaCities.map((city) => ({ "@type": "City", name: `${city}, ${siteConfig.stateAbbr}` })),
     ],
-    founder: { "@id": FOUNDER_ID },
+    founder: { "@type": "Person", "@id": FOUNDER_ID, name: siteConfig.founder.name, url: absoluteUrl("/about") },
     // Matches the hours shown on the Contact page.
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
@@ -110,7 +110,7 @@ export function articleSchema(input: {
     headline: input.headline,
     description: input.description,
     image: input.image ? absoluteUrl(input.image) : absoluteUrl(DEFAULT_OG_IMAGE.url),
-    author: { "@id": FOUNDER_ID },
+    author: { "@type": "Person", "@id": FOUNDER_ID, name: siteConfig.founder.name, url: absoluteUrl("/about") },
     publisher: { "@id": BUSINESS_ID },
     datePublished: input.datePublished,
     dateModified: input.dateModified ?? input.datePublished,

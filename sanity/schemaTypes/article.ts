@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { relatedServiceOptions } from "./service-options";
 
 export default defineType({
   name: "article",
@@ -27,6 +28,31 @@ export default defineType({
       type: "text",
       description: "Short summary of the article (shown in listings)",
       validation: (Rule) => Rule.max(200),
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "Search description",
+      type: "text",
+      rows: 3,
+      description: "Shown in Google results and link previews. Aim for 140–155 characters.",
+      validation: (Rule) => [
+        Rule.required().max(160),
+        Rule.min(120).warning("Aim for 140–155 characters."),
+      ],
+    }),
+    defineField({
+      name: "relatedService",
+      title: "Related service",
+      type: "string",
+      description: "The article links to this service page.",
+      options: { list: relatedServiceOptions },
+    }),
+    defineField({
+      name: "ogImage",
+      title: "Social share image",
+      type: "image",
+      description: "Optional, 1200×630. Falls back to the main image.",
+      options: { hotspot: true },
     }),
     defineField({
       name: "mainImage",
@@ -64,6 +90,7 @@ export default defineType({
       title: "Author",
       type: "reference",
       to: [{ type: "author" }],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "body",
@@ -128,6 +155,12 @@ export default defineType({
       title: "Published At",
       type: "datetime",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "updatedAt",
+      title: "Updated At",
+      type: "datetime",
+      description: "Set when the article is meaningfully revised.",
     }),
     defineField({
       name: "isFeatured",

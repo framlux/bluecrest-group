@@ -36,7 +36,7 @@ describe("businessSchema", () => {
   });
 
   it("links the founder by @id", () => {
-    expect(s.founder).toEqual({ "@id": FOUNDER_ID });
+    expect(s.founder).toEqual({ "@type": "Person", "@id": FOUNDER_ID, name: "Josh Miller", url: `${ORIGIN}/about` });
   });
 });
 
@@ -71,7 +71,7 @@ describe("page schemas", () => {
 
   it("article has author, publisher, and dates", () => {
     const a = articleSchema({ headline: "H", description: "D", path: "/insights/h", datePublished: "2026-10-01" });
-    expect(a.author).toEqual({ "@id": FOUNDER_ID });
+    expect(a.author).toEqual({ "@type": "Person", "@id": FOUNDER_ID, name: "Josh Miller", url: `${ORIGIN}/about` });
     expect(a.publisher).toEqual({ "@id": BUSINESS_ID });
     expect(a.dateModified).toBe("2026-10-01");
     expect(a.mainEntityOfPage).toBe(`${ORIGIN}/insights/h`);

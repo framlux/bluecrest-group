@@ -1,8 +1,8 @@
 import { sanityClient } from "./sanity.client";
 import { createImageUrlBuilder, type SanityImageSource } from "@sanity/image-url";
 
-// Re-export the centralized client
-export { sanityClient as client };
+// Re-export the cached fetch helper so no caller can bypass the cache settings
+export { fetchSanity } from "./sanity.client";
 
 // Image URL builder
 const builder = createImageUrlBuilder(sanityClient);
@@ -56,6 +56,10 @@ export const articleBySlugQuery = `*[_type == "article" && slug.current == $slug
   title,
   slug,
   excerpt,
+  seoDescription,
+  updatedAt,
+  relatedService,
+  ogImage,
   body,
   mainImage{
     ...,
@@ -74,4 +78,10 @@ export const articleBySlugQuery = `*[_type == "article" && slug.current == $slug
 
 export const articleSlugsQuery = `*[_type == "article" && defined(slug.current)]{
   "slug": slug.current
+}`;
+
+export const articleSitemapQuery = `*[_type == "article" && defined(slug.current)]{
+  "slug": slug.current,
+  publishedAt,
+  updatedAt
 }`;

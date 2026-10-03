@@ -1,26 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { client, articlesQuery, urlFor } from "@/lib/sanity";
+import { fetchSanity, articlesQuery, urlFor } from "@/lib/sanity";
+import { buildMetadata } from "@/lib/metadata";
+import { pageMeta } from "@/data/page-meta";
+import { shouldIndexInsights } from "@/lib/insights";
 
-export const metadata: Metadata = {
-  title: "Insights — BlueCrest Group | Financial Strategy & CFO Expertise",
-  description:
-    "Expert insights on financial strategy, business growth, tax planning, and CFO best practices from BlueCrest Group's leadership team.",
-  openGraph: {
-    title: "Insights — BlueCrest Group",
-    description:
-      "Financial strategy insights, CFO expertise, and business growth guidance from Orange County's trusted fractional CFO services.",
-    images: [
-      {
-        url: "/images/Orange-County-CA-fractional-cfo.jpg",
-        width: 1200,
-        height: 630,
-        alt: "BlueCrest Group Insights",
-      },
-    ],
-  },
-};
+export const revalidate = 300; // keep equal to SANITY_REVALIDATE_SECONDS
+
+export async function generateMetadata(): Promise<Metadata> {
+  const articles = await getArticles();
+  return buildMetadata({ ...pageMeta.insights, noindex: !shouldIndexInsights(articles.length) });
+}
 
 interface Article {
   _id: string;
@@ -43,7 +34,7 @@ interface Article {
 
 async function getArticles(): Promise<Article[]> {
   try {
-    const articles = await client.fetch<Article[]>(articlesQuery);
+    const articles = await fetchSanity<Article[]>(articlesQuery);
     return articles || [];
   } catch (error) {
     console.error("Failed to fetch articles", error);
@@ -55,7 +46,7 @@ export default async function InsightsPage() {
   const articles = await getArticles();
 
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-24 relative overflow-hidden">
         <Image
@@ -172,6 +163,6 @@ export default async function InsightsPage() {
           )}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

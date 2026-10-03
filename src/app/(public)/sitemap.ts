@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { services } from "@/data/services";
 import { locations } from "@/data/locations";
-import { client, articleSlugsQuery } from "@/lib/sanity";
+import { fetchSanity, articleSlugsQuery } from "@/lib/sanity";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.bluecrest-group.com";
@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Only fetch if Sanity is configured
     if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
-      const articles = await client.fetch<{ slug: string }[]>(articleSlugsQuery);
+      const articles = await fetchSanity<{ slug: string }[]>(articleSlugsQuery);
       insightsPages = articles.map((article) => ({
         url: `${baseUrl}/insights/${article.slug}`,
         lastModified: new Date(),

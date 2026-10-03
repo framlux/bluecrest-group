@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { client, featuredArticlesQuery } from "@/lib/sanity";
+import { fetchSanity, featuredArticlesQuery } from "@/lib/sanity";
 import HomePageClient from "@/components/HomePageClient";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
+import { siteConfig } from "@/data/site-config";
+
+export const revalidate = 300; // keep equal to SANITY_REVALIDATE_SECONDS
 
 export const metadata: Metadata = buildMetadata(pageMeta.home);
 
@@ -21,11 +24,10 @@ interface Article {
 }
 
 async function getFeaturedArticles(): Promise<Article[]> {
+  if (!siteConfig.insightsEnabled) return [];
   try {
-    const articles = await client.fetch<Article[]>(featuredArticlesQuery, {}, {
-      cache: "force-cache"
-    });
-    
+    const articles = await fetchSanity<Article[]>(featuredArticlesQuery);
+
     // Format dates on server to prevent hydration mismatches
     return (articles || []).map(article => ({
       ...article,
