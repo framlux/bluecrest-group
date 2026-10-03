@@ -35,6 +35,12 @@ describe("sendgrid", () => {
     await expect(sendInternalNotifications(brand, lead)).rejects.toThrow(/SENDGRID_TEMPLATE_ID/);
   });
 
+  it("throws instead of silently dropping the lead when CONTACT_NOTIFY_TO has no valid recipients", async () => {
+    process.env.CONTACT_NOTIFY_TO = " , ";
+    await expect(sendInternalNotifications(brand, lead)).rejects.toThrow(/CONTACT_NOTIFY_TO has no valid recipients/);
+    expect(send).not.toHaveBeenCalled();
+  });
+
   it("reads comma-separated recipients from CONTACT_NOTIFY_TO", () => {
     process.env.CONTACT_NOTIFY_TO = "josh@x.com, ops@x.com ,";
     expect(getNotifyRecipients()).toEqual(["josh@x.com", "ops@x.com"]);
