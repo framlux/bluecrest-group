@@ -1,12 +1,13 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/data/site-config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      disallow: ["/api/", "/portal/"],
     },
-    sitemap: "https://www.bluecrest-group.com/sitemap.xml",
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }
