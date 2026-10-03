@@ -3,12 +3,15 @@ import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.privacy);
 
 export default function PrivacyPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Privacy Policy", path: "/privacy" }])} />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50"></div>

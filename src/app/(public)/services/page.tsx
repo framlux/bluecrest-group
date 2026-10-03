@@ -6,12 +6,15 @@ import { getServiceIcon } from "@/utils/service-icons";
 import ServicesCategorySection from "@/components/ServicesCategorySection";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.services);
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }])} />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">

@@ -4,12 +4,15 @@ import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, personSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.about);
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={[personSchema(), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])]} />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">

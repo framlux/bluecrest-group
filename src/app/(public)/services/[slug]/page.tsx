@@ -8,6 +8,8 @@ import ContactForm from "@/components/ContactForm";
 import FAQSection from "@/components/FAQSection";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/structured-data";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -47,8 +49,16 @@ export default async function ServicePage({ params }: Props) {
   const content = getServiceContent(slug);
   const relatedServices = getRelatedServices(slug);
 
+  const path = `/services/${service.slug}`;
+  const schemas = [
+    serviceSchema({ name: service.name, description: serviceMetaDescription(service), path }),
+    breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.name, path }]),
+    ...(content?.faqs && content.faqs.length > 0 ? [faqSchema(content.faqs)] : []),
+  ];
+
   return (
     <>
+      <JsonLd data={schemas} />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>

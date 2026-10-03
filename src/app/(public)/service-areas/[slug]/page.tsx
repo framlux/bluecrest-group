@@ -9,6 +9,8 @@ import ContactForm from "@/components/ContactForm";
 import FAQSection from "@/components/FAQSection";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, faqSchema } from "@/lib/structured-data";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -48,8 +50,15 @@ export default async function LocationPage({ params }: Props) {
   const content = getLocationContent(slug);
   const featuredServices = services.filter(s => s.priority <= 2).slice(0, 6);
 
+  const path = `/service-areas/${location.slug}`;
+  const schemas = [
+    breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Service Areas", path: "/service-areas" }, { name: location.name, path }]),
+    ...(content?.faqs && content.faqs.length > 0 ? [faqSchema(content.faqs)] : []),
+  ];
+
   return (
     <>
+      <JsonLd data={schemas} />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
