@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
+import ContactCta from "@/components/ContactCta";
 
 export default function NotFound() {
   return (
@@ -46,15 +47,14 @@ export default function NotFound() {
                 </svg>
                 Go Home
               </Link>
-              <Link
-                href="/contact"
+              <ContactCta
                 className="btn-outline px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Contact Us
-              </Link>
+                icon={
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                }
+              />
             </div>
 
             {/* Quick Links */}
@@ -153,12 +153,7 @@ export default function NotFound() {
                 with strategic financial services.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg"
-                >
-                  Schedule Your Free Consultation
-                </Link>
+                <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
               </div>
             </div>
           </div>

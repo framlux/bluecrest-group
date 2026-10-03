@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site-config";
 import { serviceCategories } from "@/data/services";
 import { getPrimaryLocation } from "@/data/locations";
+import ContactCta from "@/components/ContactCta";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -260,12 +261,7 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Link
-              href="/contact"
-              className="btn-primary px-8 py-3 rounded-full font-semibold"
-            >
-              Connect Today
-            </Link>
+            <ContactCta className="btn-primary px-8 py-3 rounded-full font-semibold" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -374,13 +370,10 @@ export default function Header() {
               </Link>
 
               <div className="pt-4 flex flex-col gap-3">
-                <Link
-                  href="/contact"
+                <ContactCta
                   className="btn btn-primary w-full"
                   onClick={() => setMobileMenuOpen(false)}
-                >
-                  Connect Today
-                </Link>
+                />
               </div>
             </nav>
           </div>

@@ -6,6 +6,7 @@ import { locations, getLocationBySlug, getLocationImagePath } from "@/data/locat
 import { getLocationContent } from "@/data/location-content";
 import { services } from "@/data/services";
 import ContactForm from "@/components/ContactForm";
+import ContactCta from "@/components/ContactCta";
 import FAQSection from "@/components/FAQSection";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
@@ -102,12 +103,7 @@ export default async function LocationPage({ params }: Props) {
               {location.shortDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg"
-              >
-                Get a Free Consultation
-              </Link>
+              <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg" />
             </div>
           </div>
         </div>
@@ -251,7 +247,7 @@ export default async function LocationPage({ params }: Props) {
                     Get Started Today
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Schedule your free consultation to discuss your financial needs in {location.name}.
+                    Tell us about your business and we will be in touch.
                   </p>
                   <ContactForm variant="default" prefilledLocation={location.name} />
                 </div>
@@ -271,16 +267,11 @@ export default async function LocationPage({ params }: Props) {
               Ready to Work With a {location.name} Financial Partner?
             </h2>
             <p className="text-xl text-gray-400 mb-8">
-              Schedule a free consultation to discuss how we can help your
+              Contact us to discuss how we can help your
               {location.name} business with professional financial services.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
-              >
-                Schedule Your Free Consultation
-              </Link>
+              <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg" />
             </div>
           </div>
         </div>

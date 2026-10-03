@@ -7,6 +7,7 @@ import ServicesCategorySection from "@/components/ServicesCategorySection";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
+import ContactCta from "@/components/ContactCta";
 import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.services);
@@ -177,16 +178,11 @@ export default function ServicesPage() {
                 Not Sure Which Services You Need?
               </h2>
               <p className="text-xl text-white/80 mb-8">
-                Schedule a free consultation and we&apos;ll help you identify the right combination
+                Contact us and we&apos;ll help you identify the right combination
                 of services for your business needs and growth stage.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg"
-                >
-                  Schedule a Free Consultation
-                </Link>
+                <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
               </div>
             </div>
           </div>

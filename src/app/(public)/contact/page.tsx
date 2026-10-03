@@ -6,6 +6,7 @@ import ContactForm from "@/components/ContactForm";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
+import { CONTACT_FORM_ID } from "@/lib/cta";
 import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.contact);
@@ -51,7 +52,7 @@ export default function ContactPage() {
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
               Ready to discuss how BlueCrest Group can support your business?
-              Schedule a free consultation or reach out directly.
+              Send us a message or email us directly.
             </p>
           </div>
         </div>
@@ -63,9 +64,9 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-3xl shadow-soft border border-gray-100 p-8 lg:p-10">
+              <div id={CONTACT_FORM_ID} className="bg-white rounded-3xl shadow-soft border border-gray-100 p-8 lg:p-10 scroll-mt-28">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  Schedule Your Free Consultation
+                  Send Us a Message
                 </h2>
                 <p className="text-gray-600 mb-8">
                   Tell us about your business and financial needs. We will reach out

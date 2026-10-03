@@ -5,6 +5,7 @@ import { siteConfig } from "@/data/site-config";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
+import ContactCta from "@/components/ContactCta";
 import { breadcrumbSchema, personSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.about);
@@ -222,16 +223,11 @@ export default function AboutPage() {
                 Ready to Get Started?
               </h2>
               <p className="text-xl text-white/90 mb-8">
-                Schedule a free consultation to discuss how BlueCrest Group can
+                Contact us to discuss how BlueCrest Group can
                 support your business with strategic financial leadership.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg"
-                >
-                  Schedule Your Free Consultation
-                </Link>
+                <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
               </div>
             </div>
           </div>

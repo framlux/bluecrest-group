@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import { services } from "@/data/services";
+import ContactCta from "@/components/ContactCta";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -21,12 +22,7 @@ export default function Footer() {
         <p className="text-gray-600 mt-4 text-lg">
           Strategic financial leadership for growing businesses
         </p>
-        <Link
-          href="/contact"
-          className="mt-8 btn-primary px-10 py-4 rounded-full font-semibold text-lg inline-block"
-        >
-          Book a call now
-        </Link>
+        <ContactCta className="mt-8 btn-primary px-10 py-4 rounded-full font-semibold text-lg inline-block" />
       </div>
 
       {/* Navy Footer Section */}
@@ -76,12 +72,7 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-white/20">
-                  <Link
-                    href="/contact"
-                    className="w-full bg-[var(--color-brand-navy)] text-white py-4 rounded-full font-semibold hover:bg-[#2d4561] transition-all text-center block"
-                  >
-                    Book a 15-Min Call
-                  </Link>
+                  <ContactCta className="w-full bg-[var(--color-brand-navy)] text-white py-4 rounded-full font-semibold hover:bg-[#2d4561] transition-all text-center block" />
                 </div>
 
               </div>

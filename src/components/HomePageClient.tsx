@@ -7,6 +7,7 @@ import { services, serviceCategories, getServicesByCategory } from "@/data/servi
 import { getLocationImagePath, getPrimaryLocation } from "@/data/locations";
 import { getServiceIcon } from "@/utils/service-icons";
 import ContactForm from "@/components/ContactForm";
+import ContactCta from "@/components/ContactCta";
 import FeaturedInsights from "@/components/FeaturedInsights";
 
 interface Article {
@@ -74,15 +75,7 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
               everything you need to grow with clarity and confidence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Book An Intro Call
-              </Link>
+              <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2" />
             </div>
           </div>
         </div>
@@ -345,14 +338,14 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
                 </h2>
                 <p className="text-white/80 text-lg leading-relaxed">
                   Whether you need fractional CFO services, accounting support, or strategic
-                  financial guidance, we&apos;re here to help your business thrive. Schedule a
-                  free consultation to discuss your unique needs.
+                  financial guidance, we&apos;re here to help your business thrive. Contact us
+                  to discuss your unique needs.
                 </p>
               </div>
 
               <div className="bg-white rounded-2xl p-8 shadow-xl">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  Schedule Your Free Consultation
+                  Send Us a Message
                 </h2>
                 <p className="text-gray-600 mb-8">
                   Tell us about your business and financial needs. We will reach out

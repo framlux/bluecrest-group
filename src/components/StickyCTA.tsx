@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { siteConfig } from "@/data/site-config";
+import ContactCta from "@/components/ContactCta";
 
 export default function StickyCTA() {
   const [isMinimized, setIsMinimized] = useState(false);
@@ -34,15 +33,10 @@ export default function StickyCTA() {
             </button>
             <div className="text-center mb-5">
               <p className="font-bold text-[var(--color-brand-navy)]">Ready to talk?</p>
-              <p className="text-sm text-gray-500">Schedule your free consultation</p>
+              <p className="text-sm text-gray-500">Tell us about your business</p>
             </div>
             <div className="space-y-3">
-              <Link
-                href="/contact"
-                className="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] text-white rounded-full font-semibold text-sm hover:shadow-lg transition-all"
-              >
-                Get a Free Consultation
-              </Link>
+              <ContactCta className="flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] text-white rounded-full font-semibold text-sm hover:shadow-lg transition-all" />
             </div>
           </div>
         )}
@@ -51,15 +45,14 @@ export default function StickyCTA() {
       {/* Mobile Sticky Bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg safe-area-inset-bottom">
         <div className="grid grid-cols-2 divide-x divide-gray-200">
-          <Link
-            href="/contact"
+          <ContactCta
             className="flex items-center justify-center gap-2 py-4 bg-[var(--color-brand-gold)] text-white font-semibold"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Contact Us
-          </Link>
+            icon={
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            }
+          />
         </div>
       </div>
     </>

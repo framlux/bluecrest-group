@@ -8,6 +8,7 @@ import { getServiceIcon } from "@/utils/service-icons";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
+import ContactCta from "@/components/ContactCta";
 import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.serviceAreas);
@@ -61,12 +62,7 @@ export default function ServiceAreasPage() {
               professional financial leadership.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg"
-              >
-                Schedule a Consultation
-              </Link>
+              <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg" />
             </div>
           </div>
         </div>
@@ -256,16 +252,11 @@ export default function ServiceAreasPage() {
                 Ready to Work With a Local Financial Partner?
               </h2>
               <p className="text-xl text-white/80 mb-8">
-                Schedule a free consultation to discuss how BlueCrest Group can support
+                Contact us to discuss how BlueCrest Group can support
                 your business with professional financial services right here in Orange County.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg"
-                >
-                  Schedule Your Free Consultation
-                </Link>
+                <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
               </div>
             </div>
           </div>

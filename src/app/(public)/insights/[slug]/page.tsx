@@ -10,6 +10,7 @@ import { pageMeta } from "@/data/page-meta";
 import { articleMetadataInput } from "@/lib/insights";
 import { getServiceBySlug } from "@/data/services";
 import { JsonLd } from "@/components/JsonLd";
+import ContactCta from "@/components/ContactCta";
 import { articleSchema, breadcrumbSchema } from "@/lib/structured-data";
 
 export const revalidate = 300; // keep equal to SANITY_REVALIDATE_SECONDS
@@ -239,15 +240,7 @@ export default async function ArticlePage({
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
               Let&apos;s discuss how our fractional CFO services can help your business thrive with clarity and confidence.
             </p>
-            <Link
-              href="/contact"
-              className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2"
-            >
-              Schedule Your Free Consultation
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+            <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" />
           </div>
         </div>
 

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { services } from "@/data/services";
 import { siteConfig } from "@/data/site-config";
+import { CONTACT_CTA_LABEL } from "@/lib/cta";
 
 interface ContactFormProps {
   variant?: "default" | "compact";
@@ -259,7 +260,7 @@ export default function ContactForm({
             : "bg-[var(--color-brand-blue)] text-white hover:bg-[var(--color-blue-dark)] shadow-lg"
         }`}
       >
-        {isSubmitting ? "Submitting..." : "Get Your Free Consultation"}
+        {isSubmitting ? "Submitting..." : CONTACT_CTA_LABEL}
       </button>
 
       <p className={`text-xs ${variant === "compact" ? "text-gray-400" : "text-gray-500"} text-center`}>
