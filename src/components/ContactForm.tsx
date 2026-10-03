@@ -1,9 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { useEffect, useRef, useState } from "react";
+import { DEFAULT_SCRIPT_ID, Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { services } from "@/data/services";
 import { siteConfig } from "@/data/site-config";
+import { isTurnstileFailed, TURNSTILE_TIMEOUT_MS } from "@/lib/turnstile-status";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 
 interface ContactFormProps {
   variant?: "default" | "compact";
@@ -30,6 +33,39 @@ export default function ContactForm({
   const [error, setError] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef<TurnstileInstance | null>(null);
+  const turnstileTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [turnstileErrored, setTurnstileErrored] = useState(false);
+  const [turnstileElapsedMs, setTurnstileElapsedMs] = useState(0);
+  const turnstileFailed = isTurnstileFailed({
+    siteKey: TURNSTILE_SITE_KEY,
+    errored: turnstileErrored,
+    elapsedMs: turnstileElapsedMs,
+    hasToken: Boolean(turnstileToken),
+  });
+
+  // The library's own `scriptOptions.onError` deletes its onload callback, which makes Cloudflare warn on every
+  // load. Listen for the script's error event instead (it does not bubble, so use the capture phase).
+  useEffect(() => {
+    const onScriptError = (event: Event) => {
+      if ((event.target as Element | null)?.id === DEFAULT_SCRIPT_ID) setTurnstileErrored(true);
+    };
+    document.addEventListener("error", onScriptError, true);
+    return () => document.removeEventListener("error", onScriptError, true);
+  }, []);
+
+  // No token 15 seconds after mount: stop waiting and offer the email fallback.
+  useEffect(() => {
+    const timer = setTimeout(() => setTurnstileElapsedMs(TURNSTILE_TIMEOUT_MS), TURNSTILE_TIMEOUT_MS);
+    turnstileTimerRef.current = timer;
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleTurnstileSuccess = (token: string) => {
+    if (turnstileTimerRef.current) clearTimeout(turnstileTimerRef.current);
+    setTurnstileToken(token);
+    setTurnstileErrored(false);
+    setTurnstileElapsedMs(0);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -241,14 +277,29 @@ export default function ContactForm({
         </div>
       )}
 
-      <Turnstile
-        ref={turnstileRef}
-        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
-        onSuccess={setTurnstileToken}
-        onExpire={() => setTurnstileToken("")}
-        onError={() => setTurnstileToken("")}
-        options={{ size: "flexible" }}
-      />
+      {TURNSTILE_SITE_KEY && (
+        <Turnstile
+          ref={turnstileRef}
+          siteKey={TURNSTILE_SITE_KEY}
+          onSuccess={handleTurnstileSuccess}
+          onExpire={() => setTurnstileToken("")}
+          onError={() => {
+            setTurnstileToken("");
+            setTurnstileErrored(true);
+          }}
+          options={{ size: "flexible" }}
+        />
+      )}
+
+      {turnstileFailed && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+          We couldn&apos;t load our spam check. Please email us at{" "}
+          <a href={`mailto:${siteConfig.email}`} className="underline hover:no-underline">
+            {siteConfig.email}
+          </a>
+          .
+        </div>
+      )}
 
       <button
         type="submit"
