@@ -29,9 +29,16 @@ export async function POST(req: NextRequest) {
   }
 
   // Webhook from Sanity: verify the signature (parseBody also waits briefly for the
-  // Content Lake to become consistent before we refetch).
-  const { isValidSignature } = await parseBody(req, secret);
-  if (isValidSignature !== true) {
+  // Content Lake to become consistent before we refetch). parseBody JSON-parses the body
+  // even when the signature is invalid, so a forged non-JSON request throws; treat that
+  // as an invalid signature rather than a server error.
+  let validSignature = false;
+  try {
+    validSignature = (await parseBody(req, secret)).isValidSignature === true;
+  } catch (error) {
+    console.error("Revalidate webhook: could not parse or verify the request", error);
+  }
+  if (!validSignature) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 

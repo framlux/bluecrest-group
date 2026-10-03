@@ -38,6 +38,15 @@ describe("POST /api/revalidate", () => {
     expect((await POST(req())).status).toBe(401);
   });
 
+  it("treats a parseBody failure (non-JSON body) as an invalid signature, not a 500", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    parseBody.mockRejectedValue(new SyntaxError("Unexpected token"));
+    const res = await POST(req());
+    expect(res.status).toBe(401);
+    expect(revalidateTag).not.toHaveBeenCalled();
+    expect(fanOut).not.toHaveBeenCalled();
+  });
+
   it("revalidates and fans out on a valid signature, even if a peer fails", async () => {
     parseBody.mockResolvedValue({ isValidSignature: true, body: { _type: "article" } });
     const res = await POST(req());
