@@ -16,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <head>
+        <link rel="preconnect" href="https://fonts.cdnfonts.com" />
         {/* Harabara Mais Demo - Brand headline font */}
         <link
           href="https://fonts.cdnfonts.com/css/harabara-mais-demo"

@@ -9,6 +9,7 @@ import { getServiceIcon } from "@/utils/service-icons";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
 import FeaturedInsights from "@/components/FeaturedInsights";
+import HeroVideo from "@/components/HeroVideo";
 
 interface Article {
   _id: string;
@@ -48,15 +49,7 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
       {/* Hero Section - BlueCrest Brand */}
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-32 lg:h-screen lg:flex lg:items-center relative overflow-hidden bg-gradient-to-br from-white to-gray-50">
         {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
-        >
-          <source src="/bluecrest-group-fractional-cfo-services-orange-county-ca.mp4" type="video/mp4" />
-        </video>
+        <HeroVideo />
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/70 to-gray-50/70 z-0"></div>
 
