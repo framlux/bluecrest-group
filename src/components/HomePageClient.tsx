@@ -243,7 +243,7 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
                 className="mb-20 scroll-mt-24"
               >
                 <div className={`bg-gradient-to-r ${colors[categoryIndex]} rounded-2xl p-8 mb-8`}>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-white mb-2">{category.name}</h3>
+                  <p className="text-3xl lg:text-4xl font-bold text-white mb-2">{category.name}</p>
                   <p className="text-white/90 text-lg">{category.description}</p>
                 </div>
 

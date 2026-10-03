@@ -8,6 +8,7 @@ import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
 import { CONTACT_FORM_ID } from "@/lib/cta";
 import { breadcrumbSchema } from "@/lib/structured-data";
+import { telHref } from "@/lib/phone";
 
 export const metadata: Metadata = buildMetadata(pageMeta.contact);
 
@@ -101,6 +102,23 @@ export default function ContactPage() {
                       </div>
                     </div>
 
+                    {/* Phone */}
+                    {telHref(siteConfig.phone) && (
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-xl flex items-center justify-center shrink-0">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-500 mb-1">Phone</p>
+                          <a href={telHref(siteConfig.phone)!} className="text-gray-900 font-semibold hover:text-[var(--color-brand-blue)] transition-colors">
+                            {siteConfig.phone}
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Location */}
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-xl flex items-center justify-center shrink-0">
@@ -189,36 +207,6 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-20 lg:py-28 bg-slate-50">
-        <div className="container-site">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="inline-block text-[var(--color-brand-blue)] font-semibold text-sm tracking-wide uppercase mb-4">
-              Our Service Area
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Serving {siteConfig.region}
-            </h2>
-            <p className="text-xl text-gray-600">
-              Based in {siteConfig.city}, we provide services to businesses throughout
-              {" "}{siteConfig.serviceArea}.
-            </p>
-          </div>
-          <div className="rounded-3xl overflow-hidden shadow-xl">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212270.28414308854!2d-117.7803964!3d33.640814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dc925c54d5f7cf%3A0xdea6c3618ff0d607!2sOrange%20County%2C%20CA!5e0!3m2!1sen!2sus!4v1738182400000!5m2!1sen!2sus"
-              width="100%"
-              height="450"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="BlueCrest Group Service Area"
-            />
           </div>
         </div>
       </section>

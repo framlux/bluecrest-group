@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
+import { pageMeta } from "@/data/page-meta";
 import ContactCta from "@/components/ContactCta";
+
+export const metadata: Metadata = {
+  title: pageMeta.notFound.title,
+  description: pageMeta.notFound.description,
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (
@@ -51,7 +59,7 @@ export default function NotFound() {
                 className="btn-outline px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2"
                 icon={
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 }
               />
@@ -98,7 +106,7 @@ export default function NotFound() {
                 </Link>
 
                 <Link
-                  href="/service-areas"
+                  href="/services/fractional-cfo-services"
                   className="flex items-center gap-3 p-4 rounded-xl hover:bg-gray-50 transition-colors group"
                 >
                   <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-brand-navy)] to-[var(--color-navy-dark)] rounded-lg flex items-center justify-center shrink-0">
@@ -109,9 +117,9 @@ export default function NotFound() {
                   </div>
                   <div className="text-left">
                     <div className="font-semibold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors">
-                      Service Areas
+                      Fractional CFO Services
                     </div>
-                    <div className="text-sm text-gray-500">Where we serve</div>
+                    <div className="text-sm text-gray-500">Strategic financial leadership</div>
                   </div>
                 </Link>
 
