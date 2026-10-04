@@ -36,10 +36,9 @@ In addition to his experience in start ups, Josh has also held senior financial 
   serviceArea: "Orange County and Southern California",
   // T4: flip to true once three articles are published. Restores Insights in nav, footer, sitemap, and indexing.
   insightsEnabled: false as boolean,
-  // D3: cities listed on the Service Areas hub and in JSON-LD areaServed. Placeholder until Josh confirms.
+  // D3: cities listed on the Service Areas hub and in JSON-LD areaServed (confirmed by Josh, 2026-10-03).
   serviceAreaCities: [
     "Newport Beach",
-    "Corona del Mar",
     "Irvine",
     "Costa Mesa",
     "Huntington Beach",
@@ -51,6 +50,8 @@ In addition to his experience in start ups, Josh has also held senior financial 
     "Tustin",
     "Mission Viejo",
     "Lake Forest",
+    "San Clemente",
+    "Dana Point",
   ],
 
   // Hours
