@@ -62,7 +62,7 @@
 
 | # | Decision | Recommendation |
 |---|----------|----------------|
-| D1 | Blog backend | **Decided: keep Sanity.** |
+| D1 | Blog backend | **Decided (2026-10-05): no blog.** Remove Sanity, the Insights pages, the publish webhook, and every Sanity dependency. `/insights` and `/insights/*` redirect (308) to `/`. This supersedes D2, D6, D7 and §3.6. |
 | D2 | How posts go live | **Decided:** a Sanity webhook triggers an instant refresh on both pods, with a 5-minute interval refresh as the fallback (§3.6). Code changes still need a build plus a digest bump in `framlux/stack`. |
 | D3 | Final list of cities shown as plain text on the Service Areas hub | **Waiting on Josh.** The list goes in `siteConfig.serviceAreaCities` and also feeds JSON-LD `areaServed`. Build with the current 13 names as a placeholder. |
 | D4 | New 1200×630 OG image | **Waiting on Josh.** The current file is 1000×570. Wire `og-default.jpg` now and drop in the file when it arrives. |
@@ -224,72 +224,20 @@ Keep these in an exported `src/data/redirects.ts` so a test can check that every
   - Wire up the schemas from §3.3.
 - **`services/page.tsx`**: confirm it lists all 16 via `services` (it does, through categories).
 
-### 3.6 Blog: Sanity, published automatically (T4, T14)
+### 3.6 Blog: removed (D1, 2026-10-05)
 
-**Decision D1: keep Sanity.** Today a post published in Sanity does **not** appear on the site by itself:
-- `/insights` and the homepage are rendered once, at build time.
-- The fetches use `cache: "force-cache"` (`sanity.client.ts`, `page.tsx:21`), and nothing sets `revalidate`.
-- The sitemap is also built once.
+BlueCrest does not want a blog. Remove all of the following:
+- `src/app/(public)/insights/**` and `src/app/(public)/api/revalidate/**`
+- `src/lib/sanity*.ts`, `src/lib/insights.ts` and `src/lib/revalidate.ts`, with their tests
+- `FeaturedInsights` and `PortableTextComponents`
+- the `/sanity` package and the Sanity npm deps
+- the `cdn.sanity.io` image pattern
+- the Sanity env vars, in `.env.local.example`, the `Dockerfile` and `production.yaml`
+- the `insightsEnabled` switch, the Insights nav and footer links, `pageMeta.insights`, Article JSON-LD, and article entries in the sitemap
 
-So a new post shows up in the list, on the homepage, and in the sitemap only after a new image is built **and** the digest is bumped in `framlux/stack`. Its own URL renders on its first visit, because `dynamicParams` defaults to true, but nothing links to it.
+Add permanent redirects for `/insights` and `/insights/:path*` to `/`.
 
-**Fix: a Sanity webhook for instant updates, with a 5-minute interval refresh as the fallback.**
-- **Data layer:** replace every `cache: "force-cache"` Sanity fetch with `{ next: { revalidate: 300, tags: ["sanity"] } }`. Put this in the one `fetchSanity` helper and route all fetches through it, including `lib/sanity.ts` `client.fetch` calls, the homepage, the insights pages, and the sitemap. A segment-level `revalidate` alone is **not** enough: a `force-cache` fetch keeps returning its stale data-cache entry even when the page regenerates.
-- **Segments:** add `export const revalidate = 300` to `(public)/page.tsx`, `insights/page.tsx`, `insights/[slug]/page.tsx`, and `sitemap.ts`. Keep `dynamicParams = true` on `[slug]` so new slugs render without a rebuild.
-- **Sanity CDN:** `useCdn: true` adds up to about a minute of lag. That is acceptable; keep it.
-- **Interval fallback:** keep `revalidate: 300` above, so a missed webhook costs at most 5 minutes.
-- **Runtime:** ISR writes to `.next/cache` inside the container. The runner image runs as root, so the directory is writable. The cache is lost on pod restart and rebuilt from Sanity on demand.
-
-**Webhook (instant publish):**
-- **New route `src/app/(public)/api/revalidate/route.ts`** (`POST`):
-  1. Verify the Sanity signature with `parseBody` from `next-sanity/webhook` and `SANITY_REVALIDATE_SECRET`. Return 401 if the signature is invalid.
-  2. Call `revalidateTag("sanity")`. This one tag covers the homepage, `/insights`, every article and the sitemap. No per-slug logic is needed.
-  3. **Fan out to the other replica.** Prod runs 2 pods, each with its own cache, and the Service delivers the webhook to only one of them. The receiving pod resolves the headless Service DNS name (`REVALIDATE_PEERS_HOST`) to all pod IPs. It then POSTs to `http://<ip>:3000/api/revalidate` on each with `x-revalidate-fanout: <SANITY_REVALIDATE_SECRET>`.
-     - A fan-out request carrying that header skips signature parsing and does not fan out again.
-     - When `REVALIDATE_PEERS_HOST` is unset (local dev), skip the fan-out.
-     - A failed peer call is logged, not fatal: that pod catches up within 5 minutes.
-- **`framlux/stack/…/bluecrest-web/base/`**:
-  - Add `service-headless.yaml`: a `Service` named `bluecrest-web-peers` with `clusterIP: None`, `selector: app: bluecrest-web`, and port 3000. List it in `kustomization.yaml`.
-  - Add `SANITY_REVALIDATE_SECRET` to the SealedSecret (item 7).
-  - Add `REVALIDATE_PEERS_HOST=bluecrest-web-peers.bluecrest.svc.cluster.local` to the deployment env.
-- **Webhook configuration in Sanity:**
-
-  | Field | Value |
-  |---|---|
-  | URL | `https://bluecrest-group.com/api/revalidate` |
-  | Dataset | `production` |
-  | Trigger on | Create, Update, Delete |
-  | Filter | `_type == "article"` |
-  | Projection | `{_type, "slug": slug.current}` |
-  | HTTP method | POST |
-  | Secret | `SANITY_REVALIDATE_SECRET` |
-  | Drafts | Off |
-
-- **Who sets it up (D7):** Josh is not technical, and the schema changes below require deploying the Studio anyway (`pnpm studio:deploy`), which needs project access. **Recommended:** Josh invites Jonathan to the Sanity project as **Administrator**. On sanity.io/manage that is: project → Members → Invite. That is Josh's only step. We then create the webhook and deploy the Studio ourselves. Fallback: send Josh a Sanity webhook share link (sanity.io/manage/webhooks/share) prefilled with the values above. He opens it, picks the project, and pastes the secret, which we send him separately and never put in the link.
-
-Result: publish in Studio, and the post appears on both pods within seconds, with no rebuild or digest bump. If the webhook ever fails, the 5-minute interval refresh still picks it up.
-
-**Sanity schema (`sanity/schemaTypes/article.ts`):**
-- Today it has `title`, `slug`, `excerpt`, `mainImage`, `category`, `author`, `body`, `publishedAt`, and `isFeatured`.
-- Add these fields:
-  - `seoDescription` (string, 140–155 chars, validated)
-  - `updatedAt` (datetime, optional)
-  - `relatedService` (string list drawn from the 16 service slugs)
-  - `ogImage` (image, optional; falls back to `mainImage`, then the site default)
-- Make `author`, `publishedAt`, and `seoDescription` required.
-- Deploy with `pnpm studio:deploy`.
-
-**Pages:**
-- **`insights/page.tsx`**: if `insightsEnabled` is false, or Sanity returns no articles, render "Coming Soon" with `robots: { index: false, follow: true }`. Title "Insights" (brand added by the template, no em dash).
-- **`insights/[slug]/page.tsx`**:
-  - `buildMetadata` (canonical, social preview, title = `article.title`, description = `seoDescription ?? excerpt`).
-  - Show the author, published date, and updated date.
-  - Link to `relatedService`.
-  - Article and Breadcrumb schemas.
-  - Replace the "— BlueCrest Group Insights" title suffix (it duplicates the brand).
-- **Nav, footer, homepage**: show the Insights links and `FeaturedInsights` only when `insightsEnabled`.
-
-**Switch-on rule (T4):** set `insightsEnabled: true` once 3 articles are published. That one flag restores indexing, the nav and footer links, and the sitemap entries.
+In `framlux/stack`, drop the headless peers Service, `REVALIDATE_PEERS_HOST`, `SANITY_REVALIDATE_SECRET` and the `NEXT_PUBLIC_SANITY_*` env.
 
 ### 3.7 Phone, location, maps (T15)
 
