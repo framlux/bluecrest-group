@@ -31,12 +31,10 @@ jobs:
           push: true
           tags: ghcr.io/framlux/bluecrest/web:latest
           secrets: |
-            NEXT_PUBLIC_SANITY_PROJECT_ID=${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
             SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}
             TURNSTILE_SECRET=${{ secrets.TURNSTILE_SECRET }}
             NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
           build-args: |
-            NEXT_PUBLIC_SANITY_DATASET=${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
             SENDGRID_TEMPLATE_ID=${{ vars.SENDGRID_TEMPLATE_ID }}
             SENDGRID_TEMPLATE_CONFIRMATION=${{ vars.SENDGRID_TEMPLATE_CONFIRMATION }}
             SENDGRID_REPLY_TO=${{ vars.SENDGRID_REPLY_TO }}

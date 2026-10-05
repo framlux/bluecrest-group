@@ -9,7 +9,6 @@ FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN --mount=type=secret,id=SENDGRID_API_KEY,env=SENDGRID_API_KEY \
     --mount=type=secret,id=TURNSTILE_SECRET,env=TURNSTILE_SECRET \
-    --mount=type=secret,id=NEXT_PUBLIC_SANITY_PROJECT_ID,env=NEXT_PUBLIC_SANITY_PROJECT_ID \
     --mount=type=secret,id=NEXT_PUBLIC_TURNSTILE_SITE_KEY,env=NEXT_PUBLIC_TURNSTILE_SITE_KEY \
     --mount=type=secret,id=DATABASE_URL,env=DATABASE_URL \
     --mount=type=secret,id=AUTH_SECRET,env=AUTH_SECRET \
