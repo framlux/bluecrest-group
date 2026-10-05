@@ -34,6 +34,14 @@ describe("redirect map", () => {
   });
 });
 
+describe("insights redirects", () => {
+  it.each(["/insights", "/insights/:path*"])("%s redirects to the home page", (source) => {
+    const r = redirects.find((x) => x.source === source);
+    expect(r?.destination).toBe("/");
+    expect(r?.permanent).toBe(true);
+  });
+});
+
 describe("city redirects", () => {
   const removed = [
     "irvine-ca", "costa-mesa-ca", "huntington-beach-ca", "laguna-beach-ca", "orange-ca",
