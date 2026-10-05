@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   businessSchema, personSchema, serviceSchema, faqSchema, breadcrumbSchema,
-  articleSchema, serializeJsonLd, BUSINESS_ID, FOUNDER_ID, absoluteUrl,
+  serializeJsonLd, BUSINESS_ID, FOUNDER_ID, absoluteUrl,
 } from "./structured-data";
 
 const ORIGIN = "https://bluecrest-group.com";
@@ -69,16 +69,8 @@ describe("page schemas", () => {
     ]);
   });
 
-  it("article has author, publisher, and dates", () => {
-    const a = articleSchema({ headline: "H", description: "D", path: "/insights/h", datePublished: "2026-10-01" });
-    expect(a.author).toEqual({ "@type": "Person", "@id": FOUNDER_ID, name: "Josh Miller", url: `${ORIGIN}/about` });
-    expect(a.publisher).toEqual({ "@id": BUSINESS_ID });
-    expect(a.dateModified).toBe("2026-10-01");
-    expect(a.mainEntityOfPage).toBe(`${ORIGIN}/insights/h`);
-  });
-
   it("absoluteUrl leaves absolute urls alone", () => {
-    expect(absoluteUrl("https://cdn.sanity.io/a.jpg")).toBe("https://cdn.sanity.io/a.jpg");
+    expect(absoluteUrl("https://example.com/a.jpg")).toBe("https://example.com/a.jpg");
   });
 });
 

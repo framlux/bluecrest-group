@@ -105,11 +105,6 @@ export default function Footer() {
                   <Link href="/services" className="text-gray-300 hover:text-[var(--color-brand-blue)] transition-colors font-medium">
                     Services
                   </Link>
-                  {siteConfig.insightsEnabled && (
-                    <Link href="/insights" className="text-gray-300 hover:text-[var(--color-brand-blue)] transition-colors font-medium">
-                      Insights
-                    </Link>
-                  )}
                   <Link href="/contact" className="text-gray-300 hover:text-[var(--color-brand-blue)] transition-colors font-medium">
                     Contact
                   </Link>

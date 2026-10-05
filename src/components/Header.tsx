@@ -242,15 +242,6 @@ export default function Header() {
               </div>
             </div>
 
-            {siteConfig.insightsEnabled && (
-              <Link
-                href="/insights"
-                className="text-gray-600 hover:text-[var(--color-brand-blue)] font-medium transition-colors"
-              >
-                Insights
-              </Link>
-            )}
-
             <Link
               href="/contact"
               className="text-gray-600 hover:text-[var(--color-brand-blue)] font-medium transition-colors"
@@ -350,16 +341,6 @@ export default function Header() {
                   </Link>
                 </div>
               </div>
-
-              {siteConfig.insightsEnabled && (
-                <Link
-                  href="/insights"
-                  className="py-3 text-gray-700 font-medium border-b border-gray-100"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Insights
-                </Link>
-              )}
 
               <Link
                 href="/contact"

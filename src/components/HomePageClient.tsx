@@ -8,27 +8,9 @@ import { getLocationImagePath, getPrimaryLocation } from "@/data/locations";
 import { getServiceIcon } from "@/utils/service-icons";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
-import FeaturedInsights from "@/components/FeaturedInsights";
 import HeroVideo from "@/components/HeroVideo";
 
-interface Article {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  excerpt?: string;
-  mainImage?: {
-    alt?: string;
-    [key: string]: unknown;
-  };
-  publishedAt: string;
-  category?: string;
-}
-
-interface HomePageClientProps {
-  featuredArticles: Article[];
-}
-
-export default function HomePageClient({ featuredArticles }: HomePageClientProps) {
+export default function HomePageClient() {
   const primaryLocation = getPrimaryLocation();
 
   const scrollToCategory = (categoryId: string) => {
@@ -350,9 +332,6 @@ export default function HomePageClient({ featuredArticles }: HomePageClientProps
           </div>
         </div>
       </section>
-
-      {/* Insights Section */}
-      <FeaturedInsights articles={featuredArticles} />
 
       {/* Service Areas */}
       <section className="py-20 bg-white">

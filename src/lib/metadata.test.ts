@@ -48,7 +48,7 @@ describe("buildMetadata", () => {
   });
 
   it("uses a per-page image when given", () => {
-    const img = { url: "https://cdn.sanity.io/x.jpg", width: 1200, height: 630, alt: "x" };
+    const img = { url: "https://example.com/x.jpg", width: 1200, height: 630, alt: "x" };
     const m = buildMetadata({ ...base, image: img });
     expect((m.openGraph as { images?: unknown }).images).toEqual([img]);
     expect((m.twitter as { images?: unknown }).images).toEqual([img.url]);
@@ -62,7 +62,7 @@ describe("buildMetadata", () => {
 
 describe("fullTitle", () => {
   it("appends the brand unless absolute", () => {
-    expect(fullTitle("Insights")).toBe("Insights | BlueCrest Group");
+    expect(fullTitle("Services")).toBe("Services | BlueCrest Group");
     expect(fullTitle("BlueCrest Group | Home", true)).toBe("BlueCrest Group | Home");
   });
 });

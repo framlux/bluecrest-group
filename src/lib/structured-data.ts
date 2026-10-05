@@ -96,28 +96,6 @@ export function breadcrumbSchema(items: { name: string; path: string }[]): JsonL
   };
 }
 
-export function articleSchema(input: {
-  headline: string;
-  description: string;
-  path: string;
-  image?: string;
-  datePublished: string;
-  dateModified?: string;
-}): JsonLdObject {
-  return {
-    "@context": CONTEXT,
-    "@type": "Article",
-    headline: input.headline,
-    description: input.description,
-    image: input.image ? absoluteUrl(input.image) : absoluteUrl(DEFAULT_OG_IMAGE.url),
-    author: { "@type": "Person", "@id": FOUNDER_ID, name: siteConfig.founder.name, url: absoluteUrl("/about") },
-    publisher: { "@id": BUSINESS_ID },
-    datePublished: input.datePublished,
-    dateModified: input.dateModified ?? input.datePublished,
-    mainEntityOfPage: absoluteUrl(input.path),
-  };
-}
-
 /** JSON for a <script> tag: escapes "<" so content can never close the tag. */
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, "\\u003c");

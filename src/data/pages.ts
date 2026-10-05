@@ -14,6 +14,3 @@ export const staticPages: StaticPage[] = [
   { path: "/privacy", updatedAt: "2026-10-02" },
   { path: "/terms", updatedAt: "2026-10-02" },
 ];
-
-/** The Insights hub's own date; articles carry theirs from Sanity. */
-export const INSIGHTS_HUB_UPDATED_AT = "2026-10-02";

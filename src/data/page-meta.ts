@@ -46,11 +46,6 @@ export const pageMeta = {
     title: "Terms of Service",
     description: `Terms of service for ${businessName}. Review our terms and conditions for using our fractional CFO and accounting services.`,
   },
-  insights: {
-    path: "/insights",
-    title: "Insights",
-    description: `Insights on financial strategy, business growth, tax planning, and CFO best practices from ${businessName}.`,
-  },
   notFound: {
     title: "Page Not Found",
     description: "The page you are looking for could not be found.",
