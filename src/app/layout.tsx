@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { gtmHeadScript, gtmNoscriptSrc } from "@/lib/gtm";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,6 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
       <head>
+        {/* Google Tag Manager */}
+        <script dangerouslySetInnerHTML={{ __html: gtmHeadScript }} />
         <link rel="preconnect" href="https://fonts.cdnfonts.com" />
         {/* Harabara Mais Demo - Brand headline font */}
         <link
@@ -24,6 +27,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col antialiased">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe src={gtmNoscriptSrc} height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
+        </noscript>
         {children}
       </body>
     </html>
