@@ -1,5 +1,6 @@
 import { siteConfig } from "@/data/site-config";
 import { DEFAULT_OG_IMAGE } from "@/lib/metadata";
+import { telHref } from "@/lib/phone";
 
 export type JsonLdObject = Record<string, unknown>;
 
@@ -46,7 +47,8 @@ export function businessSchema(): JsonLdObject {
       closes: "18:00",
     },
   };
-  if (siteConfig.phone) schema.telephone = siteConfig.phone;
+  const tel = telHref(siteConfig.phone);
+  if (tel) schema.telephone = tel.replace("tel:", "");
   if (siteConfig.googleBusinessProfileUrl) schema.sameAs = [siteConfig.googleBusinessProfileUrl];
   return schema;
 }
@@ -94,18 +96,6 @@ export function articleSchema(input: {
     dateModified: input.dateModified,
     author: { "@type": "Organization", "@id": BUSINESS_ID, name: siteConfig.businessName, url: siteConfig.url },
     publisher: { "@id": BUSINESS_ID },
-  };
-}
-
-export function faqSchema(faqs: { question: string; answer: string }[]): JsonLdObject {
-  return {
-    "@context": CONTEXT,
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer },
-    })),
   };
 }
 

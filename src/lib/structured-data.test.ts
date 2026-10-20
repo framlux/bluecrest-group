@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
-  businessSchema, personSchema, serviceSchema, faqSchema, breadcrumbSchema, articleSchema,
+  businessSchema, personSchema, serviceSchema, breadcrumbSchema, articleSchema,
   serializeJsonLd, BUSINESS_ID, FOUNDER_ID, absoluteUrl,
 } from "./structured-data";
 
@@ -31,8 +31,8 @@ describe("businessSchema", () => {
     expect(areas.some((a) => a.name === "Newport Beach, CA" && a["@type"] === "City")).toBe(true);
   });
 
-  it("omits telephone and sameAs while they are empty", () => {
-    expect(s).not.toHaveProperty("telephone");
+  it("lists the business phone and omits sameAs while it is empty", () => {
+    expect(s.telephone).toBe("+19494383418");
     expect(s).not.toHaveProperty("sameAs");
   });
 
@@ -55,10 +55,8 @@ describe("page schemas", () => {
     expect(s.url).toBe(`${ORIGIN}/services/audit-preparation`);
   });
 
-  it("FAQPage mirrors the given FAQ text exactly", () => {
-    const faqs = [{ question: "Q1?", answer: "A1." }, { question: "Q2?", answer: "A2." }];
-    const f = faqSchema(faqs) as { mainEntity: { name: string; acceptedAnswer: { text: string } }[] };
-    expect(f.mainEntity.map((q) => [q.name, q.acceptedAnswer.text])).toEqual([["Q1?", "A1."], ["Q2?", "A2."]]);
+  it("no longer offers FAQPage markup (item 1)", async () => {
+    expect(Object.keys(await import("./structured-data"))).not.toContain("faqSchema");
   });
 
   it("breadcrumbs are positioned and absolute", () => {

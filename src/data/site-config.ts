@@ -13,8 +13,8 @@ export const siteConfig = {
   // Contact
   email: "info@bluecrest-group.com",
   url: "https://bluecrest-group.com",
-  // T15: supplied by Josh. Empty renders nothing.
-  phone: "" as string,
+  // Developer Update List item 27. Empty renders nothing.
+  phone: "(949) 438-3418" as string,
   // S1: Google Business Profile URL. Empty renders nothing.
   googleBusinessProfileUrl: "" as string,
 
@@ -31,8 +31,7 @@ In addition to his experience in start ups, Josh has also held senior financial 
   },
 
   // Business details
-  serviceArea: "Orange County and Southern California",
-  // D3: cities listed on the Service Areas hub and in JSON-LD areaServed (confirmed by Josh, 2026-10-03).
+  // Cities on the Service Areas hub and in JSON-LD areaServed, in this order (Developer Update List item 14).
   serviceAreaCities: [
     "Newport Beach",
     "Irvine",
@@ -46,8 +45,6 @@ In addition to his experience in start ups, Josh has also held senior financial 
     "Tustin",
     "Mission Viejo",
     "Lake Forest",
-    "San Clemente",
-    "Dana Point",
   ],
 
   // Hours

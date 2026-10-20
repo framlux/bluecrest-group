@@ -47,13 +47,11 @@ export default function ContactPage() {
             <span className="inline-block text-[var(--color-brand-gold)] font-semibold text-sm tracking-wide uppercase mb-4">
               Get in Touch
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="!text-white">Let&apos;s Start a</span>{" "}
-              <span className="text-[var(--color-brand-gold)]">Conversation</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 !text-white">
+              Contact Us
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              Ready to discuss how BlueCrest Group can support your business?
-              Send us a message or email us directly.
+              Schedule a free 15-minute consultation or reach out directly.
             </p>
           </div>
         </div>
@@ -67,11 +65,11 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <div id={CONTACT_FORM_ID} className="bg-white rounded-3xl shadow-soft border border-gray-100 p-8 lg:p-10 scroll-mt-28">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  Send Us a Message
+                  Schedule Your Free 15-Minute Consultation
                 </h2>
                 <p className="text-gray-600 mb-8">
-                  Tell us about your business and financial needs. We will reach out
-                  to schedule a conversation about how we can help.
+                  Tell us about your business and financial needs. We will reach out within one business
+                  day to schedule a conversation about how we can help.
                 </p>
                 <ContactForm variant="default" />
               </div>
@@ -133,7 +131,7 @@ export default function ContactPage() {
                           {siteConfig.city}, {siteConfig.stateAbbr}
                         </p>
                         <p className="text-sm text-gray-600">
-                          Serving {siteConfig.serviceArea}
+                          Serving {siteConfig.region}
                         </p>
                       </div>
                     </div>
@@ -177,7 +175,7 @@ export default function ContactPage() {
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-gray-300">Free initial consultation</span>
+                      <span className="text-gray-300">Free 15-minute consultation</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="w-6 h-6 bg-gradient-to-br from-[var(--color-brand-gold)] to-[var(--color-gold-dark)] rounded-full flex items-center justify-center shrink-0">
@@ -204,6 +202,14 @@ export default function ContactPage() {
                       <span className="text-gray-300">No obligation or pressure</span>
                     </li>
                   </ul>
+                </div>
+
+                {/* Service Area */}
+                <div className="bg-slate-50 rounded-3xl border border-gray-100 p-6 lg:p-8">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">Serving {siteConfig.region}</h3>
+                  <p className="text-gray-600">
+                    Based in {siteConfig.city}, we serve businesses throughout {siteConfig.region}.
+                  </p>
                 </div>
               </div>
             </div>
