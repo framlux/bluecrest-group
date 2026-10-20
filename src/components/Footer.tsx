@@ -1,30 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
-import { services } from "@/data/services";
+import { serviceCategories, getServicesByCategory } from "@/data/services";
 import ContactCta from "@/components/ContactCta";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const allServices = services;
 
   return (
-    <footer className="bg-white pt-20 pb-0">
-      {/* Connect Your Business CTA */}
-      <div className="text-center mb-16 px-6">
-        <h2 className="text-4xl lg:text-5xl font-bold text-[var(--color-brand-navy)] mb-2">
-          <span className="relative inline-block">
-            <span className="absolute -inset-1 border-2 border-[var(--color-brand-gold)] rounded-full transform -rotate-2"></span>
-            <span className="relative">Connect</span>
-          </span>{" "}
-          Your Business to Success
-        </h2>
-        <p className="text-gray-600 mt-4 text-lg">
-          Strategic financial leadership for growing businesses
-        </p>
-        <ContactCta className="mt-8 btn-primary px-10 py-4 rounded-full font-semibold text-lg inline-block" />
-      </div>
-
+    <footer className="bg-white pt-32 pb-0">
       {/* Navy Footer Section */}
       <div className="bg-[var(--color-brand-navy)] rounded-t-[3rem] relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
@@ -74,24 +58,20 @@ export default function Footer() {
                   </a>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-white/20">
-                  <ContactCta className="w-full bg-[var(--color-brand-navy)] text-white py-4 rounded-full font-semibold hover:bg-[#2d4561] transition-all text-center block" />
-                </div>
 
               </div>
             </div>
 
             {/* Footer Links and Content */}
             <div className="lg:col-span-8 text-white pt-8">
-              <Link
-                href="/contact#contact-form"
-                className="text-[var(--color-brand-gold)] text-xl font-semibold hover:text-white transition-colors flex items-center gap-2 mb-12 inline-flex"
-              >
-                Connect Your Business to Success
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
+              {/* The site's one footer call to action (item 10) */}
+              <div className="mb-12">
+                <h2 className="text-3xl lg:text-4xl font-bold !text-white mb-3">Let&apos;s Talk About Your Business</h2>
+                <p className="text-gray-300 text-lg mb-6">
+                  Fractional CFO and accounting services for small and growing businesses in {siteConfig.region}.
+                </p>
+                <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-block" />
+              </div>
 
               {/* Company Links */}
               <div className="mb-12 border-b border-white/10 pb-8">
@@ -117,15 +97,28 @@ export default function Footer() {
               {/* All Services */}
               <div className="mb-12 border-b border-white/10 pb-8">
                 <h4 className="font-semibold mb-6 text-[var(--color-brand-gold)] text-lg">All Services</h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-3">
-                  {allServices.map((service) => (
-                    <Link
-                      key={service.slug}
-                      href={`/services/${service.slug}`}
-                      className="text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors text-sm"
-                    >
-                      {service.name}
-                    </Link>
+                <div className="grid sm:grid-cols-3 gap-8">
+                  {serviceCategories.map((category) => (
+                    <div key={category.id}>
+                      <Link
+                        href={`/services#${category.id}`}
+                        className="block mb-3 text-sm font-semibold text-white hover:text-[var(--color-brand-blue)] transition-colors"
+                      >
+                        {category.name}
+                      </Link>
+                      <ul className="space-y-2">
+                        {getServicesByCategory(category.id).map((service) => (
+                          <li key={service.slug}>
+                            <Link
+                              href={`/services/${service.slug}`}
+                              className="text-gray-400 hover:text-[var(--color-brand-blue)] transition-colors text-sm"
+                            >
+                              {service.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   ))}
                 </div>
               </div>

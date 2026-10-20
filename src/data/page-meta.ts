@@ -14,27 +14,27 @@ export const pageMeta = {
     path: "/",
     title: `${businessName} | Fractional CFO in ${city}, ${stateAbbr}`,
     absoluteTitle: true,
-    description: `${businessName} provides fractional CFO, accounting, and business consulting services for growing businesses in ${city}, ${stateAbbr} and ${region}. Expert financial leadership for companies with $1M+ revenue.`,
+    description: `${businessName} provides fractional CFO and accounting services for small and growing businesses in ${city}, ${stateAbbr} and ${region}, from clean books to executive-level finance.`,
   },
   about: {
     path: "/about",
     title: `About ${founder.name}, Fractional CFO`,
-    description: `Learn about ${businessName} and founder ${founder.name}. We provide fractional CFO and accounting services to growing businesses in ${region}.`,
+    description: `Learn about ${businessName} and principal ${founder.name}. We provide fractional CFO and accounting services to small and growing businesses in ${region}.`,
   },
   contact: {
     path: "/contact",
     title: "Contact Us",
-    description: `Contact ${businessName} for fractional CFO and accounting services in ${city} and ${region}. Send us a message and we will be in touch.`,
+    description: `Contact ${businessName} to schedule a free 15-minute consultation about fractional CFO and accounting services in ${city} and ${region}.`,
   },
   services: {
     path: "/services",
     title: "Fractional CFO and Accounting Services",
-    description: `Explore our fractional CFO, accounting, and business consulting services for growing businesses in ${city}, ${stateAbbr} and ${region}.`,
+    description: `Explore fractional CFO, accounting, and tax planning services for small and growing businesses in ${city}, ${stateAbbr} and ${region}.`,
   },
   serviceAreas: {
     path: "/service-areas",
     title: "Service Areas",
-    description: `From ${city}, ${businessName} provides fractional CFO, accounting, and business advisory services to businesses throughout ${region}, California.`,
+    description: `From ${city}, ${businessName} provides fractional CFO and accounting services to businesses throughout ${region}, California.`,
   },
   privacy: {
     path: "/privacy",

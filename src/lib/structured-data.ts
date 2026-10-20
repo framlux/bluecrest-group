@@ -23,7 +23,7 @@ export function businessSchema(): JsonLdObject {
     "@type": "ProfessionalService",
     "@id": BUSINESS_ID,
     name: siteConfig.businessName,
-    description: `${siteConfig.businessName} provides fractional CFO, accounting, and business advisory services to growing businesses in ${siteConfig.region}.`,
+    description: `${siteConfig.businessName} provides fractional CFO and accounting services to small and growing businesses in ${siteConfig.region}.`,
     url: siteConfig.url,
     logo: absoluteUrl(LOGO_PATH),
     image: SCHEMA_IMAGE_PATHS.map(absoluteUrl),

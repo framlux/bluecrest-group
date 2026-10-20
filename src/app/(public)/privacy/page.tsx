@@ -45,7 +45,7 @@ export default function PrivacyPage() {
         <div className="container-site">
           <div className="max-w-3xl mx-auto">
             <p className="text-gray-500 mb-10">
-              <em>Last updated: January 2025</em>
+              <em>Last updated: October 2026</em>
             </p>
 
             <div className="space-y-10">
@@ -85,6 +85,52 @@ export default function PrivacyPage() {
                 <p className="text-gray-600 leading-relaxed mt-4">
                   This information may include your name, email address, phone number, company name,
                   and any other information you choose to provide.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Cookies, Analytics, and Tracking Technologies</h2>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  Our website uses Google Tag Manager, a service provided by Google LLC, to manage the
+                  analytics and measurement tools that run on the site, such as Google Analytics. These
+                  tools use cookies, pixels, and similar technologies to collect information automatically
+                  when you visit, which may include:
+                </p>
+                <ul className="space-y-2 text-gray-600">
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
+                    Pages you view, how long you stay, and the links you click
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
+                    The website or search that referred you to us
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
+                    Your browser, device type, and operating system
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
+                    Your IP address and the approximate location derived from it
+                  </li>
+                </ul>
+                <p className="text-gray-600 leading-relaxed mt-4">
+                  We use this information to understand how visitors find and use our website and to
+                  improve its content. Google processes this information under its own privacy policy,
+                  available at{" "}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] transition-colors">
+                    policies.google.com/privacy
+                  </a>
+                  . Our contact form also uses Cloudflare Turnstile, which checks browser and device
+                  signals to protect the form from spam.
+                </p>
+                <p className="text-gray-600 leading-relaxed mt-4">
+                  You can block or delete cookies in your browser settings, and you can opt out of Google
+                  Analytics with the{" "}
+                  <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] transition-colors">
+                    Google Analytics Opt-out Browser Add-on
+                  </a>
+                  . Blocking cookies does not prevent you from using the site or submitting the contact form.
                 </p>
               </div>
 

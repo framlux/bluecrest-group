@@ -11,8 +11,8 @@ describe("contactCtaHref", () => {
     expect(contactCtaHref("/")).toBe("/contact#contact-form");
     expect(contactCtaHref(null)).toBe("/contact#contact-form");
   });
-  it("label is Contact Us", () => {
-    expect(CONTACT_CTA_LABEL).toBe("Contact Us");
+  it("label is Book a 15-Min Call", () => {
+    expect(CONTACT_CTA_LABEL).toBe("Book a 15-Min Call");
   });
 });
 
@@ -23,6 +23,7 @@ function walk(dir: string): string[] {
   });
 }
 
+// "Book a 15" is banned here too: the label lives only in cta.ts, rendered through <ContactCta>.
 describe("no legacy CTA labels in public UI", () => {
   const banned = /Connect Today|Book a call|Book An Intro|Book a 15|Free Consultation|Schedule a Consultation/i;
   const files = [...walk("src/components"), ...walk("src/app/(public)")]

@@ -22,6 +22,12 @@ describe("pageMeta", () => {
     expect(new Set(d).size).toBe(d.length);
   });
 
+  it.each(entries)("%s: description has no doubled word, lowercase acronym, revenue minimum, or consulting (T7, items 4 and 26)", (_k, m) => {
+    expect(m.description).not.toMatch(/\b(\w+)\s+\1\b/i);
+    expect(m.description).not.toMatch(/\b(cfo|kpi|hr)\b/);
+    expect(m.description).not.toMatch(/\$1M|consulting|advisory/i);
+  });
+
   it("paths are unique and root-relative", () => {
     const p = entries.map(([, m]) => m.path);
     expect(new Set(p).size).toBe(p.length);
