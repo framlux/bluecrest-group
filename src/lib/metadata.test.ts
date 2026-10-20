@@ -39,6 +39,14 @@ describe("buildMetadata", () => {
     expect((m.twitter as { description?: string }).description).toBe("Reach the team.");
   });
 
+  it("renders no description tags when the description is omitted", () => {
+    const m = buildMetadata({ title: "Fractional CFO Services in Orange County, CA", path: "/services/fractional-cfo-services" });
+    // null overrides the layout default; undefined would inherit it.
+    expect(m.description).toBeNull();
+    expect(m.openGraph).not.toHaveProperty("description");
+    expect(m.twitter).not.toHaveProperty("description");
+  });
+
   it("falls back to the default OG image and keeps siteName/type/locale", () => {
     const og = buildMetadata(base).openGraph as Record<string, unknown>;
     expect(og.images).toEqual([DEFAULT_OG_IMAGE]);

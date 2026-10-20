@@ -1,2082 +1,828 @@
+import type { Testimonial } from "@/data/testimonials";
+
+/**
+ * Service page copy, approved in BlueCrest_Website_Content.docx (Oct 13, 2026).
+ * Every page follows the standard layout (Developer Update List item 19):
+ * intro, What's Included, How It Works, optional cards, Why Choose, optional pricing, FAQ.
+ */
 export interface ServiceContent {
-  slug: string;
-  mainIntroduction: string;
-  whatsIncluded?: {
-    heading: string;
-    content: string;
-    bulletPoints: string[];
-  };
-  processSection?: {
-    heading: string;
-    intro: string;
-    steps: { heading: string; content: string }[];
-  };
-  applicationsSection?: {
-    heading: string;
-    intro: string;
-    applications: { heading: string; content: string }[];
-  };
-  whyChooseSection?: {
-    heading: string;
-    content: string;
-  };
-  pricingFactorsSection?: {
-    heading: string;
-    intro: string;
-    factors: { heading: string; content: string }[];
-  };
-  faqs?: { question: string; answer: string }[];
+  /** One paragraph under the H1. */
+  intro: string;
+  whatsIncluded: { heading: string; bullets: string[] };
+  /** Sections absorbed from merged pages, shown right after What's Included. */
+  extraSections?: { heading: string; text?: string; bullets?: string[] }[];
+  /** Four steps, one sentence each. */
+  process: { heading: string; steps: { heading: string; content: string }[] };
+  /** "Who It's For" cards, kept only where they add something unique. */
+  cards?: { heading: string; items: { heading: string; content: string }[] };
+  whyChoose: { heading: string; paragraphs: string[]; testimonial?: Testimonial["id"] };
+  /** Omitted where partners set pricing or scope varies too much. */
+  pricing?: { heading: string; intro: string; factors: { heading: string; content: string }[] };
+  /** Plain page content: no FAQPage markup. Always includes a cost question. */
+  faq: { heading: string; items: { question: string; answer: string }[] };
 }
 
+/** Closes every pricing section (item 18). */
+export const PRICING_CLOSING_LINE = "Additional client-specific factors may also affect pricing.";
+
+const FOUR_FACTORS = "Pricing depends on four main factors.";
+
 export const serviceContent: Record<string, ServiceContent> = {
-  "fractional-cfo-services": {
-    slug: "fractional-cfo-services",
-    mainIntroduction: `A fractional CFO provides your business with executive level financial leadership without the commitment of a full time hire. For growing companies in Newport Beach and Orange County, this means accessing strategic financial expertise precisely when and where you need it most. Our fractional CFO services deliver the same caliber of insight and guidance that Fortune 500 companies rely on, scaled to fit the needs and budget of small to mid sized businesses.
-
-Many business owners recognize they have outgrown basic bookkeeping but are not yet ready for a full time CFO. This is where fractional CFO services fill a critical gap. We step in as a trusted extension of your leadership team, bringing clarity to your financial position, identifying opportunities for growth, and helping you navigate complex decisions with confidence. Whether you are preparing for a capital raise, evaluating an acquisition, or simply want better visibility into your financial performance, our fractional CFO services provide the expertise you need.`,
-
-    whatsIncluded: {
-      heading: "What Our Fractional CFO Services Include",
-      content: "Our fractional CFO engagement is tailored to your specific business needs and growth stage. We work closely with you to understand your goals and deliver strategic financial leadership that drives results.",
-      bulletPoints: [
-        "Financial strategy development and execution planning aligned with your business objectives",
-        "Monthly and quarterly financial review meetings with actionable insights and recommendations",
-        "Cash flow management and forecasting to ensure healthy working capital",
-        "Budget development, monitoring, and variance analysis to keep you on track",
-        "KPI dashboard creation and performance reporting for real time visibility",
-        "Board and investor presentation preparation with professional financial materials",
-        "Risk assessment and mitigation strategies to protect your business",
-        "Strategic planning support for growth initiatives and expansion",
-        "Vendor and partner negotiations leveraging financial data and analysis",
-        "Team mentoring and development for your internal finance staff",
-      ],
-    },
-
-    processSection: {
-      heading: "How Our Fractional CFO Engagement Works",
-      intro: "We follow a structured approach to ensure you receive maximum value from our partnership. Each engagement begins with understanding your unique situation and ends with measurable improvements to your financial operations.",
-      steps: [
-        {
-          heading: "Discovery and Assessment",
-          content: "We start by conducting a thorough review of your current financial operations, systems, and reporting. This includes analyzing your historical financial data, understanding your business model, and identifying immediate opportunities for improvement. We also meet with key stakeholders to understand your goals, challenges, and vision for the company.",
-        },
-        {
-          heading: "Strategy Development",
-          content: "Based on our assessment, we develop a customized financial strategy aligned with your business objectives. This includes establishing key performance indicators, creating reporting frameworks, and building financial models that support decision making. We present our recommendations and work with you to prioritize initiatives.",
-        },
-        {
-          heading: "Implementation and Execution",
-          content: "With strategy in place, we begin implementing improvements to your financial operations. This may include upgrading reporting systems, establishing new processes, creating dashboards, and training your team. We work alongside your existing staff to ensure smooth transitions and knowledge transfer.",
-        },
-        {
-          heading: "Ongoing Strategic Partnership",
-          content: "Our engagement continues with regular meetings to review financial performance, discuss strategic opportunities, and address emerging challenges. We provide ongoing guidance on major decisions, help prepare for board meetings, and ensure your financial operations continue to evolve with your business.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "Types of Businesses We Serve",
-      intro: "Our fractional CFO services are designed for growing businesses that need strategic financial leadership but are not ready for a full time CFO. We work across a variety of industries and business stages.",
-      applications: [
-        {
-          heading: "Growth Stage Companies",
-          content: "Businesses generating one million to fifty million in revenue often reach an inflection point where basic accounting is no longer sufficient. Our fractional CFO services provide the strategic oversight needed to manage growth effectively, optimize cash flow, and make data driven decisions about expansion.",
-        },
-        {
-          heading: "Venture Backed Startups",
-          content: "Startups preparing for or managing through funding rounds benefit from experienced financial leadership. We help prepare financial models, investor materials, and reporting packages while ensuring your financial operations can scale with your growth trajectory.",
-        },
-        {
-          heading: "Private Equity Portfolio Companies",
-          content: "Portfolio companies need sophisticated financial reporting and strategic guidance to maximize value creation. Our fractional CFO services provide the expertise needed to implement best practices, drive operational improvements, and prepare for eventual exit.",
-        },
-        {
-          heading: "Family Owned Businesses",
-          content: "Multi generational businesses often need help professionalizing their financial operations while preserving the values that made them successful. We bring structure and strategic thinking while respecting the unique dynamics of family enterprises.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Orange County Businesses Choose Our Fractional CFO Services",
-      content: `Selecting a fractional CFO is an important decision that impacts your business trajectory. Our approach combines deep financial expertise with a genuine commitment to your success. We take time to understand your business, your industry, and your goals before making recommendations.
-
-Our team brings experience across multiple industries including technology, real estate, professional services, manufacturing, and healthcare. This breadth of experience means we can bring proven strategies and fresh perspectives to your specific challenges. We communicate clearly, avoiding unnecessary jargon, and ensure you always understand the financial implications of major decisions.
-
-Most importantly, we operate as a true partner in your success. We are invested in helping you achieve your goals and measure our success by the results we help you create. Our clients consistently tell us that working with us feels like having a trusted advisor in their corner.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Factors That Influence Fractional CFO Engagement Pricing",
-      intro: "Every business has unique needs, and our engagements are structured accordingly. Understanding the factors that influence pricing helps you plan appropriately and select the right level of support.",
-      factors: [
-        {
-          heading: "Scope of Services",
-          content: "The breadth of services you need directly impacts pricing. Some businesses require focused support in specific areas like cash flow management or fundraising, while others benefit from comprehensive CFO oversight across all financial functions.",
-        },
-        {
-          heading: "Time Commitment",
-          content: "Fractional CFO engagements typically range from a few hours per week to several days per month. The level of involvement needed depends on your business complexity, growth stage, and internal finance capabilities.",
-        },
-        {
-          heading: "Business Complexity",
-          content: "Companies with multiple entities, complex revenue models, or significant regulatory requirements require more sophisticated financial management. We adjust our approach and pricing to match your operational complexity.",
-        },
-        {
-          heading: "Special Projects",
-          content: "Specific initiatives like fundraising support, merger and acquisition due diligence, or system implementations may require additional focused effort beyond regular ongoing support.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "What is the difference between a fractional CFO and a full time CFO?",
-        answer: "A fractional CFO provides the same strategic financial leadership as a full time CFO but works with your business on a part time or project basis. This allows you to access senior level expertise at a fraction of the cost of a full time executive. Fractional CFOs typically work with multiple clients simultaneously, bringing diverse experience and best practices to each engagement.",
-      },
-      {
-        question: "How many hours per week does a typical fractional CFO engagement require?",
-        answer: "Engagement levels vary based on business needs. Most clients work with us between eight and twenty hours per month, though this can increase during intensive periods like fundraising or system implementations. We structure engagements flexibly to match your actual needs rather than requiring fixed commitments.",
-      },
-      {
-        question: "At what stage should a business consider hiring a fractional CFO?",
-        answer: "Most businesses benefit from fractional CFO services once they reach one million to two million in annual revenue, though the right timing depends on your specific situation. Signs you might be ready include difficulty managing cash flow, preparing for fundraising, considering acquisition or sale, or simply wanting better financial visibility to support growth decisions.",
-      },
-      {
-        question: "How is a fractional CFO different from an accountant or bookkeeper?",
-        answer: "Accountants and bookkeepers focus on recording transactions and ensuring accuracy in your financial records. A fractional CFO takes a strategic view, using financial data to guide business decisions, optimize operations, and plan for future growth. Think of it as the difference between knowing where you have been versus planning where you are going.",
-      },
-      {
-        question: "What should I expect during the first month of a fractional CFO engagement?",
-        answer: "The first month focuses on understanding your business and establishing a solid foundation. We conduct a thorough assessment of your financial operations, meet with key stakeholders, review historical data, and identify immediate opportunities. By the end of the first month, you will have a clear picture of priorities and a roadmap for improvement.",
-      },
-      {
-        question: "Can a fractional CFO help with fundraising?",
-        answer: "Fundraising support is one of the most common reasons businesses engage a fractional CFO. We help prepare financial models, develop investor presentations, create due diligence materials, and provide guidance throughout the fundraising process. Having an experienced CFO involved significantly improves your credibility with potential investors.",
-      },
-    ],
-  },
-
   "fractional-controller-services": {
-    slug: "fractional-controller-services",
-    mainIntroduction: `A fractional controller provides experienced financial oversight for your accounting operations without requiring a full time hire. For businesses in Newport Beach and throughout Orange County, this means having a seasoned professional ensure your books are accurate, your processes are efficient, and your financial reporting meets the standards you need to make confident decisions.
-
-Many growing businesses find themselves in a gap between basic bookkeeping and needing sophisticated financial management. Your bookkeeper handles day to day transactions, but you need someone to provide oversight, ensure accuracy, and produce reliable financial statements. A fractional controller fills this gap, bringing the expertise of a senior accounting professional to your team on a flexible basis that matches your needs and budget.`,
-
+    intro: "A fractional controller gives your business senior-level oversight of its accounting operations without the cost of a full-time hire. Your bookkeeper handles day-to-day transactions. We make sure the books are accurate, processes are efficient, internal controls are in place, and your financial statements are reliable enough to support confident decisions.",
     whatsIncluded: {
       heading: "What Our Fractional Controller Services Include",
-      content: "Our fractional controller services provide comprehensive oversight of your accounting operations, ensuring accuracy, efficiency, and reliable financial reporting.",
-      bulletPoints: [
-        "Monthly close process management ensuring timely and accurate financial statements",
-        "Account reconciliation review and approval for all balance sheet accounts",
-        "Financial statement preparation in accordance with GAAP standards",
-        "Internal controls assessment and improvement recommendations",
-        "Bookkeeping staff oversight and quality assurance",
-        "Accounting policy development and documentation",
-        "Audit preparation and external auditor coordination",
+      bullets: [
+        "Month-end close management for timely, accurate financial statements",
+        "Balance sheet reconciliation review and approval",
+        "GAAP financial statement preparation",
+        "Internal controls assessment and improvement",
+        "Bookkeeper oversight and quality review",
+        "Accounting policies and procedures documentation",
+        "Audit preparation and auditor coordination",
         "Cash flow monitoring and working capital management",
-        "Budget variance analysis and management reporting",
-        "System optimization and process improvement initiatives",
+        "Management reporting and variance analysis",
+        "Accounting system and process improvements",
       ],
     },
-
-    processSection: {
+    process: {
       heading: "How Our Fractional Controller Engagement Works",
-      intro: "We integrate seamlessly with your existing team to provide the oversight and expertise needed for reliable financial operations.",
       steps: [
-        {
-          heading: "Current State Assessment",
-          content: "We begin by evaluating your existing accounting processes, systems, and team capabilities. This includes reviewing recent financial statements, assessing internal controls, and identifying areas where accuracy or efficiency can be improved.",
-        },
-        {
-          heading: "Process Optimization",
-          content: "Based on our assessment, we implement improvements to your month end close process, reconciliation procedures, and reporting workflows. We establish clear timelines and responsibilities to ensure consistent, reliable results.",
-        },
-        {
-          heading: "Ongoing Oversight",
-          content: "We provide regular oversight of your accounting operations, reviewing transactions, approving reconciliations, and ensuring financial statements accurately reflect your business activities. We work closely with your bookkeeper or accounting staff to maintain high standards.",
-        },
-        {
-          heading: "Reporting and Communication",
-          content: "We prepare monthly financial statements and management reports that give you clear visibility into your business performance. We meet regularly with you to review results, discuss trends, and address any concerns.",
-        },
+        { heading: "Current State Assessment", content: "We evaluate your accounting processes, systems, staff, recent financial statements, and internal controls to find where accuracy or efficiency can improve." },
+        { heading: "Process Optimization", content: "We tighten your month-end close, reconciliation procedures, and reporting workflows, with clear timelines and responsibilities." },
+        { heading: "Ongoing Oversight", content: "We review transactions, approve reconciliations, and work with your bookkeeper or accounting staff to keep the books accurate." },
+        { heading: "Reporting and Communication", content: "We deliver monthly financial statements and management reports, and meet with you regularly to review results and trends." },
       ],
     },
-
-    applicationsSection: {
+    cards: {
       heading: "Businesses That Benefit From Fractional Controller Services",
-      intro: "Fractional controller services are ideal for businesses that have outgrown basic bookkeeping but do not yet need or cannot afford a full time controller.",
-      applications: [
-        {
-          heading: "Growing Small Businesses",
-          content: "Companies with two to twenty employees often reach a point where they need more sophisticated financial oversight than a bookkeeper alone can provide. A fractional controller brings the expertise needed to ensure accuracy and support continued growth.",
-        },
-        {
-          heading: "Businesses Preparing for Audit",
-          content: "Whether you are facing your first audit or want to improve audit readiness, a fractional controller can ensure your financial records and documentation meet the standards auditors expect.",
-        },
-        {
-          heading: "Companies with Remote Bookkeepers",
-          content: "If your bookkeeping is handled remotely or outsourced, a fractional controller provides the oversight layer needed to ensure quality and catch errors before they become problems.",
-        },
-        {
-          heading: "Seasonal Businesses",
-          content: "Companies with significant seasonality benefit from having experienced financial oversight during peak periods without the year round cost of a full time controller.",
-        },
+      items: [
+        { heading: "Growing Small Businesses", content: "Companies whose transaction volume and reporting needs have outgrown what a bookkeeper alone can handle." },
+        { heading: "Businesses Preparing for Audit", content: "Companies facing a first audit or improving audit readiness, with records and documentation that meet auditor standards." },
+        { heading: "Businesses With an Existing Bookkeeper", content: "Keep your current bookkeeper, in-house or outsourced. We add the review, reconciliations, and close discipline that turn their work into reliable, decision-ready financial statements." },
+        { heading: "Seasonal Businesses", content: "Businesses with peak seasons that need experienced oversight when volume spikes, without a year-round controller." },
+        { heading: "Multi-Location and Multi-Entity Businesses", content: "Companies operating several locations or entities that need consistent accounting, intercompany tracking, and consolidated reporting." },
       ],
     },
-
-    whyChooseSection: {
+    whyChoose: {
       heading: "Why Businesses Choose Our Fractional Controller Services",
-      content: `Reliable financial information is the foundation of good business decisions. Our fractional controller services ensure you have accurate, timely financial statements you can trust. We bring years of experience in accounting operations, internal controls, and financial reporting to every engagement.
-
-We understand that every business is different, and we adapt our approach to match your specific needs and industry requirements. Whether you need heavy involvement during a transition period or light touch oversight once systems are running smoothly, we structure our engagement to deliver maximum value.`,
+      paragraphs: [
+        "Most growing businesses don't need another bookkeeper. They need someone senior making sure the numbers are right. That's what we deliver. With more than 15 years in accounting, internal controls, and financial reporting, we've managed everything from single-location businesses to a 17-entity real estate portfolio, so we know how to bring structure to whatever you're running.",
+        "We work in the system you already use, keep your current bookkeeper in place, and scale our involvement to what you need: hands-on during a cleanup or transition, lighter oversight once things run smoothly. And when you're ready for forecasting, budgeting, and strategic planning, CFO-level support is already in place, from a firm that already knows your numbers.",
+      ],
+      testimonial: "chris-gormley",
     },
-
-    pricingFactorsSection: {
+    pricing: {
       heading: "Factors That Influence Fractional Controller Pricing",
-      intro: "Pricing for fractional controller services depends on several factors related to your business complexity and needs.",
+      intro: FOUR_FACTORS,
       factors: [
-        {
-          heading: "Transaction Volume",
-          content: "The number of transactions your business processes monthly affects the time required for review and oversight. Higher transaction volumes require more controller involvement.",
-        },
-        {
-          heading: "Accounting Complexity",
-          content: "Businesses with multiple entities, complex revenue recognition, or specialized accounting requirements need more sophisticated controller support.",
-        },
-        {
-          heading: "Current State of Records",
-          content: "If your books need cleanup or your processes need significant improvement, initial engagement phases may require more intensive involvement.",
-        },
-        {
-          heading: "Reporting Requirements",
-          content: "More detailed or frequent reporting, whether for management, investors, or lenders, increases the scope of controller services needed.",
-        },
+        { heading: "Transaction Volume", content: "More monthly transactions mean more review time and controller involvement." },
+        { heading: "Accounting Complexity", content: "Multiple entities, complex revenue recognition, or specialized accounting requirements call for more involved support." },
+        { heading: "Current State of Records", content: "Books that need cleanup or major process improvements require more intensive work up front." },
+        { heading: "Reporting Requirements", content: "More detailed or frequent reporting for management, investors, or lenders expands the scope." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "What is the difference between a bookkeeper and a controller?",
-        answer: "A bookkeeper handles day to day transaction recording, data entry, and basic reconciliations. A controller provides oversight of the bookkeeping function, ensures accuracy, prepares financial statements, manages the close process, and implements internal controls. Think of the controller as the quality assurance layer that ensures your financial records are accurate and complete.",
-      },
-      {
-        question: "How often will a fractional controller review our books?",
-        answer: "Most engagements include weekly or bi weekly reviews of key accounts and transactions, with a comprehensive monthly close process. The exact frequency depends on your transaction volume and complexity. We establish a schedule that provides appropriate oversight without unnecessary cost.",
-      },
-      {
-        question: "Can a fractional controller work with our existing bookkeeper?",
-        answer: "Yes, this is the most common arrangement. Your bookkeeper continues handling day to day transactions while we provide oversight, guidance, and quality assurance. We work collaboratively to improve processes and ensure accuracy, often helping develop your bookkeeper's skills in the process.",
-      },
-      {
-        question: "What accounting systems do you work with?",
-        answer: "We work with all major accounting platforms including QuickBooks Online, QuickBooks Desktop, Xero, NetSuite, and Sage. Our team is experienced with various industry specific systems as well. If you are considering a system change, we can help evaluate options and manage the transition.",
-      },
-      {
-        question: "How quickly can you identify problems in our books?",
-        answer: "Our initial assessment typically takes two to four weeks depending on the complexity of your records. During this time, we identify any issues with accuracy, completeness, or processes. We then develop a prioritized plan to address problems, often resolving critical issues within the first month.",
-      },
-      {
-        question: "Do we need both a fractional controller and a fractional CFO?",
-        answer: "It depends on your needs. A controller focuses on accounting accuracy and financial reporting, while a CFO provides strategic financial leadership. Some businesses need both, while others may start with controller services and add CFO support as they grow. We can help you determine the right combination for your situation.",
-      },
-    ],
+    faq: {
+      heading: "Frequently Asked Questions About Fractional Controller Services",
+      items: [
+        { question: "What is the difference between a bookkeeper and a controller?", answer: "A bookkeeper records daily transactions and basic reconciliations. A controller oversees that work, manages the close, prepares financial statements, and implements internal controls: the quality assurance layer for your books." },
+        { question: "How often will a fractional controller review our books?", answer: "Typically weekly or biweekly reviews of key accounts, plus a full monthly close. Frequency depends on your transaction volume and complexity." },
+        { question: "How much does a fractional controller cost?", answer: "Cost depends on your transaction volume, complexity, and reporting needs. After a free 15-minute consultation, we provide a proposal priced to the support you need." },
+        { question: "What accounting systems do you work with?", answer: "QuickBooks, Xero, NetSuite, Yardi, and other platforms. If you're considering a system change, we can evaluate options and manage the transition." },
+        { question: "How quickly can you identify problems in our books?", answer: "Our initial assessment identifies accuracy, completeness, and process issues, and we deliver a prioritized plan that addresses the most critical problems first." },
+        { question: "Do we need both a fractional controller and a fractional CFO?", answer: "It depends. A controller ensures accurate accounting and reporting; a CFO provides strategic financial leadership. Many businesses start with controller services and add CFO support as they grow." },
+      ],
+    },
   },
 
   "bookkeeping-and-reconciliation": {
-    slug: "bookkeeping-and-reconciliation",
-    mainIntroduction: `Accurate bookkeeping forms the foundation of every successful business. For companies in Newport Beach and Orange County, having reliable financial records is not just about compliance, it is about having the information you need to make smart decisions. Our bookkeeping and reconciliation services ensure every transaction is properly recorded, categorized, and reconciled so you always know where your business stands.
-
-Many business owners start handling their own books or rely on minimal bookkeeping support. As the business grows, this approach often leads to backlogs, errors, and a growing sense that the financial picture is incomplete. Our professional bookkeeping services bring order to your financial records, whether you need help catching up on past months or want ongoing support to keep everything current.`,
-
+    intro: "Accurate books are the foundation of every good business decision. We review and tailor your chart of accounts to fit your business, then record, categorize, and reconcile every transaction so you always know where your business stands, whether you need ongoing monthly bookkeeping or a cleanup of past months and historical records.",
     whatsIncluded: {
       heading: "What Our Bookkeeping and Reconciliation Services Include",
-      content: "We provide comprehensive bookkeeping support tailored to your business needs, ensuring your financial records are always accurate and up to date.",
-      bulletPoints: [
-        "Daily and weekly transaction recording from bank feeds, credit cards, and other sources",
-        "Expense categorization aligned with your chart of accounts and reporting needs",
-        "Accounts payable management including bill entry and payment tracking",
-        "Accounts receivable tracking including invoice recording and aging analysis",
-        "Bank account reconciliation monthly to ensure accuracy",
-        "Credit card reconciliation for all business cards",
-        "Payroll entry and reconciliation coordination with your payroll provider",
-        "Sales tax tracking and preparation for filing",
-        "Monthly close procedures to prepare books for review",
-        "Clean up services for backlogged or messy books",
+      bullets: [
+        "Chart of accounts review and setup tailored to your business",
+        "Regular transaction recording from bank feeds, credit cards, and other sources",
+        "Expense categorization aligned with your chart of accounts",
+        "Bill entry and payment tracking",
+        "Invoice recording and receivables aging",
+        "Monthly bank reconciliations",
+        "Credit card reconciliations for every business card",
+        "Payroll entries reconciled with your payroll provider",
+        "Sales tax tracking and filing preparation",
+        "Month-end procedures that prepare your books for review",
+        "Cleanup of backlogged or historical books",
       ],
     },
-
-    processSection: {
+    extraSections: [
+      {
+        heading: "What You Receive Each Month",
+        bullets: [
+          "Balance sheet, income statement, and cash flow statement",
+          "Reconciliation summary for every bank and credit card account",
+          "General ledger detail report",
+          "Accounts receivable and accounts payable aging reports",
+          "A monthly review meeting to walk through results",
+        ],
+      },
+      {
+        heading: "Accounts Payable and Receivable Services",
+        text: "Streamlined vendor bill processing, payment runs, customer invoicing, and collections follow-up, with cash flow optimization to improve working capital. We keep your vendors paid on time, bring cash in faster, and show you exactly what's owed in both directions.",
+      },
+    ],
+    process: {
       heading: "How Our Bookkeeping Process Works",
-      intro: "We follow systematic procedures to ensure consistent, accurate results every month.",
       steps: [
-        {
-          heading: "System Setup and Integration",
-          content: "We connect to your bank accounts, credit cards, and other financial institutions to automate transaction imports. We configure your chart of accounts and categories to match your reporting needs and ensure consistency.",
-        },
-        {
-          heading: "Transaction Processing",
-          content: "Our team reviews and categorizes transactions regularly, typically weekly. We apply consistent coding rules, ask questions when needed, and maintain organized supporting documentation.",
-        },
-        {
-          heading: "Reconciliation",
-          content: "We reconcile all accounts monthly, matching your books to bank and credit card statements. Any discrepancies are identified and resolved promptly. You receive reconciliation reports showing account balances and any items requiring attention.",
-        },
-        {
-          heading: "Monthly Reporting",
-          content: "After completing reconciliations, we prepare standard reports including profit and loss, balance sheet, and cash flow. These reports are delivered according to your preferred schedule, typically within ten business days after month end.",
-        },
+        { heading: "System Setup and Integration", content: "We connect your bank and credit card accounts for automated imports and configure your chart of accounts to match your reporting needs." },
+        { heading: "Transaction Processing", content: "We review and categorize transactions on a regular schedule, apply consistent coding rules, and keep supporting documentation organized." },
+        { heading: "Reconciliation", content: "We reconcile every bank and credit card account to its statement each month, resolve discrepancies, and flag anything that needs your attention." },
+        { heading: "Monthly Reporting", content: "We deliver your profit and loss, balance sheet, and cash flow statement on a set schedule after each month closes." },
       ],
     },
-
-    applicationsSection: {
-      heading: "Businesses We Support With Bookkeeping Services",
-      intro: "Our bookkeeping services are designed to support businesses of various sizes and industries throughout Orange County.",
-      applications: [
-        {
-          heading: "Small Business Owners",
-          content: "If you have been handling your own books and want to reclaim your time for running the business, our services provide professional support at a predictable cost.",
-        },
-        {
-          heading: "Growing Companies",
-          content: "As transaction volumes increase, maintaining accurate books becomes more challenging. We scale our services to match your growth and ensure your financial records keep pace.",
-        },
-        {
-          heading: "Businesses With Catch Up Needs",
-          content: "If your books have fallen behind, we can help get everything current. We tackle backlogs methodically, organizing records and reconstructing transactions as needed.",
-        },
-        {
-          heading: "Companies Transitioning Systems",
-          content: "Changing accounting software requires careful attention to ensure data migrates correctly and new processes work smoothly. We support these transitions from start to finish.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
+    whyChoose: {
       heading: "Why Choose Professional Bookkeeping Services",
-      content: `Clean, accurate books give you confidence in your financial position and free you to focus on growing your business. Our professional bookkeeping services eliminate the uncertainty that comes from incomplete or disorganized records.
-
-We understand that every business has unique needs and preferences. Some clients want minimal involvement in the bookkeeping process, while others prefer to stay closely connected. We adapt to your style while maintaining the consistency and accuracy your business requires. Our team is responsive to questions and provides clear communication about the status of your books.`,
+      paragraphs: [
+        "Most bookkeeping services record transactions. We build books you can run your business on, and we treat your business like it matters. You work directly with experienced professionals, not a rotating cast of junior staff or an offshore team, so you always know who to call. We answer questions in plain language, respond quickly, and take the time to understand how your business actually runs.",
+        "We're invested in the long-term success of every business we work with, whether we meet in person or work entirely remotely. And as you grow, the same people who know your books can step in with controller and CFO-level support, so you never have to start over with someone new.",
+      ],
+      testimonial: "michael-royer",
     },
-
-    pricingFactorsSection: {
+    pricing: {
       heading: "Factors That Affect Bookkeeping Service Pricing",
-      intro: "Bookkeeping pricing depends on the volume and complexity of your financial activity.",
+      intro: FOUR_FACTORS,
       factors: [
-        {
-          heading: "Transaction Volume",
-          content: "The number of transactions you process monthly is the primary driver of bookkeeping cost. More transactions require more time to record, categorize, and reconcile.",
-        },
-        {
-          heading: "Number of Accounts",
-          content: "Businesses with multiple bank accounts, credit cards, or entities require more reconciliation work each month.",
-        },
-        {
-          heading: "Industry Complexity",
-          content: "Some industries have specialized accounting requirements, inventory tracking, or unique transaction types that require additional attention.",
-        },
-        {
-          heading: "Catch Up Work",
-          content: "If your books are behind or need significant cleanup, initial phases of the engagement will require more intensive effort.",
-        },
+        { heading: "Transaction Volume", content: "More monthly transactions mean more time to record, categorize, and reconcile." },
+        { heading: "Number of Accounts", content: "Multiple bank accounts, credit cards, or entities add reconciliation work each month." },
+        { heading: "Industry Complexity", content: "Specialized requirements, such as inventory tracking or unique transaction types, call for additional attention." },
+        { heading: "Catch-Up Work", content: "Books that are behind or need cleanup require more intensive work up front." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "How often should books be reconciled?",
-        answer: "Bank and credit card accounts should be reconciled monthly at minimum. For businesses with high transaction volumes, weekly reconciliation of key accounts helps catch errors early. We establish a reconciliation schedule appropriate for your business activity level.",
-      },
-      {
-        question: "What accounting software do you use?",
-        answer: "We work with QuickBooks Online, QuickBooks Desktop, Xero, and several other platforms. Most small to mid sized businesses find QuickBooks Online meets their needs well. We can recommend the best option for your situation and handle any necessary migrations.",
-      },
-      {
-        question: "How far behind can my books be for you to help?",
-        answer: "We regularly help businesses catch up on months or even years of backlogged bookkeeping. The process takes time depending on how much work is needed, but we can get any situation cleaned up with the right records and information.",
-      },
-      {
-        question: "What information do you need access to?",
-        answer: "We typically need read only access to your bank and credit card accounts for transaction feeds, plus login credentials to your accounting software. We maintain strict security protocols and use secure methods for sharing sensitive information.",
-      },
-      {
-        question: "How do you handle questions about transactions?",
-        answer: "When we encounter transactions that are unclear, we compile them into periodic questions for you rather than interrupting constantly. Most clients receive a brief list of items to clarify weekly or bi weekly. We make the process as painless as possible.",
-      },
-      {
-        question: "Can you work with our existing accountant or CPA?",
-        answer: "Yes, we frequently work alongside CPAs and tax accountants. We provide clean, organized books that make tax preparation easier and can coordinate directly with your accountant during tax season and audit periods.",
-      },
-    ],
+    faq: {
+      heading: "Frequently Asked Questions About Bookkeeping and Reconciliation",
+      items: [
+        { question: "How often should books be reconciled?", answer: "At least monthly for every bank and credit card account. High-volume businesses benefit from weekly reconciliation of key accounts. We set a schedule that fits your activity level." },
+        { question: "What accounting software do you use?", answer: "QuickBooks, Xero, NetSuite, Yardi, and other platforms. We can recommend the best fit and handle any migration." },
+        { question: "How far behind can my books be for you to help?", answer: "We catch up months or even years of backlogged books, including a two-year cleanup across three restaurant locations. Timing depends on the volume of work and the records available." },
+        { question: "What information do you need access to?", answer: "Read-only access to your bank and credit card accounts for transaction feeds, plus access to your accounting software. Sensitive information is shared through secure methods." },
+        { question: "How much does bookkeeping cost?", answer: "Cost depends on your transaction volume, number of accounts, and complexity. After a free 15-minute consultation, we provide a proposal priced to the support you need." },
+        { question: "Can you work with our existing accountant or CPA?", answer: "Yes. We deliver clean, organized books that make tax preparation easier and coordinate directly with your CPA during tax season and audits." },
+      ],
+    },
   },
 
-  "month-end-close-financial-statements": {
-    slug: "month-end-close-financial-statements",
-    mainIntroduction: `A reliable month end close process is essential for understanding your business performance and making informed decisions. For businesses in Newport Beach and Orange County, having accurate financial statements delivered on a predictable schedule provides the visibility needed to manage cash flow, evaluate profitability, and plan for growth.
-
-Many growing companies struggle with delayed or incomplete month end closes. Reconciliations drag on, adjustments pile up, and financial statements arrive weeks after the month ends. Our month end close and financial statement services bring structure and discipline to your close process, delivering accurate GAAP compliant financials on a timeline you can count on.`,
-
+  "payroll-and-hr-services": {
+    intro: "We set up and run payroll and core HR processes across one or multiple locations through our payroll partners, so your team is paid accurately, your HR processes run smoothly, and every payroll is recorded correctly in your books.",
     whatsIncluded: {
-      heading: "What Our Month End Close Services Include",
-      content: "We provide comprehensive month end close management that delivers accurate, timely financial statements every month.",
-      bulletPoints: [
-        "Complete account reconciliation for all balance sheet accounts",
-        "Revenue recognition review and adjustment entries",
-        "Expense accruals and prepaid amortization",
-        "Inventory and cost of goods sold analysis where applicable",
-        "Intercompany eliminations for multi entity organizations",
-        "Journal entry preparation with supporting documentation",
-        "Financial statement preparation in GAAP compliant format",
-        "Variance analysis comparing actual results to budget and prior periods",
-        "Management discussion and analysis of key trends",
-        "Close checklist and timeline management",
+      heading: "What Our Payroll and HR Services Include",
+      bullets: [
+        "Payroll processing for hourly, salary, and commission pay",
+        "Direct deposit setup and management",
+        "Federal, state, and local withholding, deposits, and filings through our payroll partners",
+        "W-2 and 1099 preparation and distribution through our payroll partners",
+        "Benefits setup and deduction management",
+        "Time and attendance system setup, integrated with payroll",
+        "HR process setup and monitoring, including onboarding, offboarding, and employee records",
+        "Paid time off tracking and accruals",
+        "Workers' compensation reporting support",
+        "Payroll register and summary reporting",
+        "Labor cost tracking by location or department",
+        "Payroll entries recorded to your general ledger",
       ],
     },
-
-    processSection: {
-      heading: "Our Month End Close Process",
-      intro: "We follow a structured close calendar to ensure consistent results and timely delivery.",
+    process: {
+      heading: "How Our Payroll and HR Services Work",
       steps: [
-        {
-          heading: "Pre Close Preparation",
-          content: "Before month end, we ensure all recurring entries are scheduled, review outstanding items from previous months, and coordinate with your team on any unusual transactions or events that need to be captured.",
-        },
-        {
-          heading: "Transaction Processing Cutoff",
-          content: "We establish clear cutoff procedures to ensure all transactions are recorded in the correct period. This includes coordinating with operations to capture accruals for services received and revenue earned.",
-        },
-        {
-          heading: "Reconciliation and Adjustments",
-          content: "Our team completes reconciliations for all balance sheet accounts, identifies and researches discrepancies, and prepares necessary adjusting entries with full documentation.",
-        },
-        {
-          heading: "Financial Statement Preparation",
-          content: "With books reconciled and adjusted, we prepare your financial statements including balance sheet, income statement, and cash flow statement. We include variance analysis and commentary on significant items.",
-        },
+        { heading: "Setup and Configuration", content: "We set up payroll, benefits, time and attendance, and HR processes on our partner platform, including employee data, pay rates, deductions, and tax jurisdictions." },
+        { heading: "Time and Pay Collection", content: "Each pay period, hours, commissions, bonuses, and other variable pay flow in from your time system or are collected in whatever format works for you." },
+        { heading: "Processing and Review", content: "We process and review every payroll for accuracy, and you approve a preview before funds are released." },
+        { heading: "Payment, Filing, and Recording", content: "Employees are paid on schedule, tax deposits and filings are completed through our payroll partners, and every payroll is recorded to your general ledger." },
       ],
     },
-
-    applicationsSection: {
-      heading: "Businesses That Benefit From Professional Close Services",
-      intro: "Our month end close services help businesses of all sizes achieve more reliable financial reporting.",
-      applications: [
-        {
-          heading: "Companies With Multiple Entities",
-          content: "Managing the close across multiple entities requires coordination and consistency. We ensure each entity closes properly and consolidation entries are accurate.",
-        },
-        {
-          heading: "Businesses With Complex Revenue",
-          content: "Companies with subscription revenue, long term contracts, or milestone based billing need careful attention to revenue recognition. We ensure your revenue is recognized correctly under applicable standards.",
-        },
-        {
-          heading: "Private Equity Portfolio Companies",
-          content: "PE backed companies typically face strict reporting deadlines and expectations for financial accuracy. Our disciplined close process meets these requirements.",
-        },
-        {
-          heading: "Companies Preparing for Audit or Sale",
-          content: "Clean, well documented closes make audits easier and support higher valuations in M and A transactions. We prepare your financials to withstand scrutiny.",
-        },
+    whyChoose: {
+      heading: "Why Choose Professional Payroll Processing",
+      paragraphs: [
+        "Most payroll services stop at the paycheck. We connect payroll to the rest of your finances, so every payroll lands correctly in your books and you can see exactly what labor costs by location, department, or job. You work directly with experienced professionals who know your business, not a call center, with one point of contact for payroll, HR, and accounting questions.",
+        "Payroll runs through established partner platforms for reliable processing and tax filing, and we review every payroll before it goes out. As your team grows, your payroll, HR processes, and financial reporting grow with it, all handled by the same firm.",
       ],
     },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Month End Close Services",
-      content: `Reliable financial statements start with a disciplined close process. Our approach combines experienced professionals, proven procedures, and clear communication to deliver results you can trust.
-
-We understand that financial statements serve multiple audiences, from management making daily decisions to boards evaluating strategy to lenders monitoring covenant compliance. We prepare financials that meet all these needs while maintaining efficiency in the close process.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Factors Affecting Month End Close Pricing",
-      intro: "Close service pricing reflects the complexity and effort required for your specific situation.",
-      factors: [
-        {
-          heading: "Number of Entities",
-          content: "Each entity requires its own close process plus consolidation work. Multi entity organizations have higher close costs than single entity businesses.",
-        },
-        {
-          heading: "Transaction Complexity",
-          content: "Complex revenue recognition, multiple product lines, or sophisticated cost accounting increase the time required for accurate close.",
-        },
-        {
-          heading: "Reporting Requirements",
-          content: "More detailed reporting packages, segment reporting, or specialized analysis add to the scope of monthly deliverables.",
-        },
-        {
-          heading: "Timeline Requirements",
-          content: "Faster close timelines require more intensive effort and coordination. We can meet aggressive deadlines with appropriate planning.",
-        },
+    faq: {
+      heading: "Frequently Asked Questions About Payroll and HR Services",
+      items: [
+        { question: "What is the deadline to submit payroll information?", answer: "Payroll information is due a set number of days before each pay date, based on your payroll platform's schedule. We build a submission calendar around your pay dates." },
+        { question: "How do you handle payroll corrections?", answer: "Errors found after payroll runs are corrected in the next cycle, or through an off-cycle payment when urgent. We also find the root cause so it doesn't happen again." },
+        { question: "Can you handle California-specific requirements?", answer: "Yes. Our partner platforms support California requirements such as sick leave accrual and overtime calculations, and we configure them for your business." },
+        { question: "Do you integrate with time tracking systems?", answer: "Yes. We connect your time and attendance system to payroll so hours import directly, reducing manual entry and errors." },
+        { question: "How much do payroll services cost?", answer: "Cost depends on your payroll platform and the level of HR and benefits support you need. After a free 15-minute consultation, we recommend the right setup and provide a proposal." },
+        { question: "Can employees access their pay stubs online?", answer: "Yes. Employees can view pay stubs, W-2s, and tax documents through the payroll platform's secure employee portal." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "How fast can you close the books each month?",
-        answer: "Most of our clients receive complete financial statements within ten to fifteen business days after month end. With process improvements and proper preparation, many can achieve a five to seven day close. We work with you to establish a timeline that meets your needs.",
-      },
-      {
-        question: "What is included in the financial statement package?",
-        answer: "Our standard package includes balance sheet, income statement, and cash flow statement. We also provide budget variance analysis, trend reporting, and management commentary on significant items. The package can be customized to meet your specific reporting needs.",
-      },
-      {
-        question: "How do you handle revenue recognition?",
-        answer: "We apply ASC 606 revenue recognition standards appropriate to your business model. Whether you have simple transaction revenue, subscription models, or complex long term contracts, we ensure revenue is recognized correctly and consistently.",
-      },
-      {
-        question: "Can you help improve our current close process?",
-        answer: "Yes, process improvement is often part of our engagement. We assess your current close procedures, identify bottlenecks and inefficiencies, and implement improvements that reduce close time while improving accuracy.",
-      },
-      {
-        question: "Do you provide support for board and investor reporting?",
-        answer: "Absolutely. We can prepare board packages and investor reporting materials based on the monthly financials. This includes formatting, presentation preparation, and supporting analysis as needed.",
-      },
-      {
-        question: "What happens if there are errors discovered after close?",
-        answer: "We maintain thorough documentation and controls to minimize errors. When adjustments are needed, we follow proper procedures for prior period corrections and ensure all stakeholders understand the impact. Transparency is essential in these situations.",
-      },
-    ],
   },
 
-  "accounts-payable-receivable": {
-    slug: "accounts-payable-receivable",
-    mainIntroduction: `Effective management of accounts payable and receivable directly impacts your cash flow and working capital. For businesses in Newport Beach and Orange County, having professional AP and AR management means bills are paid strategically, invoices are collected promptly, and cash is available when you need it.
-
-Many business owners find themselves chasing payments, scrambling to pay bills, or lacking visibility into their cash position. Our accounts payable and receivable services bring order to these critical functions, implementing processes that optimize timing, reduce errors, and give you clear visibility into your obligations and expected collections.`,
-
+  "merchant-processing": {
+    intro: "We provide merchant and credit card processing directly through our ISO partnership, including for high-risk industries such as cannabis, peptides, and iGaming. From underwriting and approval to reconciling deposits in your books and analyzing your sales data, we handle payments as part of your financial operations, not as a separate vendor.",
     whatsIncluded: {
-      heading: "What Our AP and AR Services Include",
-      content: "We provide end to end management of your payables and receivables functions, optimizing both for improved cash flow.",
-      bulletPoints: [
-        "Invoice processing and data entry for all vendor bills",
-        "Three way matching for purchase orders, receipts, and invoices",
-        "Payment scheduling and cash flow optimization",
-        "Vendor management and relationship maintenance",
-        "Customer invoicing and billing support",
-        "Collections follow up and aging management",
-        "Cash application and payment reconciliation",
-        "Credit memo and dispute resolution handling",
-        "Aging reports and cash flow forecasting",
-        "Vendor and customer statement reconciliation",
+      heading: "What Our Merchant and Credit Card Processing Services Include",
+      bullets: [
+        "Merchant account setup through our direct ISO partnership",
+        "Credit and debit card processing for in-person and online sales",
+        "High-risk merchant accounts, including cannabis, peptides, and iGaming",
+        "Underwriting package preparation, including the financial statements and documentation processors require",
+        "Processing statement review to identify excess fees",
+        "Sales and processing data synced to your accounting software, with deposits and fees reconciled to your books",
+        "Sales data analysis to track profit margins, evaluate pricing, and compare top-selling and slow-moving products",
+        "CRM, point-of-sale, and online sales system setup and management",
       ],
     },
-
-    processSection: {
-      heading: "How We Manage Your AP and AR",
-      intro: "Our systematic approach ensures nothing falls through the cracks while optimizing your cash position.",
+    process: {
+      heading: "How Our Merchant Processing Services Work",
       steps: [
-        {
-          heading: "Process Assessment",
-          content: "We evaluate your current AP and AR processes, identify pain points, and understand your business relationships. This informs how we structure workflows for your specific needs.",
-        },
-        {
-          heading: "System Configuration",
-          content: "We set up or optimize your accounting system for efficient AP and AR processing. This includes approval workflows, payment terms, and collection sequences.",
-        },
-        {
-          heading: "Ongoing Management",
-          content: "Our team processes invoices, manages approvals, schedules payments, sends customer invoices, and follows up on collections according to established procedures.",
-        },
-        {
-          heading: "Reporting and Analysis",
-          content: "We provide regular reports on payables aging, receivables aging, and cash flow projections. This visibility helps you make informed decisions about timing and priorities.",
-        },
+        { heading: "Application and Underwriting", content: "We review your business, prepare the financial statements and documentation underwriters require, and submit your application through our ISO partnership." },
+        { heading: "Account and Systems Setup", content: "Once you're approved, we set up your merchant account and connect it to your CRM, point-of-sale, and online sales systems, and manage those systems as you grow." },
+        { heading: "Accounting Integration", content: "We sync your sales and processing data to your accounting software so deposits and fees post automatically." },
+        { heading: "Reconciliation and Analysis", content: "Each month, we reconcile deposits and fees to your books and analyze your sales data for margins, pricing, and product performance." },
       ],
     },
-
-    applicationsSection: {
-      heading: "Businesses That Benefit From AP AR Management",
-      intro: "Professional payables and receivables management helps businesses across many industries improve cash flow.",
-      applications: [
-        {
-          heading: "Professional Services Firms",
-          content: "Law firms, consulting practices, and other professional services businesses benefit from consistent invoicing and diligent follow up on collections to maintain healthy cash flow.",
-        },
-        {
-          heading: "Wholesale and Distribution",
-          content: "Companies managing inventory and vendor relationships need tight AP controls and strategic payment timing to optimize working capital.",
-        },
-        {
-          heading: "Construction and Contractors",
-          content: "Project based businesses with progress billing and retention require careful receivables management to ensure timely collection of earned revenue.",
-        },
-        {
-          heading: "Growing Companies",
-          content: "As transaction volumes increase, manual AP and AR processes break down. Professional management maintains control during growth periods.",
-        },
+    whyChoose: {
+      heading: "Why Choose Our Merchant Processing Services",
+      paragraphs: [
+        "Most merchant providers sell you a rate and disappear. We work with you from application forward. Because we prepare the financials underwriters review, businesses in high-risk industries start with a stronger application, and you have a direct contact through our ISO partnership instead of a call center.",
+        "And because we also handle accounting, your payment data doesn't stop at the deposit. Sales, fees, and deposits flow into your books, and we turn that data into insight on margins, pricing, and which products are driving your business.",
       ],
     },
-
-    whyChooseSection: {
-      heading: "Why Choose Professional AP and AR Management",
-      content: `Cash flow is the lifeblood of any business. Professional management of payables and receivables ensures you collect what you are owed, pay strategically, and always have visibility into your cash position.
-
-Our team brings experience and best practices to these functions. We implement controls that prevent fraud, optimize payment timing for cash flow, and maintain positive vendor and customer relationships. The result is fewer headaches for you and better financial outcomes for your business.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Factors That Influence AP AR Service Pricing",
-      intro: "Service pricing reflects the volume and complexity of your payables and receivables activity.",
-      factors: [
-        {
-          heading: "Transaction Volume",
-          content: "The number of invoices processed and payments managed monthly drives the effort required. Higher volumes mean more processing time.",
-        },
-        {
-          heading: "Approval Complexity",
-          content: "Businesses with multi level approvals, project coding, or departmental allocations require more sophisticated processing.",
-        },
-        {
-          heading: "Collection Intensity",
-          content: "If your business has challenging collections requiring significant follow up, this affects the AR management scope.",
-        },
-        {
-          heading: "Integration Requirements",
-          content: "Complex integrations with inventory systems, job costing, or other platforms add to setup and ongoing management.",
-        },
+    faq: {
+      heading: "Frequently Asked Questions About Merchant and Credit Card Processing",
+      items: [
+        { question: "What makes a business high-risk for merchant processing?", answer: "Processors weigh industry, chargeback history, regulatory status, and sales model. Industries such as cannabis, peptides, and iGaming are commonly classified as high-risk." },
+        { question: "How long does merchant account approval take?", answer: "Timing depends on the processor's underwriting review and how complete your application is. A complete underwriting package helps avoid delays." },
+        { question: "What documents do I need to apply?", answer: "Typically business formation documents, owner identification, bank statements, recent processing statements, and financial statements. We prepare and organize the package for you." },
+        { question: "Can I switch from my current processor?", answer: "Yes. We review your current processing statements and, if switching makes sense, set up the new account and manage the transition." },
+        { question: "Will my processing data sync with my accounting software?", answer: "Yes. Sales, deposits, and fees sync to QuickBooks, Xero, NetSuite, and other platforms, and we reconcile them to your books each month." },
+        { question: "How much does merchant processing cost?", answer: "Rates depend on your industry, sales volume, risk profile, and card mix. After a free 15-minute consultation, we review your business and provide a quote." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "How do you handle invoice approvals?",
-        answer: "We configure approval workflows based on your requirements, whether that is dollar thresholds, department managers, or project leads. Approvals can be handled via email, your accounting system, or dedicated approval software depending on your preferences.",
-      },
-      {
-        question: "What is your approach to collections?",
-        answer: "We follow a structured collection process starting with friendly reminders and escalating as needed. Our goal is to collect efficiently while maintaining positive customer relationships. We keep you informed of problem accounts and recommend actions when needed.",
-      },
-      {
-        question: "Can you help optimize our payment terms?",
-        answer: "Yes, we analyze your vendor relationships and cash flow patterns to recommend optimal payment timing. This may include taking early payment discounts when beneficial or strategically timing payments to preserve cash.",
-      },
-      {
-        question: "How do you handle disputes?",
-        answer: "We investigate disputed invoices, gather necessary documentation, and work to resolve issues promptly. For receivables disputes, we coordinate with your team to address customer concerns and collect valid amounts.",
-      },
-      {
-        question: "What reporting do you provide?",
-        answer: "We provide regular aging reports for both AP and AR, cash flow forecasts based on expected payments and collections, and exception reports highlighting items requiring attention. Report frequency and format are customized to your needs.",
-      },
-      {
-        question: "Do you manage vendor relationships?",
-        answer: "We handle routine vendor communication including payment status inquiries and statement reconciliation. For strategic vendor negotiations, we support with data and analysis while you maintain the relationship.",
-      },
-    ],
-  },
-
-  "budgeting-and-forecasting": {
-    slug: "budgeting-and-forecasting",
-    mainIntroduction: `A well constructed budget combined with accurate forecasting gives your business a roadmap for success. For companies in Newport Beach and Orange County, having reliable financial projections means making confident decisions about hiring, investments, and growth initiatives.
-
-Many business owners operate without a formal budget or rely on static annual projections that become obsolete within months. Our budgeting and forecasting services create dynamic financial plans that evolve with your business, providing continuous visibility into expected performance and cash needs.`,
-
-    whatsIncluded: {
-      heading: "What Our Budgeting and Forecasting Services Include",
-      content: "We develop comprehensive budgets and forecasts tailored to your business model and planning needs.",
-      bulletPoints: [
-        "Annual operating budget development with departmental detail",
-        "Revenue forecasting based on pipeline, seasonality, and trends",
-        "Expense budgeting including fixed, variable, and discretionary costs",
-        "Capital expenditure planning and depreciation projections",
-        "Headcount and compensation planning",
-        "Rolling cash flow forecasts updated monthly or weekly",
-        "Scenario analysis for different business conditions",
-        "Budget to actual variance reporting and analysis",
-        "Reforecasting as conditions change throughout the year",
-        "Board and investor presentation support",
-      ],
-    },
-
-    processSection: {
-      heading: "Our Budget Development Process",
-      intro: "We work collaboratively with your team to build budgets that are both ambitious and achievable.",
-      steps: [
-        {
-          heading: "Historical Analysis",
-          content: "We analyze your historical financial performance to understand trends, seasonality, and cost drivers. This analysis provides the foundation for realistic projections.",
-        },
-        {
-          heading: "Assumption Development",
-          content: "Working with you and your team, we develop the assumptions that will drive the budget. This includes revenue growth rates, pricing changes, hiring plans, and major initiatives.",
-        },
-        {
-          heading: "Model Construction",
-          content: "We build your budget model in a format that allows for scenario analysis and easy updating. The model integrates income statement, balance sheet, and cash flow projections.",
-        },
-        {
-          heading: "Review and Refinement",
-          content: "We present the initial budget for your review, discuss implications, and refine until you have a plan you believe in. The final budget becomes your benchmark for the year.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "When Budgeting and Forecasting Services Add Value",
-      intro: "Financial planning services help businesses at various stages and in different situations.",
-      applications: [
-        {
-          heading: "Growth Planning",
-          content: "Companies planning significant growth need to understand the cash and resource requirements. Detailed forecasting ensures you have the capacity to execute.",
-        },
-        {
-          heading: "Investor Requirements",
-          content: "Investors and lenders expect professional financial projections. We create credible, defensible forecasts that support your funding objectives.",
-        },
-        {
-          heading: "Profitability Improvement",
-          content: "Budgeting with proper cost analysis helps identify opportunities to improve margins and allocate resources more effectively.",
-        },
-        {
-          heading: "Cash Management",
-          content: "Rolling cash forecasts prevent surprises and ensure you maintain adequate liquidity for operations and opportunities.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Budgeting Services",
-      content: `A budget is only useful if it reflects reality and remains relevant throughout the year. Our approach creates living financial plans that adapt to changing conditions and support ongoing decision making.
-
-We combine financial modeling expertise with business understanding to create budgets that are both technically sound and practically useful. Our clients use their budgets as active management tools, not documents that sit in a drawer.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Budgeting Service Pricing Factors",
-      intro: "Budget development pricing reflects the complexity and ongoing support required.",
-      factors: [
-        {
-          heading: "Business Complexity",
-          content: "Multiple revenue streams, product lines, or business units require more sophisticated modeling and longer development time.",
-        },
-        {
-          heading: "Level of Detail",
-          content: "Budgets can range from high level departmental summaries to detailed line item projections. More granularity requires more effort.",
-        },
-        {
-          heading: "Forecasting Frequency",
-          content: "Monthly forecast updates require ongoing engagement while quarterly updates need less frequent involvement.",
-        },
-        {
-          heading: "Scenario Requirements",
-          content: "Multiple scenarios such as best case, worst case, and expected case multiply the modeling work required.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "How often should we update our forecast?",
-        answer: "Most businesses benefit from monthly forecast updates that incorporate actual results and revised expectations. Some fast moving businesses update weekly. We help you establish an appropriate cadence based on your volatility and planning needs.",
-      },
-      {
-        question: "What is the difference between a budget and a forecast?",
-        answer: "A budget is your plan for the year, representing targets you are working toward. A forecast is your current best estimate of what will actually happen. Budgets typically remain fixed while forecasts update regularly based on actual performance and changing conditions.",
-      },
-      {
-        question: "How detailed should our budget be?",
-        answer: "The right level of detail depends on your management needs. You should be detailed enough to make meaningful decisions but not so granular that the budget becomes unwieldy. We help you find the appropriate balance.",
-      },
-      {
-        question: "Can you help with budget presentations to the board?",
-        answer: "Yes, we prepare board ready budget presentations that communicate your financial plan clearly. We can attend board meetings to present and answer questions if helpful.",
-      },
-      {
-        question: "What if our budget becomes unrealistic mid year?",
-        answer: "This happens, especially in volatile conditions. We help you reforecast based on current realities while maintaining the original budget as a benchmark. Some businesses do formal budget resets mid year while others simply track variances.",
-      },
-      {
-        question: "Do you integrate budgets with our accounting system?",
-        answer: "Yes, we can load approved budgets into most accounting systems for automated budget to actual reporting. This makes variance analysis a standard part of your monthly close process.",
-      },
-    ],
-  },
-
-  "financial-modeling": {
-    slug: "financial-modeling",
-    mainIntroduction: `Financial models transform business assumptions into numbers you can analyze and act upon. For businesses in Newport Beach and Orange County, having sophisticated financial models means evaluating opportunities with confidence, understanding the implications of decisions, and communicating clearly with investors and stakeholders.
-
-Many business decisions involve significant uncertainty. Should you expand into a new market? What if you lose a major customer? How much can you invest in new equipment? Financial modeling provides a framework to analyze these questions systematically, testing different scenarios and understanding the range of possible outcomes.`,
-
-    whatsIncluded: {
-      heading: "What Our Financial Modeling Services Include",
-      content: "We build custom financial models designed for your specific analysis and decision making needs.",
-      bulletPoints: [
-        "Three statement integrated models linking income statement, balance sheet, and cash flow",
-        "Revenue models reflecting your specific business drivers",
-        "Profitability analysis by product, customer, or segment",
-        "Scenario and sensitivity analysis for key variables",
-        "Investment return analysis including NPV and IRR calculations",
-        "Valuation models using DCF, comparable company, and precedent transaction methods",
-        "Merger and acquisition models for deal analysis",
-        "Pricing models to optimize revenue and margins",
-        "Unit economics and customer lifetime value analysis",
-        "Cap table and waterfall models for equity analysis",
-      ],
-    },
-
-    processSection: {
-      heading: "How We Build Financial Models",
-      intro: "Our modeling process ensures accuracy, flexibility, and clarity in the final deliverable.",
-      steps: [
-        {
-          heading: "Scope Definition",
-          content: "We start by understanding exactly what questions the model needs to answer. This drives structure, level of detail, and analysis capabilities.",
-        },
-        {
-          heading: "Data Gathering",
-          content: "We collect historical data, operating metrics, and assumption inputs needed to populate the model. We validate data quality before incorporating it.",
-        },
-        {
-          heading: "Model Construction",
-          content: "We build the model following best practices for structure, formulas, and documentation. Models are designed for transparency so others can understand and validate the logic.",
-        },
-        {
-          heading: "Validation and Delivery",
-          content: "We test the model thoroughly, validate outputs against known benchmarks, and stress test for errors. We then walk you through the model and train you on its use.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "When Financial Modeling Adds Value",
-      intro: "Financial models serve many purposes across the lifecycle of a business.",
-      applications: [
-        {
-          heading: "Capital Raising",
-          content: "Investors expect sophisticated financial models that demonstrate understanding of your business and support your funding ask. Our models meet investor standards.",
-        },
-        {
-          heading: "Strategic Decisions",
-          content: "Major decisions like new product launches, geographic expansion, or significant investments deserve rigorous financial analysis before commitment.",
-        },
-        {
-          heading: "Mergers and Acquisitions",
-          content: "Acquisition analysis, merger integration modeling, and sale preparation all require detailed financial modeling to support negotiations and decisions.",
-        },
-        {
-          heading: "Pricing Optimization",
-          content: "Understanding the profitability impact of different pricing strategies helps maximize value from your products and services.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Financial Modeling Services",
-      content: `A good financial model is more than a spreadsheet. It is a thinking tool that helps you understand your business better and make smarter decisions.
-
-Our models are built to be used, not just presented. We design for flexibility so you can test different scenarios, update assumptions easily, and adapt the model as your business evolves. We also ensure models are documented and organized so others can understand and maintain them.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Financial Modeling Pricing",
-      intro: "Model pricing depends on complexity, purpose, and timeline requirements.",
-      factors: [
-        {
-          heading: "Model Complexity",
-          content: "More complex businesses with multiple revenue streams, entities, or sophisticated operations require more detailed modeling.",
-        },
-        {
-          heading: "Analysis Requirements",
-          content: "Additional analysis capabilities like scenario comparison, sensitivity tables, or valuation methods add to model scope.",
-        },
-        {
-          heading: "Data Availability",
-          content: "Models that require significant data gathering or assumption research take more time to develop than those with ready inputs.",
-        },
-        {
-          heading: "Timeline",
-          content: "Rushed timelines for fundraising or deal processes may require dedicated resources and premium pricing.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "What format do you deliver models in?",
-        answer: "Models are typically delivered in Microsoft Excel, the standard for financial analysis. We structure models clearly with separate tabs for inputs, calculations, and outputs. Documentation explains the logic and how to use the model.",
-      },
-      {
-        question: "How long does it take to build a financial model?",
-        answer: "Simple models can be completed in one to two weeks. Complex integrated models with detailed analysis capabilities typically take three to six weeks. We provide timeline estimates based on your specific requirements.",
-      },
-      {
-        question: "Can you update models we already have?",
-        answer: "Yes, we can enhance, correct, or extend existing models. Sometimes this is more efficient than starting over. We assess the current model and recommend the best approach.",
-      },
-      {
-        question: "Do you provide ongoing model maintenance?",
-        answer: "We can update models periodically with actual results, refresh assumptions, and extend projections. Some clients engage us quarterly for model updates while others handle updates internally after training.",
-      },
-      {
-        question: "How do you handle model errors?",
-        answer: "We use structured approaches to minimize errors including formula auditing, independent validation, and stress testing. If errors are discovered after delivery, we correct them promptly at no additional charge.",
-      },
-      {
-        question: "Can you present the model to investors or board?",
-        answer: "Yes, we can prepare presentation materials based on the model and present alongside you or independently. We help you communicate findings clearly and answer detailed questions about the analysis.",
-      },
-    ],
-  },
-
-  "fundraising-support": {
-    slug: "fundraising-support",
-    mainIntroduction: `Raising capital is one of the most critical and challenging processes a growing business undertakes. For companies in Newport Beach and Orange County seeking funding, having professional financial support throughout the fundraising process can mean the difference between closing successfully and falling short.
-
-Many entrepreneurs underestimate the financial preparation required to attract investors. Incomplete financial models, unprofessional materials, or inability to answer due diligence questions quickly erodes investor confidence. Our fundraising support services ensure you present your opportunity professionally and navigate the process efficiently.`,
-
-    whatsIncluded: {
-      heading: "What Our Fundraising Support Services Include",
-      content: "We provide comprehensive financial support throughout your capital raise process.",
-      bulletPoints: [
-        "Financial model development meeting investor standards",
-        "Historical financial statement preparation and clean up",
-        "Pitch deck financial slides and supporting materials",
-        "Use of proceeds analysis and justification",
-        "Valuation analysis and benchmarking",
-        "Due diligence preparation and data room organization",
-        "Due diligence question response support",
-        "Term sheet analysis and negotiation support",
-        "Cap table modeling and scenario analysis",
-        "Post close integration and investor reporting setup",
-      ],
-    },
-
-    processSection: {
-      heading: "How We Support Your Fundraising Process",
-      intro: "Our engagement adapts to your fundraising stage and needs.",
-      steps: [
-        {
-          heading: "Readiness Assessment",
-          content: "We evaluate your current financial position, identify gaps in materials or processes, and develop a preparation plan. Some companies need significant work before approaching investors while others are nearly ready.",
-        },
-        {
-          heading: "Material Development",
-          content: "We build or enhance your financial model, prepare clean historical financials, and develop the financial components of your pitch materials. Everything is designed to withstand investor scrutiny.",
-        },
-        {
-          heading: "Due Diligence Preparation",
-          content: "We organize your financial data room, anticipate common due diligence requests, and prepare responses. Being ready to provide information quickly demonstrates professionalism.",
-        },
-        {
-          heading: "Process Support",
-          content: "During active fundraising, we respond to investor questions, provide additional analysis as needed, and support term sheet evaluation and negotiation.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "Fundraising Situations We Support",
-      intro: "We help companies at various stages with different types of capital raises.",
-      applications: [
-        {
-          heading: "Seed and Early Stage",
-          content: "First time fundraisers need guidance on investor expectations and help presenting early financials professionally despite limited history.",
-        },
-        {
-          heading: "Series A and Beyond",
-          content: "Growth stage companies face sophisticated investors with detailed questions. We ensure your financial story is compelling and defensible.",
-        },
-        {
-          heading: "Debt Financing",
-          content: "Bank loans and credit facilities require different financial presentations than equity raises. We prepare materials that meet lender requirements.",
-        },
-        {
-          heading: "Strategic Investment",
-          content: "Strategic investors conduct thorough due diligence and often have integration considerations. We support these more complex processes.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Fundraising Support",
-      content: `Fundraising is a full time job on top of running your business. Having experienced financial support lets you focus on telling your story and building relationships while we handle the numbers.
-
-We have supported raises across industries and know what investors expect. Our work meets the standards of professional investors and helps you present confidently. We also help you evaluate terms objectively, ensuring the deal you accept serves your long term interests.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Fundraising Support Pricing",
-      intro: "Engagement pricing depends on your current readiness and support needs.",
-      factors: [
-        {
-          heading: "Current State",
-          content: "Companies with clean books and existing financial models need less preparation than those starting from scratch.",
-        },
-        {
-          heading: "Deal Complexity",
-          content: "Complex capital structures, multiple investor types, or sophisticated terms require more analysis and support.",
-        },
-        {
-          heading: "Timeline",
-          content: "Compressed timelines for hot opportunities may require dedicated resources and premium pricing.",
-        },
-        {
-          heading: "Scope of Support",
-          content: "Some companies need full preparation while others want support only for specific aspects like modeling or due diligence.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "How early should we engage for fundraising support?",
-        answer: "Ideally three to six months before you plan to actively raise. This provides time to prepare materials properly without rushing. However, we can compress timelines when needed for time sensitive opportunities.",
-      },
-      {
-        question: "Do you help find investors?",
-        answer: "Our focus is financial preparation rather than investor introductions. However, we can recommend investment bankers, brokers, or advisors who specialize in deal sourcing if appropriate for your raise.",
-      },
-      {
-        question: "What if investors ask questions we cannot answer?",
-        answer: "We prepare you for likely questions and help develop honest, professional responses. If questions arise we did not anticipate, we help you respond thoughtfully rather than defensively.",
-      },
-      {
-        question: "How do you help with valuation?",
-        answer: "We provide valuation analysis using appropriate methodologies for your stage and industry. This gives you a defensible basis for your ask and helps you evaluate investor proposals objectively.",
-      },
-      {
-        question: "Can you attend investor meetings?",
-        answer: "Yes, we can attend meetings to present financial information and answer detailed questions. This is often valuable during due diligence deep dives but may not be needed for initial pitch meetings.",
-      },
-      {
-        question: "What happens after we close?",
-        answer: "We can help establish investor reporting processes, set up board materials, and integrate any new requirements from the investment. Many clients continue working with us as their fractional CFO post close.",
-      },
-    ],
-  },
-
-  "mergers-acquisitions-advisory": {
-    slug: "mergers-acquisitions-advisory",
-    mainIntroduction: `Mergers and acquisitions represent some of the most consequential decisions a business makes. For companies in Newport Beach and Orange County considering a sale, acquisition, or merger, having experienced financial advisory support helps ensure successful outcomes and protects your interests.
-
-Whether you are buying, selling, or merging, M and A transactions involve complex financial analysis, extensive due diligence, and high stakes negotiations. Our M and A advisory services provide the financial expertise needed to evaluate opportunities, conduct thorough analysis, and support negotiations through close.`,
-
-    whatsIncluded: {
-      heading: "What Our M and A Advisory Services Include",
-      content: "We provide comprehensive financial support throughout the M and A process.",
-      bulletPoints: [
-        "Transaction strategy and target identification support",
-        "Preliminary valuation and deal screening analysis",
-        "Financial due diligence on acquisition targets",
-        "Quality of earnings analysis and normalization",
-        "Working capital analysis and peg determination",
-        "Deal structure and terms analysis",
-        "Synergy identification and modeling",
-        "Integration planning and financial modeling",
-        "Sell side financial preparation and presentation",
-        "Post close support and earnout tracking",
-      ],
-    },
-
-    processSection: {
-      heading: "How We Support M and A Transactions",
-      intro: "Our engagement adapts to your role in the transaction and specific needs.",
-      steps: [
-        {
-          heading: "Transaction Assessment",
-          content: "We evaluate the strategic and financial merits of the proposed transaction, identify key risks and opportunities, and help determine whether to proceed.",
-        },
-        {
-          heading: "Valuation and Deal Terms",
-          content: "We develop or review valuation analysis, model different deal structures, and help you understand the financial implications of proposed terms.",
-        },
-        {
-          heading: "Due Diligence",
-          content: "For buyers, we conduct thorough financial due diligence on targets. For sellers, we prepare for buyer due diligence and help manage the data room process.",
-        },
-        {
-          heading: "Negotiation and Close",
-          content: "We support negotiations with financial analysis, help resolve due diligence issues, and ensure smooth financial close and integration.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "M and A Situations We Support",
-      intro: "We advise on transactions across the M and A spectrum.",
-      applications: [
-        {
-          heading: "Acquisitions",
-          content: "Whether pursuing strategic acquisitions for growth or opportunistic purchases, we help evaluate targets, conduct due diligence, and structure deals effectively.",
-        },
-        {
-          heading: "Business Sales",
-          content: "Selling your business is often a once in a lifetime event. We help you prepare financially, present professionally, and maximize value.",
-        },
-        {
-          heading: "Mergers",
-          content: "Combining businesses creates both opportunity and complexity. We help model combined entities, analyze synergies, and plan integration.",
-        },
-        {
-          heading: "Private Equity Transactions",
-          content: "PE deals have unique requirements and expectations. We support both portfolio company acquisitions and exits with appropriate rigor.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our M and A Advisory Services",
-      content: `M and A transactions involve significant value at stake and many ways for deals to go wrong. Experienced financial advisory helps you avoid costly mistakes and capture full value.
-
-We bring objectivity to transactions that can become emotional. Our analysis helps you make decisions based on facts rather than excitement or fear. We identify risks early, negotiate appropriate protections, and ensure the deal you close is the deal you intended.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "M and A Advisory Pricing",
-      intro: "Advisory engagement pricing reflects transaction complexity and scope of support.",
-      factors: [
-        {
-          heading: "Transaction Size",
-          content: "Larger transactions typically involve more analysis, more complex due diligence, and higher stakes negotiations requiring more senior involvement.",
-        },
-        {
-          heading: "Transaction Complexity",
-          content: "Multiple entities, earnout structures, international components, or regulatory considerations add complexity and effort.",
-        },
-        {
-          heading: "Role in Transaction",
-          content: "Buy side and sell side engagements involve different work streams. Some clients need support only for specific aspects like due diligence.",
-        },
-        {
-          heading: "Timeline",
-          content: "Compressed deal timelines require dedicated resources and intensive effort that affects pricing.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "Do you broker transactions?",
-        answer: "Our focus is financial advisory rather than finding buyers or sellers. We work alongside investment bankers or business brokers who handle deal sourcing, or support transactions where you have already identified a counterparty.",
-      },
-      {
-        question: "What is quality of earnings analysis?",
-        answer: "Quality of earnings examines historical financial performance to identify non recurring items, accounting adjustments, and normalize earnings to a sustainable level. This analysis is central to most M and A transactions.",
-      },
-      {
-        question: "How long does M and A due diligence take?",
-        answer: "Financial due diligence typically takes three to six weeks for small to mid market transactions. Timeline depends on data availability, complexity, and how quickly issues are resolved.",
-      },
-      {
-        question: "Can you help with post acquisition integration?",
-        answer: "Yes, we support financial integration including combining accounting systems, establishing consolidated reporting, and implementing improved processes in acquired companies.",
-      },
-      {
-        question: "What deal sizes do you work on?",
-        answer: "We typically work on transactions from one million to one hundred million dollars. Larger transactions may benefit from investment bank involvement, though we can support the financial analysis component.",
-      },
-      {
-        question: "How do you help protect against deal risks?",
-        answer: "We identify risks during due diligence, quantify potential exposures, and help negotiate appropriate protections such as representations, warranties, indemnification, or purchase price adjustments.",
-      },
-    ],
   },
 
   "accounting-system-setup": {
-    slug: "accounting-system-setup",
-    mainIntroduction: `The right accounting system, properly configured, is foundational to everything else in your financial operations. For businesses in Newport Beach and Orange County, having a well designed accounting system means accurate data, efficient processes, and reliable reporting that supports decision making.
-
-Many businesses outgrow their original accounting setup or struggle with systems that were configured without proper planning. Transactions do not flow correctly, reports do not match reality, and workarounds become necessary. Our accounting system setup and migration services ensure your system is built right from the start or properly reconfigured to meet your current needs.`,
-
+    intro: "The right accounting software, set up correctly, is the foundation for accurate books and reliable reporting. We select, set up, migrate, and automate your accounting and reporting software, including QuickBooks, Xero, NetSuite, and Yardi, whether you're starting fresh, outgrowing your current system, or fixing a setup that was never built right.",
     whatsIncluded: {
-      heading: "What Our System Setup Services Include",
-      content: "We provide complete setup and migration services for accounting platforms, ensuring your system works the way your business does.",
-      bulletPoints: [
-        "Platform selection guidance based on your business requirements",
+      heading: "What Our Accounting Software Setup Services Include",
+      bullets: [
+        "Platform selection based on your business requirements",
         "Chart of accounts design aligned with your reporting needs",
-        "Integration setup with banks, credit cards, and payment processors",
-        "Customer and vendor master data configuration",
-        "Product and service item setup for proper revenue tracking",
-        "Class, location, and department tracking configuration",
-        "User setup and permission configuration for security",
-        "Automated transaction rules and bank feed optimization",
-        "Report customization for management and external reporting",
-        "Training for your team on system use and best practices",
+        "Job and cost codes, plus class, location, and department tracking",
+        "Multi-entity configuration and consolidated reporting",
+        "Historical data migration and imports from your previous system",
+        "Bank, credit card, and payment processor integrations",
+        "Customer, vendor, and product setup for accurate revenue tracking",
+        "Automated transaction rules and bank feeds",
+        "User roles and permissions",
+        "Custom management, lender, and investor reports",
+        "Training for your team",
       ],
     },
-
-    processSection: {
-      heading: "Our System Implementation Process",
-      intro: "We follow a structured approach to ensure your new system meets your needs and your team can use it effectively.",
+    process: {
+      heading: "Our Software Implementation Process",
       steps: [
-        {
-          heading: "Requirements Analysis",
-          content: "We start by understanding your business processes, reporting needs, and integration requirements. This analysis drives system selection and configuration decisions.",
-        },
-        {
-          heading: "System Design",
-          content: "Based on requirements, we design your chart of accounts, tracking dimensions, and workflow configurations. We document decisions and get your approval before implementation.",
-        },
-        {
-          heading: "Implementation",
-          content: "We configure the system according to design, set up integrations, and import or enter opening balances. For migrations, we map data from the old system and validate accuracy.",
-        },
-        {
-          heading: "Testing and Training",
-          content: "Before going live, we test all processes and integrations. We then train your team on daily operations, reporting, and best practices for maintaining the system.",
-        },
+        { heading: "Requirements Analysis", content: "We learn your business processes, reporting needs, and integrations, which drives platform selection and configuration." },
+        { heading: "System Design", content: "We design your chart of accounts, tracking dimensions, and workflows, and get your approval before building." },
+        { heading: "Implementation", content: "We configure the system, set up integrations, and migrate historical data and opening balances, validating every balance against your old system." },
+        { heading: "Testing and Training", content: "We test every process and integration before go-live, then train your team on daily use and reporting." },
       ],
     },
-
-    applicationsSection: {
-      heading: "When You Need System Setup Services",
-      intro: "Several situations call for professional accounting system setup or migration.",
-      applications: [
-        {
-          heading: "New Businesses",
-          content: "Starting with a properly configured system from day one avoids the cleanup and migration headaches many businesses face later. We set up your books right from the start.",
-        },
-        {
-          heading: "Outgrowing Current System",
-          content: "QuickBooks Desktop to QuickBooks Online, QuickBooks to NetSuite, spreadsheets to proper accounting software. We manage the transition smoothly.",
-        },
-        {
-          heading: "Messy Systems Needing Cleanup",
-          content: "Years of workarounds and quick fixes create systems that no longer work well. Sometimes reconfiguration is more effective than patching.",
-        },
-        {
-          heading: "Post Acquisition Integration",
-          content: "Combining financial systems after an acquisition requires careful planning and execution to maintain data integrity and reporting continuity.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
+    whyChoose: {
       heading: "Why Choose Professional System Setup",
-      content: `Your accounting system is the foundation of your financial operations. Poor setup creates ongoing headaches, from misaligned reports to inefficient processes to errors that compound over time.
-
-Professional setup means getting it right the first time. We bring experience across multiple platforms and industries to design a system that works for your specific business. The investment in proper setup pays dividends in accuracy, efficiency, and reliable reporting for years to come.`,
+      paragraphs: [
+        "Most software setups are handled by people who know the software but not the accounting. We're accountants first, so your system is built around how your books, reporting, and close actually need to work, not just how the software comes out of the box. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and when your needs go beyond accounting software, we can deliver custom integrations and a full technology stack.",
+        "And when the project ends, you're not left on your own. The same firm that built your system can keep your books, run your close, and provide controller or CFO support, so the system keeps working the way it was designed.",
+      ],
+      testimonial: "lu-miller",
     },
-
-    pricingFactorsSection: {
-      heading: "System Setup Pricing Considerations",
-      intro: "Project pricing depends on the scope and complexity of your implementation.",
-      factors: [
-        {
-          heading: "Platform Complexity",
-          content: "More sophisticated platforms like NetSuite require more configuration effort than simpler systems like QuickBooks Online.",
-        },
-        {
-          heading: "Data Migration",
-          content: "Migrating historical data from an existing system adds significant work compared to a fresh start implementation.",
-        },
-        {
-          heading: "Integration Requirements",
-          content: "Connections to inventory systems, CRM, ecommerce platforms, or other business systems increase implementation scope.",
-        },
-        {
-          heading: "Customization Needs",
-          content: "Custom reports, workflows, or configurations beyond standard setup add to project requirements.",
-        },
+    faq: {
+      heading: "Frequently Asked Questions About Accounting Software Setup and Migration",
+      items: [
+        { question: "Which accounting software do you recommend?", answer: "It depends on your needs. QuickBooks Online fits most small businesses, while companies with inventory, multiple entities, or more complex operations may need NetSuite or Sage, or an industry-specific platform such as Yardi. We help you choose the right fit." },
+        { question: "How long does a typical implementation take?", answer: "Timelines depend on the platform, the volume of historical data, and the integrations involved. We provide a timeline estimate during scoping." },
+        { question: "Will we lose historical data in a migration?", answer: "No. We migrate the history you need and validate it against your old system. We recommend keeping read-only access to the old system for reference." },
+        { question: "How do you handle the transition period?", answer: "We run systems in parallel briefly to validate accuracy and time the cutover to a month-end when practical, so operations continue without disruption." },
+        { question: "Which software implementations and migrations do you handle?", answer: "Accounting migrations such as QuickBooks Desktop to QuickBooks Online and QuickBooks to NetSuite or Sage, industry-specific platforms such as Yardi, and the business software that connects to your books, including inventory management, CRM, point-of-sale, e-commerce, payroll, and expense management systems." },
+        { question: "How much does accounting software setup cost?", answer: "Cost depends on the platform, data migration, integrations, and customization. After a free 15-minute consultation, we scope the project and provide a proposal." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "Which accounting software do you recommend?",
-        answer: "The best platform depends on your specific needs. QuickBooks Online works well for most small businesses. Companies with inventory, multiple entities, or complex requirements may need NetSuite or Sage. We help you evaluate options and choose the right fit.",
-      },
-      {
-        question: "How long does a typical implementation take?",
-        answer: "Simple QuickBooks Online setups can be completed in one to two weeks. Complex migrations or NetSuite implementations typically take four to eight weeks or more. We provide a timeline estimate based on your specific situation.",
-      },
-      {
-        question: "Will we lose historical data in a migration?",
-        answer: "No, we migrate historical data as part of most projects. The amount of history moved depends on your needs and data quality. We always maintain your old system access during and after migration for reference.",
-      },
-      {
-        question: "How do you handle the transition period?",
-        answer: "We plan carefully to minimize disruption. Typically we run parallel systems briefly to validate accuracy. We time cutover to coincide with a month end when practical. Your operations continue normally throughout.",
-      },
-      {
-        question: "What training do you provide?",
-        answer: "Training is included in our implementations. We cover daily transaction entry, reconciliation procedures, and reporting for each user role. We also provide documentation and are available for questions after go live.",
-      },
-      {
-        question: "Do you provide ongoing support after implementation?",
-        answer: "Yes, we offer ongoing support options ranging from on call assistance to regular bookkeeping or controller services. Many clients continue working with us after implementation for ongoing financial management.",
-      },
-    ],
-  },
-
-"tax-strategy-planning": {
-    slug: "tax-strategy-planning",
-    mainIntroduction: `Proactive tax planning can significantly reduce your business tax burden while ensuring full compliance. For companies in Newport Beach and Orange County, having strategic tax guidance means keeping more of what you earn and avoiding surprises at tax time.
-
-Many business owners think about taxes only when returns are due. By then, opportunities for optimization have passed. Our tax strategy and planning services take a forward looking approach, coordinating with your CPA to implement strategies throughout the year that minimize your tax liability legally and effectively.`,
-
-    whatsIncluded: {
-      heading: "What Our Tax Strategy Services Include",
-      content: "We provide proactive tax planning coordination that works alongside your CPA or tax preparer.",
-      bulletPoints: [
-        "Tax projection and estimated payment planning",
-        "Entity structure optimization analysis",
-        "Timing strategies for income and deductions",
-        "Retirement plan contribution optimization",
-        "Equipment purchase and depreciation planning",
-        "State tax nexus analysis and planning",
-        "Tax credit identification and documentation",
-        "Owner compensation structure optimization",
-        "Exit and succession tax planning",
-        "CPA coordination and communication",
-      ],
-    },
-
-    processSection: {
-      heading: "Our Tax Planning Approach",
-      intro: "We integrate tax awareness into your ongoing financial management.",
-      steps: [
-        {
-          heading: "Tax Position Assessment",
-          content: "We review your current tax situation, entity structure, and recent returns to identify optimization opportunities and areas of concern.",
-        },
-        {
-          heading: "Strategy Development",
-          content: "Working with you and your CPA, we develop tax strategies aligned with your business and personal objectives. We quantify potential savings from different approaches.",
-        },
-        {
-          heading: "Implementation Support",
-          content: "We help execute approved strategies throughout the year, whether timing major purchases, adjusting owner compensation, or making retirement contributions.",
-        },
-        {
-          heading: "Ongoing Monitoring",
-          content: "Tax situations change with business performance and tax law updates. We monitor your position and adjust strategies as needed.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "When Tax Planning Adds Most Value",
-      intro: "Proactive tax planning helps in many business situations.",
-      applications: [
-        {
-          heading: "Profitable Growing Businesses",
-          content: "As profits grow, so do tax bills. Strategic planning ensures you do not pay more than necessary as your business succeeds.",
-        },
-        {
-          heading: "Business Transitions",
-          content: "Buying, selling, or restructuring a business has major tax implications. Planning ahead preserves more value.",
-        },
-        {
-          heading: "Multi State Operations",
-          content: "Businesses operating across states face complex nexus and apportionment issues. Proper planning minimizes state tax exposure.",
-        },
-        {
-          heading: "Owner Wealth Building",
-          content: "Coordinating business and personal tax strategies helps owners build wealth more efficiently over time.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Tax Planning Services",
-      content: `We do not prepare tax returns, we help you plan to minimize them. Our focus is strategy and coordination, working with your CPA to implement approaches that reduce your tax burden.
-
-Tax planning should be integrated with your business strategy, not an afterthought. We bring tax awareness to business decisions throughout the year, ensuring you consider tax implications before committing to major actions.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Tax Planning Service Pricing",
-      intro: "Tax planning engagement pricing depends on complexity and scope.",
-      factors: [
-        {
-          heading: "Business Complexity",
-          content: "Multiple entities, various income types, and interstate operations create more planning opportunities and requirements.",
-        },
-        {
-          heading: "Planning Depth",
-          content: "Some businesses need comprehensive annual planning while others benefit from periodic strategy reviews.",
-        },
-        {
-          heading: "Special Situations",
-          content: "Transactions, restructurings, or other events requiring intensive tax analysis add to engagement scope.",
-        },
-        {
-          heading: "CPA Coordination",
-          content: "Level of involvement in coordinating with and supporting your tax preparer affects overall effort.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "Do you prepare tax returns?",
-        answer: "No, we focus on tax planning and strategy rather than return preparation. We work alongside your CPA or can recommend qualified tax preparers if you need one.",
-      },
-      {
-        question: "When should tax planning start?",
-        answer: "The earlier the better. Ideally we begin planning at the start of each year and revisit strategies quarterly. However, mid year engagement still captures meaningful opportunities.",
-      },
-      {
-        question: "How do you work with my CPA?",
-        answer: "We coordinate closely with your CPA, sharing projections and strategies. Your CPA implements the tax positions on returns while we focus on the planning component. Clear communication prevents gaps.",
-      },
-      {
-        question: "Can you help choose between S corp and C corp?",
-        answer: "Entity structure analysis is a core planning service. We model different structures based on your specific situation to recommend the optimal approach.",
-      },
-      {
-        question: "What about personal tax planning?",
-        answer: "Business and personal taxes are interconnected for owners. Our planning considers both sides, though we coordinate with your personal tax advisor for individual return matters.",
-      },
-      {
-        question: "How much can tax planning actually save?",
-        answer: "Savings vary significantly by situation. Some businesses save tens of thousands annually through proper planning. We quantify potential savings during assessment so you can evaluate the return on investment.",
-      },
-    ],
-  },
-
-  "sales-tax-compliance": {
-    slug: "sales-tax-compliance",
-    mainIntroduction: `Sales tax compliance has become increasingly complex as states expand their reach and enforcement. For businesses in Newport Beach and Orange County, especially those selling across state lines, maintaining proper sales tax compliance is essential to avoid penalties, interest, and audit exposure.
-
-The 2018 Wayfair Supreme Court decision opened the door for states to require sales tax collection from remote sellers. Many businesses now have filing obligations in multiple states they never anticipated. Our sales tax compliance services help you understand your obligations, register where required, and file accurately and on time.`,
-
-    whatsIncluded: {
-      heading: "What Our Sales Tax Compliance Services Include",
-      content: "We provide comprehensive sales tax management from nexus analysis through filing.",
-      bulletPoints: [
-        "Nexus analysis to determine where you have filing obligations",
-        "State registration and account setup",
-        "Product taxability determination by state",
-        "Sales tax calculation review and validation",
-        "Return preparation and filing for all jurisdictions",
-        "Payment coordination and timing",
-        "Exemption certificate management",
-        "Audit support and representation",
-        "Voluntary disclosure agreement support for past exposure",
-        "System integration and automation recommendations",
-      ],
-    },
-
-    processSection: {
-      heading: "How We Manage Sales Tax Compliance",
-      intro: "Our systematic approach ensures complete coverage across all your jurisdictions.",
-      steps: [
-        {
-          heading: "Nexus Assessment",
-          content: "We analyze your sales patterns, inventory locations, employee presence, and other factors to determine where you have sales tax obligations.",
-        },
-        {
-          heading: "Registration",
-          content: "We register your business with relevant state and local taxing authorities, obtaining the permits needed to collect and remit sales tax.",
-        },
-        {
-          heading: "Ongoing Compliance",
-          content: "We prepare and file returns on required schedules, manage payments, and maintain exemption certificates for tax exempt customers.",
-        },
-        {
-          heading: "Monitoring and Updates",
-          content: "We monitor for changes in your nexus exposure and tax law changes that affect your obligations, adjusting compliance as needed.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "Businesses That Need Sales Tax Help",
-      intro: "Sales tax complexity affects many types of businesses.",
-      applications: [
-        {
-          heading: "E commerce Sellers",
-          content: "Online sellers often have nexus in many states based on sales volume. Managing compliance across dozens of jurisdictions requires systematic processes.",
-        },
-        {
-          heading: "Software and SaaS Companies",
-          content: "Software taxability varies significantly by state, and SaaS creates unique challenges. Proper classification is essential for compliance.",
-        },
-        {
-          heading: "Wholesale and Distribution",
-          content: "Managing resale certificates, drop shipping arrangements, and inventory locations creates complex compliance requirements.",
-        },
-        {
-          heading: "Service Providers",
-          content: "While many services are not taxable, some states tax specific services. Proper analysis prevents under or over collection.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Professional Sales Tax Management",
-      content: `Sales tax rules are complex and change frequently. Each state has different rates, rules, and filing requirements. Trying to manage this in house often results in errors and missed filings that create exposure.
-
-Professional management ensures complete compliance while freeing your team from this administrative burden. We stay current on changing requirements and handle the complexity so you can focus on your business.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Sales Tax Service Pricing",
-      intro: "Pricing depends on the scope of your compliance obligations.",
-      factors: [
-        {
-          heading: "Number of Jurisdictions",
-          content: "More states with nexus means more registrations, more returns, and more compliance management.",
-        },
-        {
-          heading: "Transaction Volume",
-          content: "Higher sales volumes increase the effort required for return preparation and validation.",
-        },
-        {
-          heading: "Product Complexity",
-          content: "Businesses selling multiple product types or mixed taxable and exempt items require more detailed analysis.",
-        },
-        {
-          heading: "Historical Exposure",
-          content: "If past compliance was incomplete, voluntary disclosure or back filing adds to initial engagement scope.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "How do I know if I have nexus in other states?",
-        answer: "Nexus is created by physical presence, economic activity exceeding state thresholds, or certain relationships like affiliates or marketplace sales. We analyze your specific situation to determine where you have obligations.",
-      },
-      {
-        question: "What if I have not been collecting sales tax where required?",
-        answer: "Many states offer voluntary disclosure programs that limit lookback periods and waive penalties. We help you come into compliance while minimizing exposure from past non compliance.",
-      },
-      {
-        question: "How often do sales tax returns need to be filed?",
-        answer: "Filing frequency varies by state and your sales volume. Returns may be required monthly, quarterly, or annually. We manage all filing schedules and deadlines.",
-      },
-      {
-        question: "Do you integrate with our sales systems?",
-        answer: "We can work with data exports from most sales platforms and accounting systems. For high volume sellers, we recommend automated sales tax calculation software that integrates with your systems.",
-      },
-      {
-        question: "What happens if we get audited?",
-        answer: "We support sales tax audits by gathering documentation, communicating with auditors, and negotiating resolution of any issues identified. Proper compliance minimizes audit risk and exposure.",
-      },
-      {
-        question: "How do marketplace sales affect our obligations?",
-        answer: "Most states now require marketplaces like Amazon to collect and remit tax on behalf of sellers. However, direct sales and some marketplace sales may still create obligations. We analyze your complete sales picture.",
-      },
-    ],
-  },
-
-  "audit-preparation": {
-    slug: "audit-preparation",
-    mainIntroduction: `A successful audit starts with thorough preparation. For businesses in Newport Beach and Orange County facing financial statement audits, having your records organized and ready makes the process smoother, faster, and less disruptive to your operations.
-
-Audits can feel overwhelming, especially if you have not been through one before. Auditors request extensive documentation, ask detailed questions, and examine your records closely. Our audit preparation and coordination services ensure you are ready for these demands and can respond efficiently throughout the process.`,
-
-    whatsIncluded: {
-      heading: "What Our Audit Preparation Services Include",
-      content: "We help you prepare for and navigate the audit process successfully.",
-      bulletPoints: [
-        "Pre audit readiness assessment and gap identification",
-        "Account reconciliation review and documentation",
-        "Supporting schedule preparation",
-        "Document organization and request list preparation",
-        "Internal control documentation",
-        "Opening balance and roll forward schedules",
-        "Audit request response coordination",
-        "Auditor communication and meeting support",
-        "Adjustment review and discussion",
-        "Representation letter support",
-      ],
-    },
-
-    processSection: {
-      heading: "Our Audit Preparation Process",
-      intro: "We follow a structured approach to ensure you are ready when auditors arrive.",
-      steps: [
-        {
-          heading: "Readiness Assessment",
-          content: "We evaluate your current state of preparation, identify gaps in documentation or reconciliation, and create a prioritized plan to address issues before fieldwork begins.",
-        },
-        {
-          heading: "Documentation Preparation",
-          content: "We prepare or review reconciliations, create supporting schedules, organize documentation, and ensure everything is ready for auditor requests.",
-        },
-        {
-          heading: "Request List Management",
-          content: "When the auditor provides their request list, we coordinate gathering items, track status, and ensure timely responses. Efficient response reduces audit time.",
-        },
-        {
-          heading: "Fieldwork Support",
-          content: "During audit fieldwork, we serve as the point of contact for questions, help explain transactions, and work to resolve issues as they arise.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "When Audit Preparation Support Helps",
-      intro: "Various audit situations benefit from professional preparation support.",
-      applications: [
-        {
-          heading: "First Time Audits",
-          content: "Companies undergoing their first audit often underestimate the preparation required. We guide you through expectations and ensure readiness.",
-        },
-        {
-          heading: "Changed Auditors",
-          content: "New auditors ask more questions and require more documentation than continuing auditors familiar with your business. Extra preparation smooths the transition.",
-        },
-        {
-          heading: "Growing Complexity",
-          content: "As businesses grow, audit requirements expand. Transactions that were simple become complex, requiring more documentation and explanation.",
-        },
-        {
-          heading: "Limited Internal Resources",
-          content: "Small finance teams struggle to manage audit requests alongside daily responsibilities. We provide the bandwidth needed during intensive audit periods.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Audit Preparation Services",
-      content: `A well prepared audit takes less time, costs less, and causes less disruption to your business. Auditors work more efficiently when information is organized and readily available.
-
-We understand what auditors look for and how to present information clearly. Our preparation reduces the back and forth that extends audits and frustrates everyone involved. We also help manage the auditor relationship professionally, addressing issues before they escalate.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Audit Preparation Pricing",
-      intro: "Preparation pricing depends on your audit requirements and current state.",
-      factors: [
-        {
-          heading: "Audit Scope",
-          content: "Full financial statement audits require more preparation than reviews or compilations. First year audits require more than continuing engagements.",
-        },
-        {
-          heading: "Current State of Records",
-          content: "Well maintained books with documented reconciliations need less preparation than records requiring significant cleanup.",
-        },
-        {
-          heading: "Business Complexity",
-          content: "Multiple entities, complex transactions, or specialized accounting areas increase preparation requirements.",
-        },
-        {
-          heading: "Level of Support",
-          content: "Some clients need help only with specific areas while others want us to manage the entire audit coordination process.",
-        },
-      ],
-    },
-
-
-    faqs: [
-      {
-        question: "How early should we start preparing for an audit?",
-        answer: "We recommend starting preparation two to three months before expected fieldwork. This provides time to address any issues discovered during preparation without rushing.",
-      },
-      {
-        question: "What triggers an audit requirement?",
-        answer: "Audits may be required by lenders, investors, regulatory bodies, or as part of sale or acquisition processes. Some industries have specific audit requirements. Requirements are typically specified in loan covenants or investor agreements.",
-      },
-      {
-        question: "Can you help us select an audit firm?",
-        answer: "Yes, we can help you evaluate audit firm options, request proposals, and select the right firm for your needs. We consider industry expertise, firm size, approach, and fees.",
-      },
-      {
-        question: "What if auditors find problems?",
-        answer: "We help evaluate proposed adjustments, discuss alternatives with auditors, and determine appropriate responses. Not all auditor suggestions require acceptance. We help you understand implications and options.",
-      },
-      {
-        question: "Do you attend audit meetings?",
-        answer: "Yes, we typically attend planning and closing meetings and are available throughout fieldwork. Having experienced support in these discussions helps ensure clear communication.",
-      },
-      {
-        question: "How can we reduce future audit costs?",
-        answer: "Maintaining clean books throughout the year, keeping organized documentation, and addressing issues promptly all reduce audit time and cost. We help you build these practices into your regular operations.",
-      },
-    ],
   },
 
   "startup-business-services": {
-    slug: "startup-business-services",
-    mainIntroduction: `Startups and young businesses face unique financial challenges that require specialized support. For entrepreneurs in Newport Beach and Orange County, having the right financial foundation from the start saves time, money, and headaches as you grow.
-
-Many startups struggle with the basics: proper entity setup, clean books, financial projections investors will take seriously. Others waste resources on expensive solutions they do not yet need. Our startup and small business services provide appropriate support for your stage, helping you build the financial infrastructure to support growth.`,
-
+    intro: "The decisions you make in your first year shape how easily your company can grow and stay compliant. We handle the setup, from state registration, formation documents, and entity structure to your accounting system, chart of accounts, payroll, and sales tax registrations, so your business is ready to operate from day one.",
     whatsIncluded: {
-      heading: "What Our Startup Services Include",
-      content: "We provide financial support tailored to early stage companies and growing small businesses.",
-      bulletPoints: [
-        "Entity structure selection and setup guidance",
-        "Accounting system setup and initial configuration",
-        "Bookkeeping services scaled to your transaction volume",
-        "Financial statement preparation for investors and lenders",
-        "Cash flow management and runway monitoring",
-        "Burn rate analysis and scenario planning",
-        "Financial model development for fundraising",
-        "Pitch deck financial sections and investor materials",
-        "Cap table management and option tracking",
-        "Board meeting preparation and financial reporting",
+      heading: "What Our Startup Accounting and Finance Services Include",
+      bullets: [
+        "State registration and business formation documents",
+        "Entity structure selection and setup",
+        "Accounting system setup and chart of accounts design",
+        "Bank and credit card connections to your accounting system",
+        "Merchant processing setup through our ISO partnership",
+        "Payroll setup for your first employees through our payroll partners",
+        "Sales tax registration where required",
+        "Software and tool selection for your business",
+        "Recordkeeping and document organization systems",
       ],
     },
-
-    processSection: {
-      heading: "How We Support Startups",
-      intro: "Our approach grows with you, providing the right level of support for each stage.",
+    process: {
+      heading: "How Our Startup Services Work",
       steps: [
-        {
-          heading: "Foundation Setup",
-          content: "We help establish proper entity structure, set up accounting systems correctly from the start, and implement processes appropriate for your current scale.",
-        },
-        {
-          heading: "Ongoing Operations",
-          content: "We handle bookkeeping, provide financial statements, and ensure you always know where you stand. Monthly reviews keep you informed without overwhelming you.",
-        },
-        {
-          heading: "Growth Support",
-          content: "As you hire, raise capital, or scale operations, we add capabilities and sophistication to match. Your financial support grows with your needs.",
-        },
-        {
-          heading: "Strategic Guidance",
-          content: "Beyond transaction processing, we provide strategic input on pricing, unit economics, growth planning, and other decisions that shape your trajectory.",
-        },
+        { heading: "Formation and Registration", content: "We register your business with the state, prepare your formation documents, and set up the entity structure that fits your goals." },
+        { heading: "Accounting Setup", content: "We set up your accounting system and chart of accounts and connect your bank and credit card accounts." },
+        { heading: "Payroll, Sales Tax, and Payments", content: "We set up payroll through our payroll partners, register for sales tax where required, and set up merchant processing through our ISO partnership." },
+        { heading: "Ready to Operate", content: "Once setup is complete, your business is ready to run, and we can continue with bookkeeping and other ongoing services when you need them." },
       ],
     },
-
-    applicationsSection: {
-      heading: "Startups and Small Businesses We Serve",
-      intro: "We work with early stage companies across industries.",
-      applications: [
-        {
-          heading: "Pre Revenue Startups",
-          content: "Even before revenue, you need clean books, proper entity structure, and financial projections. We help you build credibility with future investors.",
-        },
-        {
-          heading: "Bootstrapped Companies",
-          content: "Self funded businesses need efficient financial management without overhead. We provide professional support at startup friendly pricing.",
-        },
-        {
-          heading: "Funded Startups",
-          content: "Investor expectations require accurate reporting, proper controls, and financial professionalism. We help you meet these requirements without premature full time hires.",
-        },
-        {
-          heading: "Small Businesses Scaling",
-          content: "As you grow past startup stage, financial needs evolve. We help you professionalize operations while maintaining the agility that got you here.",
-        },
+    whyChoose: {
+      heading: "Why Choose Our Startup Accounting and Finance Services",
+      paragraphs: [
+        "Starting a business comes with a lot of decisions, and we help you make each one with confidence. We work alongside you through formation, state registration, entity structure, accounting system setup, payroll, sales tax, and merchant processing, so every piece fits together and supports your plans.",
+        "We help you choose the software and tools that fit your business today and set them up to grow with you. From day one, you have an experienced finance partner in your corner.",
       ],
     },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Startup Services",
-      content: `Startups cannot afford financial chaos or expensive mistakes. But they also cannot afford the overhead of a full finance team. Our services provide professional financial support right sized for early stage companies.
-
-We understand startup dynamics and investor expectations. We help you avoid common mistakes, present professionally to stakeholders, and build toward the financial capabilities you will need as you grow. And we are flexible as your needs change rapidly.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Startup Service Pricing",
-      intro: "We structure pricing to work for early stage budgets.",
+    pricing: {
+      heading: "Factors That Affect Startup Accounting and Finance Pricing",
+      intro: FOUR_FACTORS,
       factors: [
-        {
-          heading: "Transaction Volume",
-          content: "Pre revenue companies have simpler books than growing businesses. Pricing scales with your activity level.",
-        },
-        {
-          heading: "Service Scope",
-          content: "Basic bookkeeping costs less than comprehensive financial management with strategic support.",
-        },
-        {
-          heading: "Growth Stage",
-          content: "Funded startups typically need more sophisticated support than bootstrapped companies, reflected in pricing.",
-        },
-        {
-          heading: "Special Projects",
-          content: "Financial modeling for fundraising or other projects are typically priced separately from ongoing support.",
-        },
+        { heading: "Setup Scope", content: "The number of setup items, such as formation, registrations, and system setup, affects the cost." },
+        { heading: "Number of Entities", content: "Each additional entity adds formation, registration, and setup work." },
+        { heading: "Number of States", content: "Registering in multiple states adds filings and accounts." },
+        { heading: "System Complexity", content: "Inventory, multiple locations, or integrated sales systems require more setup." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "What entity type should my startup use?",
-        answer: "Most startups expecting to raise venture capital should be C corps for investor preferences and equity compensation. Bootstrapped businesses and those expecting steady distributions often benefit from S corps or LLCs. We analyze your specific situation to recommend the right structure.",
-      },
-      {
-        question: "When do I need more than basic bookkeeping?",
-        answer: "As you approach or begin fundraising, add employees, or grow past a few hundred thousand in revenue, you typically need more sophisticated financial support. We help you identify the right time to add capabilities.",
-      },
-      {
-        question: "Can you help prepare for investor meetings?",
-        answer: "Yes, we prepare financial materials for investor presentations, help you understand your metrics, and can attend meetings to address detailed financial questions.",
-      },
-      {
-        question: "How do you handle equity and stock options?",
-        answer: "We help with cap table management, 409A valuation coordination, and option grant tracking. Proper documentation from the start prevents problems as the cap table grows complex.",
-      },
-      {
-        question: "What accounting software do you recommend for startups?",
-        answer: "Most startups do well with QuickBooks Online for its ease of use and ecosystem of integrations. Companies with complex inventory or expecting rapid scale might consider NetSuite from the start. We help you choose appropriately.",
-      },
-      {
-        question: "Can you grow with us as we scale?",
-        answer: "Absolutely. Many of our startup clients evolve into full fractional CFO or controller relationships as they grow. Our service model is designed to scale with your business.",
-      },
-    ],
+    faq: {
+      heading: "Frequently Asked Questions About Startup Accounting and Finance",
+      items: [
+        { question: "What entity type should my business use?", answer: "It depends on your ownership, growth plans, and how you plan to pay yourself. LLCs, S corporations, and C corporations each carry different tax and liability implications, and we review the options for your situation with your CPA or our tax partners." },
+        { question: "What accounting software should a new business use?", answer: "QuickBooks Online fits most new businesses. Companies with inventory, multiple entities, or rapid growth plans may need a more robust platform, and we help you choose the right fit." },
+        { question: "How long does setup take?", answer: "It depends mostly on state processing times for formation and registrations. Accounting, payroll, and payment setup can begin as soon as your business is registered." },
+        { question: "What do you need from us to get started?", answer: "Your business name, owners and ownership percentages, business address, and a description of what you sell and where. We guide you through the rest." },
+        { question: "Can you support us after setup?", answer: "Yes. Once setup is complete, we can provide ongoing bookkeeping, payroll, sales tax, and controller or CFO support as your business grows." },
+        { question: "How much does startup accounting and finance cost?", answer: "Cost depends on your setup scope, the number of entities and states, and the complexity of your systems. After a free 15-minute consultation, we provide a proposal priced to your needs." },
+      ],
+    },
   },
 
-  "operational-efficiency-consulting": {
-    slug: "operational-efficiency-consulting",
-    mainIntroduction: `Operational efficiency directly impacts profitability and competitive advantage. For businesses in Newport Beach and Orange County, streamlining operations means doing more with less, reducing waste, and freeing resources for growth initiatives.
-
-Many businesses accumulate inefficiencies over time. Processes that made sense at one scale become bottlenecks at another. Manual workarounds multiply. Costs creep up while output stagnates. Our operational efficiency consulting helps you identify these issues and implement improvements that enhance performance.`,
-
+  "fractional-cfo-services": {
+    intro: "A fractional CFO gives your business executive-level financial leadership without the cost of a full-time hire. We step in as an extension of your leadership team, bringing clarity to your financial position, identifying opportunities for growth, and guiding complex decisions, whether you need tighter cash flow management, stronger margins, a plan for growth, or support through a capital raise or acquisition.",
     whatsIncluded: {
-      heading: "What Our Operational Efficiency Consulting Includes",
-      content: "We analyze your operations comprehensively and implement meaningful improvements.",
-      bulletPoints: [
-        "Process mapping and analysis across key functions",
-        "Bottleneck identification and root cause analysis",
-        "Cost structure analysis and benchmarking",
-        "Automation opportunity assessment",
-        "Workflow redesign and optimization",
-        "Technology evaluation and implementation support",
-        "Vendor evaluation and renegotiation support",
-        "Performance metric development and tracking",
-        "Change management and staff training",
-        "Ongoing monitoring and continuous improvement",
+      heading: "What Our Fractional CFO Services Include",
+      bullets: [
+        "Financial strategy and execution planning aligned with your business objectives",
+        "Monthly and quarterly financial reviews with clear recommendations",
+        "Cash flow management and forecasting to maintain healthy working capital",
+        "Budget development and budget-to-actual variance analysis",
+        "KPI and performance reporting that tracks what drives your business",
+        "Investor, lender, and board reporting",
+        "Scenario planning for growth, expansion, and major decisions",
+        "Vendor and partner negotiations leveraging financial data and analysis",
+        "Mentoring and development for your internal finance staff",
+        "Profitability and pricing analysis",
+        "Capital, financing, and entity structuring strategy",
       ],
     },
-
-    processSection: {
-      heading: "Our Approach to Operational Improvement",
-      intro: "We follow a structured methodology that delivers measurable results.",
+    process: {
+      heading: "How Our Fractional CFO Engagement Works",
       steps: [
-        {
-          heading: "Assessment",
-          content: "We document current processes, gather data on costs and cycle times, and interview staff to understand pain points and opportunities.",
-        },
-        {
-          heading: "Analysis",
-          content: "We analyze findings to identify improvement opportunities, quantify potential benefits, and prioritize initiatives based on impact and feasibility.",
-        },
-        {
-          heading: "Design",
-          content: "We design improved processes, evaluate technology solutions where appropriate, and develop implementation plans for approved changes.",
-        },
-        {
-          heading: "Implementation",
-          content: "We support implementation of improvements, including process changes, technology deployment, and staff training. We measure results to confirm benefits.",
-        },
+        { heading: "Discovery and Assessment", content: "We review your financial operations, systems, reporting, and historical results, and meet with key stakeholders to understand your goals and identify immediate opportunities for improvement." },
+        { heading: "Strategy Development", content: "We build a financial strategy aligned with your objectives, including KPIs, reporting frameworks, and financial models, and prioritize initiatives with you." },
+        { heading: "Implementation and Execution", content: "We put the plan in place, upgrading reporting, establishing new processes, and training your team so improvements last." },
+        { heading: "Ongoing Strategic Partnership", content: "We meet regularly to review performance, guide major decisions, and prepare for board, investor, and lender meetings as your business evolves." },
       ],
     },
-
-    applicationsSection: {
-      heading: "Where Efficiency Consulting Adds Value",
-      intro: "Operational improvements benefit various business functions.",
-      applications: [
-        {
-          heading: "Finance and Accounting",
-          content: "Month end close taking too long, manual data entry consuming staff time, reporting delays impacting decisions. We streamline financial operations.",
-        },
-        {
-          heading: "Order to Cash",
-          content: "From receiving orders through collecting payment, inefficiencies delay revenue and frustrate customers. We optimize the entire cycle.",
-        },
-        {
-          heading: "Procure to Pay",
-          content: "Purchasing, receiving, and payment processes often involve unnecessary steps and poor controls. We design efficient, controlled workflows.",
-        },
-        {
-          heading: "Back Office Operations",
-          content: "Administrative functions accumulate workarounds and redundancy over time. Fresh analysis often finds significant improvement opportunities.",
-        },
+    cards: {
+      heading: "Types of Businesses We Serve",
+      items: [
+        { heading: "Growth Stage Companies", content: "Companies that have outgrown basic accounting and need strategic oversight to manage growth, optimize cash flow, and make data-driven decisions about expansion." },
+        { heading: "Venture-Backed Startups", content: "Startups preparing for or managing through funding rounds. We prepare financial models, investor materials, and reporting packages, and build financial operations that scale with you." },
+        { heading: "Family-Owned Businesses", content: "Family businesses that need to professionalize their financial operations while preserving the values that made them successful." },
       ],
     },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Efficiency Consulting",
-      content: `External perspective often reveals inefficiencies that internal teams have learned to work around. We bring fresh eyes and cross industry experience to identify improvements you might not see.
-
-Our approach balances quick wins with sustainable change. We look for opportunities to demonstrate value rapidly while building toward more significant improvements. And we ensure changes stick through proper training and follow up.`,
+    whyChoose: {
+      heading: "Why Orange County Businesses Choose Our Fractional CFO Services",
+      paragraphs: [
+        "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services, so we bring proven approaches to the challenges you face.",
+        "Because we also manage accounting and the month-end close, our CFO guidance is built on numbers we have verified ourselves, not inherited. And we communicate clearly, without unnecessary jargon, so you always understand the financial impact of major decisions.",
+      ],
+      testimonial: "tyson-johnson",
     },
-
-    pricingFactorsSection: {
-      heading: "Efficiency Consulting Pricing",
-      intro: "Project pricing depends on scope and depth of analysis.",
+    pricing: {
+      heading: "Factors That Influence Fractional CFO Engagement Pricing",
+      intro: "Every engagement is priced to the level of support your business needs. Four main factors drive the cost.",
       factors: [
-        {
-          heading: "Assessment Scope",
-          content: "Targeted analysis of specific functions costs less than comprehensive operational review across the business.",
-        },
-        {
-          heading: "Implementation Support",
-          content: "Some clients want recommendations only while others need hands on implementation support.",
-        },
-        {
-          heading: "Technology Components",
-          content: "Projects involving software selection, implementation, or integration require additional effort.",
-        },
-        {
-          heading: "Change Complexity",
-          content: "Simple process improvements differ significantly from initiatives requiring significant organizational change.",
-        },
+        { heading: "Scope of Services", content: "Focused support in one area, such as cash flow management or fundraising, costs less than full CFO oversight across every financial function." },
+        { heading: "Time Commitment", content: "Engagements range from a few hours per week to several days per month, depending on your complexity, growth stage, and internal finance capabilities." },
+        { heading: "Business Complexity", content: "Multiple entities, complex revenue models, or significant regulatory requirements call for more involved financial management." },
+        { heading: "Special Projects", content: "Fundraising, M&A due diligence, and system implementations may be scoped separately from ongoing support." },
       ],
     },
-
-
-    faqs: [
-      {
-        question: "How long does an efficiency project take?",
-        answer: "Assessment typically takes two to four weeks. Implementation varies widely based on what changes are needed. Quick wins can be realized within weeks while larger initiatives may span several months.",
-      },
-      {
-        question: "Will this disrupt our operations?",
-        answer: "We work to minimize disruption during assessment and carefully plan implementation to avoid operational impact. Most businesses continue normal operations throughout our engagement.",
-      },
-      {
-        question: "How do you measure results?",
-        answer: "We establish baseline metrics before making changes and track improvements afterward. Metrics might include cycle time, cost per transaction, error rates, or other relevant measures.",
-      },
-      {
-        question: "What if our staff resists changes?",
-        answer: "Change management is integral to our approach. We involve staff in identifying improvements, explain the why behind changes, and provide proper training. Resistance typically diminishes when people understand benefits.",
-      },
-      {
-        question: "Do you recommend specific technology solutions?",
-        answer: "When technology can help, we evaluate options objectively based on your needs and budget. We do not receive commissions from vendors, so our recommendations are unbiased.",
-      },
-      {
-        question: "Can you help with implementing recommendations?",
-        answer: "Yes, we can support implementation at whatever level you need, from periodic check ins to hands on project management. Many improvements require follow through to realize full benefits.",
-      },
-    ],
+    faq: {
+      heading: "Frequently Asked Questions About Fractional CFO Services",
+      items: [
+        { question: "What is the difference between a fractional CFO and a full-time CFO?", answer: "A fractional CFO provides the same strategic financial leadership as a full-time CFO on a part-time or project basis, giving you senior-level expertise at a fraction of the cost of a full-time executive." },
+        { question: "How much time does a typical fractional CFO engagement require?", answer: "Engagements range from a few hours per week to several days per month, and can increase during intensive periods such as fundraising or system implementations. We structure engagements around your actual needs, not fixed commitments." },
+        { question: "At what stage should a business consider hiring a fractional CFO?", answer: "When financial decisions start carrying real weight: difficulty managing cash flow, preparing to raise capital, considering an acquisition or sale, or needing better visibility to support growth." },
+        { question: "How is a fractional CFO different from an accountant or bookkeeper?", answer: "Accountants and bookkeepers focus on recording transactions and ensuring accuracy in your financial records. A fractional CFO takes a strategic view, using financial data to guide business decisions, optimize operations, and plan for future growth. Think of it as the difference between knowing where you have been versus planning where you are going." },
+        { question: "What should I expect during the first month of a fractional CFO engagement?", answer: "The first month focuses on assessment: reviewing your financial operations and historical data, meeting key stakeholders, and delivering a clear set of priorities and a roadmap for improvement." },
+        { question: "How much does a fractional CFO cost?", answer: "Cost depends on the scope of work, the time commitment, and the complexity of your business. After a free 15-minute consultation, we provide a proposal priced to the level of support you need." },
+      ],
+    },
   },
 
-  "scaling-growth-support": {
-    slug: "scaling-growth-support",
-    mainIntroduction: `Scaling a business requires more than ambition. It requires systems, infrastructure, and planning to grow sustainably. For companies in Newport Beach and Orange County ready to expand, having the right support prevents the growing pains that derail many promising businesses.
-
-Many businesses hit walls when they try to scale. What worked at one size breaks at another. Processes that were manageable become overwhelming. Cash gets tight even as revenue grows. Our scaling and growth support helps you anticipate and overcome these challenges, building the infrastructure for successful expansion.`,
-
+  "financial-planning-and-analysis": {
+    intro: "A strong financial plan turns your goals into numbers you can manage against. Our financial planning and analysis services deliver annual budgets, rolling forecasts, and cash flow projections, measured against actual results every month and tied to the KPIs that drive your business. We also build dynamic growth plans for scaling locations, fleets, or product lines, with debt, equity, or blended financing scenarios you can use internally and with lenders and investors.",
     whatsIncluded: {
-      heading: "What Our Scaling Support Services Include",
-      content: "We provide comprehensive support for businesses navigating growth transitions.",
-      bulletPoints: [
-        "Growth readiness assessment and gap analysis",
-        "Scalable process design and documentation",
-        "Financial infrastructure development",
-        "Hiring and organizational planning",
-        "Technology platform evaluation and selection",
-        "Cash flow planning for growth investments",
-        "Operational metrics and dashboard development",
-        "Vendor and partner relationship management",
-        "Risk identification and mitigation planning",
-        "Board and investor communication support",
+      heading: "What Our FP&A Services Include",
+      bullets: [
+        "Annual operating budgets with departmental detail",
+        "Revenue forecasting based on pipeline, seasonality, and trends",
+        "Expense and headcount planning",
+        "Capital expenditure planning",
+        "Rolling cash flow forecasts updated monthly or quarterly",
+        "Scenario analysis for different business conditions",
+        "Budget-to-actual variance reporting and reforecasting",
+        "Dynamic growth models for new locations, fleets, or product lines",
+        "Debt, equity, and blended financing scenarios",
+        "Board, lender, and investor presentation support",
       ],
     },
-
-    processSection: {
-      heading: "How We Support Your Growth",
-      intro: "Our approach addresses the full range of scaling challenges.",
-      steps: [
-        {
-          heading: "Readiness Assessment",
-          content: "We evaluate your current operations, systems, and team to identify what is ready to scale and what needs improvement before growth accelerates.",
-        },
-        {
-          heading: "Infrastructure Planning",
-          content: "We help design scalable processes, select appropriate technology, and plan organizational development to support your growth trajectory.",
-        },
-        {
-          heading: "Implementation Support",
-          content: "We support implementation of improvements, helping you build the infrastructure you need without disrupting current operations.",
-        },
-        {
-          heading: "Ongoing Guidance",
-          content: "As you scale, new challenges emerge. We provide ongoing support, helping you navigate issues and adjust plans as conditions change.",
-        },
-      ],
-    },
-
-    applicationsSection: {
-      heading: "Scaling Situations We Support",
-      intro: "Different growth situations create different needs.",
-      applications: [
-        {
-          heading: "Post Funding Growth",
-          content: "After raising capital, the pressure to deploy it effectively is intense. We help you scale quickly while maintaining control.",
-        },
-        {
-          heading: "Organic Growth Acceleration",
-          content: "When market demand exceeds your current capacity, you need to scale fast. We help you expand without breaking what works.",
-        },
-        {
-          heading: "Geographic Expansion",
-          content: "Entering new markets creates operational complexity. We help you extend successfully while managing the challenges of distance.",
-        },
-        {
-          heading: "Product or Service Expansion",
-          content: "Adding offerings strains operations in new ways. We help you expand your portfolio without overwhelming your team.",
-        },
-      ],
-    },
-
-    whyChooseSection: {
-      heading: "Why Choose Our Scaling Support",
-      content: `We have seen the patterns of successful and unsuccessful scaling across many businesses. This experience helps you avoid common mistakes and implement proven approaches.
-
-Growth is exciting but risky. Moving too fast creates chaos, too slow loses opportunity. We help you find the right pace, build appropriate infrastructure, and navigate the inevitable challenges. Our goal is sustainable growth that builds lasting value.`,
-    },
-
-    pricingFactorsSection: {
-      heading: "Scaling Support Pricing",
-      intro: "Engagement pricing reflects the scope and intensity of support needed.",
-      factors: [
-        {
-          heading: "Growth Magnitude",
-          content: "Doubling in size requires different support than incremental growth. Larger transitions need more planning and hands on help.",
-        },
-        {
-          heading: "Current Infrastructure",
-          content: "Businesses with solid foundations need less infrastructure building than those requiring significant development.",
-        },
-        {
-          heading: "Timeline",
-          content: "Rapid scaling with compressed timelines requires intensive support. Gradual growth allows more measured engagement.",
-        },
-        {
-          heading: "Scope of Support",
-          content: "Some businesses need help across all functions while others want targeted support in specific areas.",
-        },
-      ],
-    },
-
-
-    faqs: [
+    extraSections: [
       {
-        question: "How do I know if we are ready to scale?",
-        answer: "Signs of readiness include strong unit economics, repeatable customer acquisition, stable operations, and capacity constraints. Signs you are not ready include inconsistent delivery, unprofitable growth, or operational chaos. We help you assess honestly.",
-      },
-      {
-        question: "What usually breaks first when scaling?",
-        answer: "Common failure points include cash flow, hiring, technology systems, and management capacity. Financial controls often lag, leading to surprises. We help you strengthen weak links before they break.",
-      },
-      {
-        question: "How much should we invest in infrastructure versus growth?",
-        answer: "This balance is critical and situation dependent. Under investing in infrastructure creates chaos, over investing wastes resources. We help you find the right balance for your trajectory.",
-      },
-      {
-        question: "Can you help with hiring for growth?",
-        answer: "We help with organizational planning, role definition, and hiring priorities. While we do not recruit directly, we ensure you are building the right team structure for scale.",
-      },
-      {
-        question: "What is the biggest mistake companies make when scaling?",
-        answer: "Growing faster than their infrastructure can support. Revenue increases but profits disappear into inefficiency and fixing problems. We help you grow at a pace your organization can sustain.",
-      },
-      {
-        question: "How long does a typical engagement last?",
-        answer: "Initial assessment and planning typically takes one to two months. Ongoing support during scaling may continue six to twelve months or longer depending on your growth timeline and needs.",
+        heading: "KPI Development and Dashboards",
+        bullets: [
+          "KPI selection and definition aligned with your business objectives",
+          "Dashboard design and setup on the right platform",
+          "Automated data feeds from your accounting and operational systems",
+          "Trend, variance, and exception reporting",
+          "Scheduled report distribution and user training",
+        ],
       },
     ],
+    process: {
+      heading: "Our FP&A Process",
+      steps: [
+        { heading: "Historical Analysis", content: "We analyze your historical performance to understand trends, seasonality, and cost drivers." },
+        { heading: "Assumptions and KPIs", content: "We set the assumptions behind the plan with you, including growth, pricing, hiring, and major initiatives, and define the KPIs you'll manage against." },
+        { heading: "Model Construction", content: "We build an integrated model linking the income statement, balance sheet, and cash flow, designed for scenario analysis and easy updating." },
+        { heading: "Monthly Tracking and Reforecasting", content: "Each month, we compare results to plan, report variances and KPIs, and update the forecast as conditions change." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our FP&A Services",
+      paragraphs: [
+        "We build financial plans you'll use every month to run your business. FP&A is the core of our experience, with more than 15 years in corporate finance, FP&A, and accounting, so your plan is built on sound modeling and a real understanding of how your business makes money.",
+        "Because we also keep the books and close the month, your actual results are ready the moment it's time to compare them to plan, and the analysis comes from the same people who know your numbers. You get forecasts you can trust, explained in plain language, and a partner who helps you act on them.",
+      ],
+    },
+    pricing: {
+      heading: "FP&A Service Pricing Factors",
+      intro: FOUR_FACTORS,
+      factors: [
+        { heading: "Business Complexity", content: "Multiple revenue streams, product lines, locations, or entities require more detailed modeling." },
+        { heading: "Level of Detail", content: "Line-item budgets take more work than high-level departmental summaries." },
+        { heading: "Forecast Frequency", content: "Monthly reforecasting requires more ongoing involvement than quarterly updates." },
+        { heading: "Scenario Requirements", content: "Multiple scenarios and financing structures add modeling work." },
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Financial Planning and Analysis",
+      items: [
+        { question: "How often should we update our forecast?", answer: "Most businesses update their forecast quarterly, and faster-moving businesses update monthly. We set the cadence based on how quickly your business changes." },
+        { question: "What is the difference between a budget and a forecast?", answer: "A budget is your fixed annual target. A forecast is a regularly updated estimate of where results are actually heading, measured against that budget." },
+        { question: "How much do FP&A services cost?", answer: "Cost depends on your complexity, level of detail, and how often you reforecast. After a free 15-minute consultation, we provide a proposal priced to the support you need." },
+        { question: "Which KPIs should my business track?", answer: "It depends on what drives your business, such as margins by product or location, customer acquisition cost, cash runway, or labor cost as a percentage of revenue. We help you choose the few that matter most." },
+        { question: "What if our budget becomes unrealistic mid-year?", answer: "We reforecast while keeping the original budget as a benchmark, so you can see both the plan and where you're actually heading." },
+        { question: "Do you integrate budgets with our accounting system?", answer: "Yes. Approved budgets are loaded into your accounting software for automated budget-to-actual reporting." },
+      ],
+    },
+  },
+
+  "financial-modeling": {
+    intro: "A financial model shows the impact of a decision before you make it. Should you expand into a new market, add a product line, change your pricing, or invest in new equipment? We build models around your specific business drivers and test every scenario, so you can see the range of possible outcomes and decide with confidence.",
+    whatsIncluded: {
+      heading: "What Our Financial Modeling Services Include",
+      bullets: [
+        "Three-statement models linking the income statement, balance sheet, and cash flow",
+        "Revenue models built on your specific business drivers",
+        "Profitability analysis by product, customer, location, or segment",
+        "Pricing and cost structure analysis",
+        "Break-even and unit economics analysis, including customer lifetime value",
+        "Scenario and sensitivity analysis for key variables",
+        "Investment return analysis, including NPV and IRR",
+        "Acquisition and deal models",
+        "Business valuation and equity ownership analysis",
+      ],
+    },
+    process: {
+      heading: "How We Build Financial Models",
+      steps: [
+        { heading: "Scope Definition", content: "We define exactly which questions the model needs to answer, which sets its structure and level of detail." },
+        { heading: "Data Gathering", content: "We collect and validate your historical data, operating metrics, and assumptions." },
+        { heading: "Model Construction", content: "We build a transparent, well-documented model that others can follow and update." },
+        { heading: "Validation and Delivery", content: "We test and stress-test the model, then walk you through it so you can use it with confidence." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our Financial Modeling Services",
+      paragraphs: [
+        "We build models you'll actually use, not just present. Every model is designed so you can change an assumption and immediately see the impact, update it as your business evolves, and share it with a lender or investor with confidence. Our modeling experience spans growth planning, acquisitions, capital raises, and investment decisions, backed by more than 15 years in corporate finance and FP&A.",
+        "Because we also work inside your books, your model starts from accurate historical numbers, not rough estimates, and we can keep it updated with actual results long after it's delivered.",
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Financial Modeling and Analysis",
+      items: [
+        { question: "What format do you deliver models in?", answer: "Models are delivered in Excel, the standard for financial analysis, organized and documented so your team can use them." },
+        { question: "How long does it take to build a financial model?", answer: "Timing depends on the model's complexity and how readily your data is available. We provide an estimate during scoping." },
+        { question: "Can you update models we already have?", answer: "Yes. We can review, correct, enhance, or extend existing models." },
+        { question: "How much does a financial model cost?", answer: "Cost depends on the model's complexity, the analysis required, and your timeline. After a free 15-minute consultation, we scope the project and provide a proposal." },
+        { question: "Can you present the model to investors or the board?", answer: "Yes. We prepare presentation materials from the model and can present alongside you." },
+      ],
+    },
+  },
+
+  "fundraising-support": {
+    intro: "Raising capital is one of the most important moments in a company's growth. Whether you're pursuing equity investors or debt financing, we prepare the numbers, the story, and the diligence package investors and lenders expect, so you can present your opportunity with confidence and keep the process moving.",
+    whatsIncluded: {
+      heading: "What Our Fundraising Support Services Include",
+      bullets: [
+        "Investor-ready financial models and pro formas",
+        "Historical financial statement preparation and cleanup",
+        "Pitch deck financial slides and supporting materials",
+        "Use of proceeds analysis",
+        "Valuation and equity ownership analysis",
+        "Due diligence preparation and data room organization",
+        "Responses to investor and lender diligence questions",
+        "Term sheet financial analysis",
+        "Lender packages for bank and SBA financing",
+        "Post-close investor and lender reporting setup",
+      ],
+    },
+    process: {
+      heading: "How We Support Your Fundraising Process",
+      steps: [
+        { heading: "Readiness Assessment", content: "We evaluate your financial position, identify gaps in your materials or records, and build a preparation plan." },
+        { heading: "Material Development", content: "We build your financial model and pro formas, prepare clean historical financials, and develop the financial sections of your pitch materials." },
+        { heading: "Due Diligence Preparation", content: "We organize your data room and prepare answers to the questions investors and lenders typically ask." },
+        { heading: "Process Support", content: "During the raise, we respond to financial questions, provide additional analysis, and help you evaluate the financial impact of term sheets." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our Fundraising Support",
+      paragraphs: [
+        "We prepare your raise the way investors and lenders will review it. Our background in investor relations, capital markets, and investor document production means we know the questions that come up in diligence, and we build the answers into your materials before anyone asks.",
+        "Your model ties directly to clean, reconciled books, so the numbers hold up under scrutiny. While you focus on investor conversations and running the business, we handle the financial workload. Once the raise closes, we set up the reporting your new investors and lenders expect.",
+      ],
+    },
+    pricing: {
+      heading: "Factors That Affect Fundraising Support Pricing",
+      intro: FOUR_FACTORS,
+      factors: [
+        { heading: "Current State", content: "Companies with clean books and an existing model need less preparation than those starting from scratch." },
+        { heading: "Deal Complexity", content: "Multiple investor types, layered capital structures, or complex terms call for more analysis." },
+        { heading: "Timeline", content: "Compressed timelines may require dedicated resources." },
+        { heading: "Scope of Support", content: "Full raise preparation costs more than help with a specific area, such as modeling or diligence." },
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Fundraising Support",
+      items: [
+        { question: "Can a fractional CFO help with fundraising?", answer: "Yes. A fractional CFO prepares the financial model, historical financials, and diligence materials investors and lenders expect, and supports you through the process without adding a full-time executive before the capital is raised." },
+        { question: "How early should we engage for fundraising support?", answer: "As early as possible, ideally before you begin outreach, which leaves time to clean up financials and build materials. Shorter timelines are possible for time-sensitive opportunities." },
+        { question: "Do you help find investors?", answer: "No. We focus on financial preparation and diligence support, and we can refer you to bankers, brokers, or advisors who handle investor introductions." },
+        { question: "How do you help with valuation?", answer: "We perform valuation analysis suited to your stage and industry, giving you a defensible basis for your ask and an objective way to assess offers." },
+        { question: "Can you attend investor meetings?", answer: "Yes. We can present the financials and answer detailed questions, which is most valuable during due diligence." },
+        { question: "How much does fundraising support cost?", answer: "Cost depends on your current financial state, deal complexity, timeline, and scope of support. After a free 15-minute consultation, we provide a proposal priced to your raise." },
+      ],
+    },
+  },
+
+  "mergers-acquisitions-advisory": {
+    intro: "Buying, selling, or merging a business is one of the most consequential decisions an owner will make. We provide buy-side and sell-side financial support alongside your investment bank, broker, or ownership team, from due diligence and deal modeling to preparing the financial package buyers expect, so you enter the transaction with a clear view of the numbers and stay on track through close.",
+    whatsIncluded: {
+      heading: "What Our M&A Advisory Services Include",
+      bullets: [
+        "Financial due diligence on acquisition targets",
+        "Deal models with return and debt coverage analysis",
+        "Valuation analysis to support pricing and offers",
+        "Earnings normalization and adjustments",
+        "Working capital analysis and peg determination",
+        "Deal structure and terms financial analysis",
+        "Synergy identification and modeling",
+        "Sell-side financial cleanup and buyer-ready financial package",
+        "Responses to buyer and lender diligence requests",
+        "Integration planning and post-close financial transition",
+        "Earnout tracking and post-close reporting",
+      ],
+    },
+    process: {
+      heading: "How We Support M&A Transactions",
+      steps: [
+        { heading: "Transaction Assessment", content: "We review the financial merits and risks of the transaction with you and your advisors before you commit." },
+        { heading: "Valuation and Deal Modeling", content: "We build valuation and deal models, including return and debt coverage analysis, and show the financial impact of the proposed structure and terms." },
+        { heading: "Due Diligence", content: "For buyers, we lead financial due diligence on the target; for sellers, we prepare the financial package and data room for buyer diligence." },
+        { heading: "Close and Transition", content: "We support the financial side of closing, including working capital and earnout calculations, and integrate or transition the accounting after close." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our M&A Advisory Services",
+      paragraphs: [
+        "The financial work decides whether the deal you close is the deal you intended. We bring hands-on experience underwriting acquisitions, building deal models, and structuring financing, so the analysis behind your decision is rigorous and risks surface before closing, not after.",
+        "We work alongside your banker, broker, and attorneys rather than replacing them, keeping the financial workstream organized and on schedule. Because we also provide ongoing accounting and CFO support, the people who built your deal model are the same people who carry it through integration or transition.",
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Mergers and Acquisitions Advisory",
+      items: [
+        { question: "Do you broker transactions?", answer: "No. We provide financial advisory and work alongside your investment bank, business broker, or attorneys, or support transactions where the buyer or seller is already identified." },
+        { question: "What is the difference between buy-side and sell-side support?", answer: "Buy-side support helps an acquirer model and diligence a target. Sell-side support prepares a business's financials so they hold up under buyer diligence. We provide both." },
+        { question: "What is earnings normalization?", answer: "It adjusts historical results for one-time, non-recurring, and owner-related items to show the sustainable earnings a buyer is paying for." },
+        { question: "How long does financial due diligence take?", answer: "It depends on the size of the business, the quality of its records, and how quickly information is provided. Organized financials and a prepared data room shorten the timeline considerably." },
+        { question: "Can you help after the deal closes?", answer: "Yes. We combine accounting systems, set up consolidated reporting, track earnouts, and support the transition for buyers and sellers." },
+        { question: "How much does M&A advisory cost?", answer: "Cost depends on the size and complexity of the transaction, the scope of our role, and the timeline. After a free 15-minute consultation, we provide a proposal priced to your transaction." },
+      ],
+    },
+  },
+
+  "tax-strategy-planning": {
+    intro: "Effective tax planning happens throughout the year, not just at filing time. We keep your books tax-ready and model the tax impact of major business decisions as they happen, then coordinate with your CPA or our tax partners to put the right strategies in place, so you stay compliant and keep more of what your business earns.",
+    whatsIncluded: {
+      heading: "What Our Business Tax Planning Services Include",
+      bullets: [
+        "Tax projections and estimated payment tracking",
+        "Tax-ready books and year-end workpapers for your CPA",
+        "Tax impact modeling for major business decisions",
+        "Entity structure and election analysis",
+        "Owner compensation planning",
+        "Timing strategies for income and deductions",
+        "Equipment purchase and depreciation planning",
+        "Retirement plan contribution planning",
+        "State tax nexus review",
+        "Tax credit identification and documentation",
+        "Exit and succession tax planning",
+        "Coordination with your CPA or our tax partners",
+      ],
+    },
+    process: {
+      heading: "How Our Tax Planning Process Works",
+      steps: [
+        { heading: "Tax Position Assessment", content: "We review your current tax position, entity structure, and recent returns to identify opportunities and risks." },
+        { heading: "Strategy Development", content: "We develop strategies with your CPA or our tax partners and estimate the tax impact of each option." },
+        { heading: "Implementation", content: "We help put approved strategies in place during the year, such as timing purchases, adjusting owner compensation, or funding retirement contributions." },
+        { heading: "Ongoing Monitoring", content: "We track your tax position throughout the year and adjust as results and tax laws change." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our Tax Planning Services",
+      paragraphs: [
+        "Tax planning works best when it's built on accurate, current books. We maintain the numbers your tax strategy depends on and bring the tax view into everyday decisions, from equipment purchases to owner compensation, rather than leaving it for year-end.",
+        "Because we don't prepare returns, our focus stays entirely on planning. Your CPA or our tax partners handle the filing, and we deliver organized workpapers and clear projections that make their work faster and more accurate.",
+      ],
+    },
+    pricing: {
+      heading: "Factors That Affect Business Tax Planning Pricing",
+      intro: FOUR_FACTORS,
+      factors: [
+        { heading: "Business Complexity", content: "Multiple entities, income streams, or multi-state operations add planning work." },
+        { heading: "Planning Depth", content: "Full year-round planning costs more than periodic reviews." },
+        { heading: "Special Situations", content: "Transactions, restructurings, or entity changes require more intensive analysis." },
+        { heading: "Starting Point", content: "Books that need cleanup or catch-up before planning can begin require more work up front." },
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Business Tax Planning",
+      items: [
+        { question: "Do you prepare tax returns?", answer: "No. We focus on tax planning. Returns are prepared and filed by your CPA or our tax partners." },
+        { question: "When should tax planning start?", answer: "As early in the year as possible, so strategies are in place before major decisions are made. Starting mid-year still captures meaningful opportunities." },
+        { question: "How do you work with my CPA?", answer: "We share projections, workpapers, and proposed strategies with your CPA, who reviews them and prepares and files your returns." },
+        { question: "Can you help choose between an S corporation and a C corporation?", answer: "Yes. We model the tax impact of each entity type for your situation and review the results with your CPA or our tax partners before any election is made." },
+        { question: "Do you handle personal tax planning?", answer: "We consider how business decisions affect owners' personal taxes. Individual returns are handled by your CPA or personal tax advisor." },
+        { question: "How much does business tax planning cost?", answer: "Cost depends on your business complexity, planning depth, special situations, and the condition of your books. After a free 15-minute consultation, we provide a proposal priced to your needs." },
+      ],
+    },
+  },
+
+  "sales-tax-compliance": {
+    intro: "Selling across multiple channels and states can create sales tax obligations well beyond your home state. We determine where you have obligations, register where required, reconcile sales across every channel, calculate what's owed, and prepare and file accurate quarterly returns on time, so you stay compliant everywhere you sell.",
+    whatsIncluded: {
+      heading: "What Our Sales Tax Compliance Services Include",
+      bullets: [
+        "Nexus analysis to determine where you have filing obligations",
+        "State registration and account setup",
+        "Product taxability review by state",
+        "Sales reconciliation across every sales channel",
+        "Sales tax calculation review and amounts due for each return",
+        "Quarterly return preparation and filing for every jurisdiction",
+        "Payment coordination and timing",
+        "Exemption certificate management",
+        "Sales tax audit support",
+        "Voluntary disclosure support for past exposure",
+        "Sales tax settings setup and review in your POS, e-commerce, and CRM systems",
+      ],
+    },
+    process: {
+      heading: "How Our Sales Tax Compliance Process Works",
+      steps: [
+        { heading: "Nexus Assessment", content: "We review your sales by state, inventory locations, and employee presence to determine where you owe sales tax." },
+        { heading: "Registration", content: "We register your business with each required state and local tax agency." },
+        { heading: "Ongoing Compliance", content: "We reconcile sales across your channels, calculate what's owed, and prepare and file your quarterly returns and payments on time." },
+        { heading: "Monitoring and Updates", content: "We track changes in your sales footprint and tax rules and adjust your filings as needed." },
+      ],
+    },
+    cards: {
+      heading: "From Checkout to Filed Return",
+      items: [
+        { heading: "Channel Compilation", content: "We pull sales reports from every POS, delivery app, marketplace, and online store, separate gross sales from discounts, refunds, and tips, and back out marketplace sales where the platform already collected the tax, so you don't pay it twice." },
+        { heading: "Reconciliation", content: "We tie reported sales and tax collected to your bank deposits, processor settlements, and general ledger, and resolve differences from fees, chargebacks, and timing before anything is filed." },
+        { heading: "Return Preparation and Filing", content: "We apply the correct state, county, and district rates by location, report taxable, exempt, and marketplace sales on the proper lines, and file and remit by every due date." },
+        { heading: "Filing Package and Records", content: "Each period you receive the filed return with its reconciliation and channel detail, and we keep exemption certificates and supporting records ready in case of an audit." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our Sales Tax Compliance Services",
+      paragraphs: [
+        "Sales tax touches every sale your business makes, so accuracy depends on knowing your operations, not just the tax rates. We learn how and where you sell, keep up with rate and rule changes in every state where you file, and catch issues before they turn into penalties.",
+        "Because we're accountants first, the figures on every return tie to your books and financial statements. You get one point of contact for registrations, filings, and sales tax questions, and your team gets its time back.",
+      ],
+    },
+    pricing: {
+      heading: "Factors That Affect Sales Tax Compliance Pricing",
+      intro: FOUR_FACTORS,
+      factors: [
+        { heading: "Number of Jurisdictions", content: "More states and local jurisdictions mean more registrations and returns." },
+        { heading: "Transaction Volume and Sales Channels", content: "More sales and more channels add compilation and reconciliation work." },
+        { heading: "Product Mix", content: "A mix of taxable and exempt products requires more detailed review." },
+        { heading: "Historical Exposure", content: "Back-filing or voluntary disclosure for past periods adds work up front." },
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Sales Tax Compliance",
+      items: [
+        { question: "How do I know if I have nexus in other states?", answer: "Nexus can come from a physical presence, such as employees or inventory, or from sales that exceed a state's economic thresholds. We review your sales by state and identify where you're required to register and file." },
+        { question: "What if we haven't been collecting sales tax where required?", answer: "Many states offer voluntary disclosure programs that can limit the lookback period and reduce or waive penalties. We assess your exposure and help you come into compliance." },
+        { question: "How often do sales tax returns need to be filed?", answer: "Monthly, quarterly, or annually, depending on the state and your sales volume. We track every due date and file on schedule." },
+        { question: "Do marketplace sales affect our obligations?", answer: "Marketplaces collect and remit tax on most sales made through their platforms, but in some states those sales still count toward nexus thresholds, and your direct sales remain your responsibility. We review your full sales picture." },
+        { question: "What happens if we're audited?", answer: "We gather the records, reconciliations, and schedules the auditor requests and support you through the audit." },
+        { question: "How much does sales tax compliance cost?", answer: "Cost depends on the number of jurisdictions, your sales volume and channels, your product mix, and any past-period work. After a free 15-minute consultation, we provide a proposal priced to your needs." },
+      ],
+    },
+  },
+
+  "audit-preparation": {
+    intro: "A smooth audit starts long before the auditors arrive. Whether you're facing a financial statement, lender, or investor audit, we reconcile your accounts, organize your schedules and documentation, and prepare your team for auditor requests, so fieldwork stays on schedule with minimal disruption to your business.",
+    whatsIncluded: {
+      heading: "What Our Audit Preparation Services Include",
+      bullets: [
+        "Pre-audit readiness assessment and gap identification",
+        "Account reconciliations and supporting documentation",
+        "Audit schedules and roll-forwards, including opening balances",
+        "PBC (prepared by client) request list management",
+        "Internal control documentation",
+        "Audit request responses and follow-up",
+        "Auditor communication and meeting support",
+        "Proposed adjustment review",
+        "Management representation letter support",
+        "Follow-up on auditor recommendations after the audit",
+      ],
+    },
+    process: {
+      heading: "How Our Audit Preparation Process Works",
+      steps: [
+        { heading: "Readiness Assessment", content: "We review your books and documentation, identify gaps, and build a prioritized plan to resolve them before fieldwork." },
+        { heading: "Documentation Preparation", content: "We complete reconciliations, build supporting schedules, and organize records for auditor requests." },
+        { heading: "Request List Management", content: "We gather every item on the auditor's PBC list, track its status, and deliver responses on time." },
+        { heading: "Fieldwork Support", content: "We serve as your point of contact during fieldwork, explain transactions, and resolve issues as they arise." },
+      ],
+    },
+    whyChoose: {
+      heading: "Why Choose Our Audit Preparation Services",
+      paragraphs: [
+        "Audit fees are driven largely by how long fieldwork takes. We deliver reconciled accounts, complete schedules, and organized support before the auditors ask, cutting the back-and-forth that extends audits and adds to their cost.",
+        "We manage the day-to-day coordination with your auditors so your team stays focused on running the business. Issues are raised and resolved early, and after the audit we help put the auditor's recommendations in place, so next year's audit starts from a stronger position.",
+      ],
+    },
+    pricing: {
+      heading: "Factors That Affect Audit Preparation Pricing",
+      intro: FOUR_FACTORS,
+      factors: [
+        { heading: "Audit Scope", content: "First-year and full financial statement audits require more preparation than recurring audits or reviews." },
+        { heading: "Condition of Records", content: "Books that need cleanup before fieldwork require more work up front." },
+        { heading: "Business Complexity", content: "Multiple entities, complex transactions, or specialized accounting areas add preparation work." },
+        { heading: "Level of Support", content: "Managing the full audit process costs more than help with specific areas." },
+      ],
+    },
+    faq: {
+      heading: "Frequently Asked Questions About Audit Preparation",
+      items: [
+        { question: "How early should we start preparing?", answer: "As early as possible before fieldwork, so issues can be resolved without rushing. Starting soon after year-end gives the most room." },
+        { question: "What triggers an audit requirement?", answer: "Lenders, investors, and regulators commonly require audits, as do many sale and acquisition processes. The requirement is usually set in loan covenants, investor agreements, or industry regulations." },
+        { question: "Do you perform the audit?", answer: "No. Audits are performed by an independent CPA firm. We prepare your books, schedules, and documentation and coordinate with your auditors throughout the process." },
+        { question: "What if the auditors propose adjustments?", answer: "We review each proposed adjustment with you, discuss the support and alternatives with the auditors, and help you decide how to respond." },
+        { question: "Do you attend audit meetings?", answer: "Yes, including planning and closing meetings, and we're available throughout fieldwork." },
+        { question: "How much does audit preparation cost?", answer: "Cost depends on the audit scope, the condition of your records, your business complexity, and the level of support you need. After a free 15-minute consultation, we provide a proposal priced to your needs." },
+      ],
+    },
   },
 };
 

@@ -13,7 +13,11 @@ const BRAND_SUFFIX = ` | ${siteConfig.businessName}`;
 export interface PageMetadataInput {
   /** Page phrase only. The layout template appends the brand. */
   title: string;
-  description: string;
+  /**
+   * Omit to render no description, og:description, or twitter:description, so Google
+   * builds the snippet from the page (service pages and Newport Beach, item 16).
+   */
+  description?: string;
   /** Root-relative path, e.g. "/about". Resolved against metadataBase. */
   path: string;
   image?: { url: string; width?: number; height?: number; alt?: string };
@@ -44,9 +48,13 @@ export function buildMetadata(input: PageMetadataInput): Metadata {
   const socialTitle = fullTitle(input.title, input.absoluteTitle);
   const image = input.image ?? DEFAULT_OG_IMAGE;
 
+  // null, not undefined: undefined would inherit the layout's site-wide default description.
+  const description = input.description ?? null;
+  const social = input.description ? { description: input.description } : {};
+
   return {
     title: input.absoluteTitle ? { absolute: input.title } : input.title,
-    description: input.description,
+    description,
     alternates: { canonical: path },
     openGraph: {
       type: input.type ?? "website",
@@ -54,13 +62,13 @@ export function buildMetadata(input: PageMetadataInput): Metadata {
       siteName: siteConfig.businessName,
       url: path,
       title: socialTitle,
-      description: input.description,
+      ...social,
       images: [image],
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
-      description: input.description,
+      ...social,
       images: [image.url],
     },
     ...(input.noindex ? { robots: { index: false, follow: true } } : {}),
