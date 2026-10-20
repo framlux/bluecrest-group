@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
-  businessSchema, personSchema, serviceSchema, faqSchema, breadcrumbSchema,
+  businessSchema, personSchema, serviceSchema, faqSchema, breadcrumbSchema, articleSchema,
   serializeJsonLd, BUSINESS_ID, FOUNDER_ID, absoluteUrl,
 } from "./structured-data";
 
@@ -80,5 +80,17 @@ describe("serializeJsonLd", () => {
     const out = serializeJsonLd({ text: "</script><script>alert(1)</script>" });
     expect(out).not.toContain("</script>");
     expect(JSON.parse(out).text).toBe("</script><script>alert(1)</script>");
+  });
+});
+
+describe("articleSchema", () => {
+  it("credits BlueCrest Group as author and carries both dates", () => {
+    const a = articleSchema({ headline: "Case Study: X", description: "d", path: "/case-studies/x", datePublished: "2026-10-20", dateModified: "2026-10-21" });
+    expect(a["@type"]).toBe("Article");
+    expect(a.headline).toBe("Case Study: X");
+    expect(a.author).toEqual({ "@type": "Organization", "@id": BUSINESS_ID, name: "BlueCrest Group", url: ORIGIN });
+    expect(a.datePublished).toBe("2026-10-20");
+    expect(a.dateModified).toBe("2026-10-21");
+    expect(a.mainEntityOfPage).toBe(`${ORIGIN}/case-studies/x`);
   });
 });

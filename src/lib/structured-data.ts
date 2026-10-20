@@ -75,6 +75,28 @@ export function serviceSchema(input: { name: string; description: string; path: 
   };
 }
 
+export function articleSchema(input: {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  dateModified: string;
+}): JsonLdObject {
+  return {
+    "@context": CONTEXT,
+    "@type": "Article",
+    headline: input.headline,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    mainEntityOfPage: absoluteUrl(input.path),
+    image: SCHEMA_IMAGE_PATHS.map(absoluteUrl),
+    datePublished: input.datePublished,
+    dateModified: input.dateModified,
+    author: { "@type": "Organization", "@id": BUSINESS_ID, name: siteConfig.businessName, url: siteConfig.url },
+    publisher: { "@id": BUSINESS_ID },
+  };
+}
+
 export function faqSchema(faqs: { question: string; answer: string }[]): JsonLdObject {
   return {
     "@context": CONTEXT,

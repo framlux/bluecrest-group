@@ -19,6 +19,14 @@ describe("buildSitemapEntries", () => {
     expect(urls).toContain(`${ORIGIN}/service-areas/newport-beach-ca`);
   });
 
+  it("includes the three case studies", () => {
+    expect(urls.filter((u) => u.startsWith(`${ORIGIN}/case-studies/`))).toEqual([
+      `${ORIGIN}/case-studies/yardi-implementation-industrial-real-estate`,
+      `${ORIGIN}/case-studies/multi-location-restaurant-accounting`,
+      `${ORIGIN}/case-studies/ecommerce-inventory-profitability-tracking`,
+    ]);
+  });
+
   it("never lists a redirected URL", () => {
     redirects.forEach((r) => expect(urls).not.toContain(`${ORIGIN}${r.source}`));
   });
