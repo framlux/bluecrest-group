@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata(pageMeta.serviceAreas);
 
 export default function ServiceAreasPage() {
   const primaryLocation = getPrimaryLocation();
-  const featuredServices = services.filter(s => s.priority <= 3).slice(0, 6);
+  const featuredServices = services.slice(0, 6);
 
   return (
     <>

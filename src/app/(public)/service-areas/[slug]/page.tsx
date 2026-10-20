@@ -49,7 +49,7 @@ export default async function LocationPage({ params }: Props) {
   }
 
   const content = getLocationContent(slug);
-  const featuredServices = services.filter(s => s.priority <= 2).slice(0, 6);
+  const featuredServices = services.slice(0, 6);
 
   const path = `/service-areas/${location.slug}`;
   const schemas = [

@@ -6,8 +6,16 @@ export interface Redirect {
 }
 
 export const redirects: Redirect[] = [
-  { source: "/services/payroll-processing", destination: "/services/bookkeeping-and-reconciliation", permanent: true },
-  { source: "/services/kpi-dashboards-reporting", destination: "/services/fractional-cfo-services", permanent: true },
+  // Developer Update List item 4a: renamed, merged, and removed service pages.
+  ...Object.entries({
+    "budgeting-and-forecasting": "financial-planning-and-analysis",
+    "kpi-dashboards-reporting": "financial-planning-and-analysis",
+    "payroll-processing": "payroll-and-hr-services",
+    "scaling-growth-support": "fractional-cfo-services",
+    "month-end-close-financial-statements": "bookkeeping-and-reconciliation",
+    "accounts-payable-receivable": "bookkeeping-and-reconciliation",
+    "operational-efficiency-consulting": "accounting-system-setup",
+  }).map(([from, to]): Redirect => ({ source: `/services/${from}`, destination: `/services/${to}`, permanent: true })),
   ...[
     "irvine-ca", "costa-mesa-ca", "huntington-beach-ca", "laguna-beach-ca", "orange-ca",
     "santa-ana-ca", "anaheim-ca", "fullerton-ca", "tustin-ca", "mission-viejo-ca", "lake-forest-ca",

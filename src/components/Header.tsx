@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site-config";
-import { serviceCategories } from "@/data/services";
+import { serviceCategories, getServicesByCategory } from "@/data/services";
 import { getPrimaryLocation } from "@/data/locations";
 import ContactCta from "@/components/ContactCta";
 
@@ -144,29 +144,43 @@ export default function Header() {
               />
 
               <div
-                className={`absolute top-full left-0 pt-2 transition-all duration-200 ${servicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
+                className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200 ${servicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
                 onMouseEnter={handleServicesEnter}
                 onMouseLeave={handleServicesLeave}
               >
-                <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-4 min-w-[320px]">
-                  <div className="px-4 pb-3 border-b border-gray-100">
+                <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-4 w-[760px]">
+                  <div className="px-6 pb-3 border-b border-gray-100">
                     <span className="text-xs font-semibold text-[var(--color-brand-blue)] uppercase tracking-wider">
                       Our Services
                     </span>
                   </div>
-                  <div className="py-2">
+                  <div className="grid grid-cols-3 gap-6 px-6 py-4">
                     {serviceCategories.map((category) => (
-                      <Link
-                        key={category.id}
-                        href={`/services#${category.id}`}
-                        onClick={(e) => handleCategoryClick(category.id, e)}
-                        className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[var(--color-brand-blue)] transition-colors"
-                      >
-                        {category.name}
-                      </Link>
+                      <div key={category.id}>
+                        <Link
+                          href={`/services#${category.id}`}
+                          onClick={(e) => handleCategoryClick(category.id, e)}
+                          className="block mb-2 text-sm font-semibold text-[var(--color-brand-navy)] hover:text-[var(--color-brand-blue)] transition-colors"
+                        >
+                          {category.name}
+                        </Link>
+                        <ul className="space-y-1">
+                          {getServicesByCategory(category.id).map((service) => (
+                            <li key={service.slug}>
+                              <Link
+                                href={`/services/${service.slug}`}
+                                onClick={() => setServicesOpen(false)}
+                                className="block py-1 text-sm text-gray-600 hover:text-[var(--color-brand-blue)] transition-colors"
+                              >
+                                {service.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
                   </div>
-                  <div className="px-4 pt-3 border-t border-gray-100">
+                  <div className="px-6 pt-3 border-t border-gray-100">
                     <Link
                       href="/services"
                       className="text-sm font-semibold text-[var(--color-brand-blue)] hover:underline"
@@ -300,17 +314,30 @@ export default function Header() {
                 <div className="font-semibold text-gray-900 mb-2">Services</div>
                 <div className="pl-4 flex flex-col gap-2">
                   {serviceCategories.map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/services#${category.id}`}
-                      onClick={(e) => {
-                        setMobileMenuOpen(false);
-                        handleCategoryClick(category.id, e);
-                      }}
-                      className="text-gray-600 hover:text-[var(--color-brand-blue)]"
-                    >
-                      {category.name}
-                    </Link>
+                    <div key={category.id}>
+                      <Link
+                        href={`/services#${category.id}`}
+                        onClick={(e) => {
+                          setMobileMenuOpen(false);
+                          handleCategoryClick(category.id, e);
+                        }}
+                        className="block font-medium text-gray-800 hover:text-[var(--color-brand-blue)]"
+                      >
+                        {category.name}
+                      </Link>
+                      <div className="pl-3 mt-1 flex flex-col gap-1">
+                        {getServicesByCategory(category.id).map((service) => (
+                          <Link
+                            key={service.slug}
+                            href={`/services/${service.slug}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="text-sm text-gray-600 hover:text-[var(--color-brand-blue)]"
+                          >
+                            {service.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                   <Link
                     href="/services"

@@ -153,9 +153,9 @@ export default function HomePageClient() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {serviceCategories.map((category, index) => {
-              const categoryServices = services.filter(s => s.category === category.id).slice(0, 3);
+              const categoryServices = getServicesByCategory(category.id);
               const colors = [
                 "from-[var(--color-brand-blue)] to-[var(--color-brand-navy)]",
                 "from-[var(--color-brand-gold)] to-[var(--color-gold-dark)]",

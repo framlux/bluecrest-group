@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { DEFAULT_SCRIPT_ID, Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
-import { services } from "@/data/services";
+import { serviceCategories, getServicesByCategory } from "@/data/services";
 import { siteConfig } from "@/data/site-config";
 import { isTurnstileFailed, TURNSTILE_TIMEOUT_MS } from "@/lib/turnstile-status";
 
@@ -223,10 +223,14 @@ export default function ContactForm({
           className={inputClasses}
         >
           <option value="">Select a service</option>
-          {[...services].sort((a, b) => a.name.localeCompare(b.name)).map((service) => (
-            <option key={service.slug} value={service.name}>
-              {service.name}
-            </option>
+          {serviceCategories.map((category) => (
+            <optgroup key={category.id} label={category.name}>
+              {getServicesByCategory(category.id).map((service) => (
+                <option key={service.slug} value={service.name}>
+                  {service.name}
+                </option>
+              ))}
+            </optgroup>
           ))}
           <option value="Other">Other / Not Sure</option>
         </select>

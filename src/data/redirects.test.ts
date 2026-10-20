@@ -34,6 +34,20 @@ describe("redirect map", () => {
   });
 });
 
+describe("service redirects (item 4a)", () => {
+  it.each([
+    ["budgeting-and-forecasting", "financial-planning-and-analysis"],
+    ["kpi-dashboards-reporting", "financial-planning-and-analysis"],
+    ["payroll-processing", "payroll-and-hr-services"],
+    ["scaling-growth-support", "fractional-cfo-services"],
+    ["month-end-close-financial-statements", "bookkeeping-and-reconciliation"],
+    ["accounts-payable-receivable", "bookkeeping-and-reconciliation"],
+    ["operational-efficiency-consulting", "accounting-system-setup"],
+  ])("/services/%s -> /services/%s", (from, to) => {
+    expect(redirects.find((r) => r.source === `/services/${from}`)?.destination).toBe(`/services/${to}`);
+  });
+});
+
 describe("insights redirects", () => {
   it.each(["/insights", "/insights/:path*"])("%s redirects to the home page", (source) => {
     const r = redirects.find((x) => x.source === source);

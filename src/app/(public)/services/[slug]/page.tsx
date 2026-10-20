@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
-import { services, getServiceBySlug, getRelatedServices, serviceMetaDescription } from "@/data/services";
+import { services, getServiceBySlug, getRelatedServices } from "@/data/services";
 import { getServiceContent } from "@/data/service-content";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return buildMetadata({
     title: `${service.name} in ${siteConfig.region}, ${siteConfig.stateAbbr}`,
-    description: serviceMetaDescription(service),
+    description: service.shortDescription,
     path: `/services/${service.slug}`,
   });
 }
@@ -52,7 +52,7 @@ export default async function ServicePage({ params }: Props) {
 
   const path = `/services/${service.slug}`;
   const schemas = [
-    serviceSchema({ name: service.name, description: serviceMetaDescription(service), path }),
+    serviceSchema({ name: service.name, description: service.shortDescription, path }),
     breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.name, path }]),
     ...(content?.faqs && content.faqs.length > 0 ? [faqSchema(content.faqs)] : []),
   ];
