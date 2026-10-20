@@ -13,7 +13,8 @@ describe("businessSchema", () => {
     expect(s["@type"]).toBe("ProfessionalService");
     expect(s["@id"]).toBe(BUSINESS_ID);
     expect(s.url).toBe(ORIGIN);
-    expect(s.logo).toBe(`${ORIGIN}/images/bluecrest-group-logo.png`);
+    expect(s.logo).toBe(`${ORIGIN}/logo-square-512.png`);
+    expect(s.image).toEqual([`${ORIGIN}/og-image-1200x630.png`, `${ORIGIN}/og-image-square-1200.png`]);
   });
 
   it("has no street address or geo coordinates", () => {

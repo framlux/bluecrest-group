@@ -18,9 +18,6 @@ export const metadata: Metadata = {
   description: pageMeta.home.description,
   authors: [{ name: siteConfig.businessName }],
   creator: siteConfig.businessName,
-  icons: {
-    icon: "/favicon.ico",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",

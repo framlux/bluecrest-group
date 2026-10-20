@@ -42,6 +42,7 @@ describe("buildMetadata", () => {
   it("falls back to the default OG image and keeps siteName/type/locale", () => {
     const og = buildMetadata(base).openGraph as Record<string, unknown>;
     expect(og.images).toEqual([DEFAULT_OG_IMAGE]);
+    expect(DEFAULT_OG_IMAGE.url).toBe("/og-image-1200x630.png");
     expect(og.siteName).toBe("BlueCrest Group");
     expect(og.locale).toBe("en_US");
     expect(og.type).toBe("website");

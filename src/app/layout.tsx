@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { gtmHeadScript, gtmNoscriptSrc } from "@/lib/gtm";
@@ -8,6 +9,17 @@ const poppins = Poppins({
   variable: "--font-poppins",
   display: "swap",
 });
+
+// Supplied search and favicon set (Developer Update List item 3).
+export const metadata: Metadata = {
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      ...[48, 96, 144, 192, 512].map((size) => ({ url: `/favicon-${size}x${size}.png`, sizes: `${size}x${size}`, type: "image/png" })),
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
+  },
+};
 
 export default function RootLayout({
   children,

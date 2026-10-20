@@ -3,6 +3,10 @@ import { DEFAULT_OG_IMAGE } from "@/lib/metadata";
 
 export type JsonLdObject = Record<string, unknown>;
 
+export const LOGO_PATH = "/logo-square-512.png";
+/** Wide and square previews, so search engines can pick the aspect ratio they need. */
+export const SCHEMA_IMAGE_PATHS = [DEFAULT_OG_IMAGE.url, "/og-image-square-1200.png"];
+
 export const BUSINESS_ID = `${siteConfig.url}/#business`;
 export const FOUNDER_ID = `${siteConfig.url}/about#josh-miller`;
 
@@ -20,8 +24,8 @@ export function businessSchema(): JsonLdObject {
     name: siteConfig.businessName,
     description: `${siteConfig.businessName} provides fractional CFO, accounting, and business advisory services to growing businesses in ${siteConfig.region}.`,
     url: siteConfig.url,
-    logo: absoluteUrl("/images/bluecrest-group-logo.png"),
-    image: absoluteUrl(DEFAULT_OG_IMAGE.url),
+    logo: absoluteUrl(LOGO_PATH),
+    image: SCHEMA_IMAGE_PATHS.map(absoluteUrl),
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",

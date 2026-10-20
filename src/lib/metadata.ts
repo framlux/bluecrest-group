@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/data/site-config";
 
 export const DEFAULT_OG_IMAGE = {
-  url: "/images/og-default.jpg",
+  url: "/og-image-1200x630.png",
   width: 1200,
   height: 630,
-  alt: "BlueCrest Group, fractional CFO services in Newport Beach, CA",
+  alt: "BlueCrest Group logo",
 };
 
 const BRAND_SUFFIX = ` | ${siteConfig.businessName}`;
