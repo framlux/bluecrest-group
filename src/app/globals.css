@@ -112,6 +112,27 @@ h2 {
   font-size: clamp(2rem, 4vw, 3rem); /* 32-48px, meets min 36pt requirement */
 }
 
+/* Homepage hero: the small eyebrow is the page's H1, and the large headline is a <p>
+ * that keeps the H1 look (Website Content doc, Homepage hero). */
+h1.hero-eyebrow {
+  font-family: var(--font-family-subhead);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-gold);
+}
+
+.hero-headline {
+  font-family: var(--font-family-heading);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-gray-900);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
 /* Subheadings - Poppins Medium */
 h3, h4, h5, h6 {
   font-family: var(--font-family-subhead);

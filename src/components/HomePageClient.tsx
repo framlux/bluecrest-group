@@ -41,12 +41,12 @@ export default function HomePageClient() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 mb-6">
               <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
-              <h1 className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">
+              <h1 className="hero-eyebrow">
                 Your Fractional CFO and Accounting Partner in Orange County
               </h1>
             </div>
             {/* Styled as the headline but not a heading: the page has exactly one H1. */}
-            <p className="text-5xl lg:text-6xl font-extrabold text-[var(--color-brand-navy)] leading-tight mb-8 drop-shadow-lg">
+            <p className="hero-headline mb-8 drop-shadow-lg">
               From Clean Books to Executive-Level Finance, Scaled to Your Business
             </p>
             <p className="text-lg text-gray-700 mb-10 leading-relaxed drop-shadow-md font-medium">
