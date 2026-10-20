@@ -3,12 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
-import { services, serviceCategories, getServicesByCategory } from "@/data/services";
+import { serviceCategories, getServicesByCategory } from "@/data/services";
+import { testimonials } from "@/data/testimonials";
 import { getLocationImagePath, getPrimaryLocation } from "@/data/locations";
 import { getServiceIcon } from "@/utils/service-icons";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
 import HeroVideo from "@/components/HeroVideo";
+import CaseStudyCards from "@/components/CaseStudyCards";
 
 export default function HomePageClient() {
   const primaryLocation = getPrimaryLocation();
@@ -39,40 +41,22 @@ export default function HomePageClient() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 mb-6">
               <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
-              <span className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">Fractional CFO Services</span>
+              <h1 className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">
+                Your Fractional CFO and Accounting Partner in Orange County
+              </h1>
             </div>
-            <h1 className="text-5xl lg:text-6xl font-extrabold text-[var(--color-brand-navy)] leading-tight mb-8 drop-shadow-lg">
-              Clarity & Growth — Without the Full-Time Overhead
-            </h1>
+            {/* Styled as the headline but not a heading: the page has exactly one H1. */}
+            <p className="text-5xl lg:text-6xl font-extrabold text-[var(--color-brand-navy)] leading-tight mb-8 drop-shadow-lg">
+              From Clean Books to Executive-Level Finance, Scaled to Your Business
+            </p>
             <p className="text-lg text-gray-700 mb-10 leading-relaxed drop-shadow-md font-medium">
-              Scale your business with strategic CFO services and expert accounting support.
-              From bookkeeping and month-end close to financial modeling, tax strategy, and more –
-              everything you need to grow with clarity and confidence.
+              Grow your business with strategic CFO guidance and expert accounting support. We keep
+              your books accurate and current, build the forecasts and analysis behind your biggest
+              decisions, and coordinate payroll, tax, and compliance, giving you a clear view of your
+              numbers and the confidence to act on them.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Indicators */}
-      <section className="py-12 bg-white border-y border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-16">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-brand-navy)]">15+</div>
-              <div className="text-gray-500 text-sm">Years Experience</div>
-            </div>
-            <div className="hidden sm:block w-px h-12 bg-gray-200" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-brand-navy)]">100%</div>
-              <div className="text-gray-500 text-sm">Client Focused</div>
-            </div>
-            <div className="hidden sm:block w-px h-12 bg-gray-200" />
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-brand-gold)]">{services.length}</div>
-              <div className="text-gray-500 text-sm">Services Offered</div>
             </div>
           </div>
         </div>
@@ -91,9 +75,10 @@ export default function HomePageClient() {
             </div>
             <div>
               <p className="text-lg leading-relaxed text-white/90">
-                {siteConfig.businessName} provides fractional CFO and accounting services
-                to growing businesses. Led by {siteConfig.founder.name} with over 15 years of experience,
-                we partner with organizations, helping them gain clarity, control, and confidence in their financial direction.
+                {siteConfig.businessName} provides fractional CFO and accounting services to growing
+                businesses. Based in Orange County and serving clients nationwide, we partner with
+                business owners and leadership teams to bring clarity, control, and confidence to their
+                financial direction.
               </p>
             </div>
           </div>
@@ -105,9 +90,10 @@ export default function HomePageClient() {
             </div>
             <div>
               <p className="text-lg leading-relaxed text-white/90">
-                Financial clarity and more time to focus on running your business.
-                Clean books. Strategic insights. Informed decisions. The financial
-                visibility you need to scale confidently and maximize profitability.
+                You get strategic insight and the financial visibility to grow profitably and plan
+                ahead, along with more time to focus on running your business. Opportunities are easier
+                to spot, growth plans rest on solid ground, and your business is always ready for what
+                comes next.
               </p>
             </div>
           </div>
@@ -119,18 +105,56 @@ export default function HomePageClient() {
             </div>
             <div>
               <p className="text-lg leading-relaxed text-white/90">
-                With deep expertise in startups and real estate industries, we bring strategic
-                depth and operational expertise that transforms how businesses approach their
-                finances. We act as an extension of your team, providing executive-level financial
-                leadership without the full-time cost.
+                We act as an extension of your team, bringing senior-level financial leadership and
+                hands-on accounting expertise to businesses in every industry. From day-to-day
+                bookkeeping to forecasting, capital raises, and acquisitions, we work across every level
+                of your finances, so the same team supports you at every stage of growth.
               </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* What Clients Say */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-12">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
+              <span className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-[var(--color-brand-navy)]">What Clients Say</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <figure key={t.id} className="bg-slate-50 rounded-2xl border border-gray-100 p-6 lg:p-8 flex flex-col">
+                <blockquote className="text-gray-700 leading-relaxed flex-1">&ldquo;{t.quote}&rdquo;</blockquote>
+                <figcaption className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="font-semibold text-[var(--color-brand-navy)]">{t.name}</div>
+                  <div className="text-sm text-gray-500">{t.role}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Case Studies */}
+      <section id="case-studies" className="py-20 bg-gray-50 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-12">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
+              <span className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">Client Results</span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-[var(--color-brand-navy)]">Case Studies</h2>
+          </div>
+          <CaseStudyCards />
+        </div>
+      </section>
+
       {/* Services Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12">
             <div>
@@ -200,7 +224,7 @@ export default function HomePageClient() {
       </section>
 
       {/* Services by Category Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {serviceCategories.map((category, categoryIndex) => {
             const categoryServices = getServicesByCategory(category.id);
@@ -259,21 +283,16 @@ export default function HomePageClient() {
                 <span className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">Leadership</span>
               </div>
               <h2 className="text-5xl font-bold !text-white mb-6 leading-tight">
-                Meet {siteConfig.founder.name}
+                <Link href="/about" className="!text-white hover:!text-[var(--color-brand-gold)] transition-colors">
+                  Meet {siteConfig.founder.name}
+                </Link>
               </h2>
-              <p className="text-2xl text-[var(--color-brand-gold)] mb-4 font-medium">{siteConfig.founder.title}</p>
-              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                {siteConfig.founder.shortBio}
+              <p className="text-2xl text-[var(--color-brand-gold)] mb-4 font-medium">
+                {siteConfig.founder.name}, {siteConfig.founder.title}
               </p>
-              <Link
-                href="/about"
-                className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2"
-              >
-                Learn More About Us
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                {siteConfig.founder.longBio.split("\n\n")[0]}
+              </p>
             </div>
 
             <div className="relative">
@@ -297,37 +316,22 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Closing form */}
       <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="bg-[var(--color-brand-navy)] rounded-[2.5rem] p-12 lg:p-20 relative overflow-hidden">
-            {/* Decorative elements */}
+        <div className="max-w-3xl mx-auto px-6 lg:px-8">
+          <div className="bg-[var(--color-brand-navy)] rounded-[2.5rem] p-6 sm:p-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-gold)]/20 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-[var(--color-brand-blue)]/20 rounded-full blur-3xl"></div>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
-              <div className="text-white">
-                <span className="inline-block w-12 h-1 bg-[var(--color-brand-gold)] mb-6"></span>
-                <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                  Ready to Transform Your Financial Operations?
-                </h2>
-                <p className="text-white/80 text-lg leading-relaxed">
-                  Whether you need fractional CFO services, accounting support, or strategic
-                  financial guidance, we&apos;re here to help your business thrive. Contact us
-                  to discuss your unique needs.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-xl">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  Send Us a Message
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Tell us about your business and financial needs. We will reach out
-                  to schedule a conversation about how we can help.
-                </p>
-                <ContactForm variant="default" />
-              </div>
+            <div className="bg-white rounded-2xl p-8 shadow-xl relative z-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                Schedule Your Free 15-Minute Consultation
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Tell us about your business and financial needs. We will reach out within one business
+                day to schedule a conversation about how we can help.
+              </p>
+              <ContactForm variant="default" />
             </div>
           </div>
         </div>

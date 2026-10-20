@@ -50,7 +50,7 @@ export default function AboutPage() {
               <span className="text-[var(--color-brand-gold)]">Growing Businesses</span>
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              We help companies in {siteConfig.region} build stronger financial foundations
+              We help small and growing businesses in {siteConfig.region} build stronger financial foundations
               and make better decisions with expert fractional CFO and accounting services.
             </p>
           </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-white/90">Growing businesses with {siteConfig.targetRevenue} in revenue seeking strategic financial guidance</span>
+                  <span className="text-white/90">Small and growing businesses, from startups to established companies, seeking strategic financial guidance.</span>
                 </li>
                 <li className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center shrink-0">
@@ -133,7 +133,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founder Section */}
+      {/* Meet Josh */}
       <section className="py-20 lg:py-28 bg-slate-50">
         <div className="container-site">
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
@@ -142,14 +142,15 @@ export default function AboutPage() {
                 <div className="aspect-[4/5] relative rounded-3xl overflow-hidden bg-gray-200 mb-6 shadow-xl">
                   <Image
                     src={siteConfig.founder.image}
-                    alt={siteConfig.founder.name}
+                    alt={`${siteConfig.founder.name}, ${siteConfig.founder.title}`}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-gray-900">{siteConfig.founder.name}</h3>
-                  <p className="text-[var(--color-brand-blue)] font-semibold">{siteConfig.founder.title}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {siteConfig.founder.name}, <span className="text-[var(--color-brand-blue)]">{siteConfig.founder.title}</span>
+                  </p>
                   <a
                     href={`mailto:${siteConfig.email}`}
                     className="text-gray-500 hover:text-[var(--color-brand-blue)] transition-colors mt-2 inline-block"
@@ -161,7 +162,7 @@ export default function AboutPage() {
             </div>
             <div className="lg:col-span-3">
               <span className="inline-block text-[var(--color-brand-blue)] font-semibold text-sm tracking-wide uppercase mb-4">
-                Our Founder
+                Our Principal
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
                 Meet {siteConfig.founder.name.split(" ")[0]}
@@ -178,39 +179,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-20 lg:py-28">
-        <div className="container-site">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-block text-[var(--color-brand-blue)] font-semibold text-sm tracking-wide uppercase mb-4">
-              Our Values
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Principles That Guide Our Work
-            </h2>
-            <p className="text-xl text-gray-600">
-              These principles guide how we work with every client and inform every
-              recommendation we make.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {siteConfig.values.map((value, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-3xl p-8 shadow-soft border border-gray-100 hover:shadow-lg transition-shadow text-center"
-              >
-                <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white">{index + 1}</span>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 lg:py-28">
         <div className="container-site">
@@ -223,11 +191,11 @@ export default function AboutPage() {
                 Ready to Get Started?
               </h2>
               <p className="text-xl text-white/90 mb-8">
-                Contact us to discuss how BlueCrest Group can
+                Schedule a free 15-minute consultation to discuss how BlueCrest Group can
                 support your business with strategic financial leadership.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <ContactCta className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
+                <ContactCta label="Contact Us" className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
               </div>
             </div>
           </div>

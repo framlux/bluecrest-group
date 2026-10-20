@@ -46,6 +46,7 @@ describe("page schemas", () => {
     const p = personSchema();
     expect(p["@id"]).toBe(FOUNDER_ID);
     expect(p.worksFor).toEqual({ "@id": BUSINESS_ID });
+    expect(p.jobTitle).toBe("Principal");
   });
 
   it("service references the provider by @id with an absolute url", () => {

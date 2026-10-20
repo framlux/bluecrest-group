@@ -18,11 +18,10 @@ export const siteConfig = {
   // S1: Google Business Profile URL. Empty renders nothing.
   googleBusinessProfileUrl: "" as string,
 
-  // Founder
+  // Principal (Developer Update List item 24). Kept as `founder` for the Person schema @id.
   founder: {
     name: "Josh Miller",
-    title: "Founder and CEO",
-    shortBio: "As a seasoned financial leader with over 15 years of experience, Josh has a proven track record of driving growth and profitability for companies across a diverse range of industries. His expertise in strategic financial planning, risk management, and investor relations has been instrumental in supporting business success and creating long term value for stakeholders.",
+    title: "Principal",
     longBio: `Josh is a dynamic and results driven financial executive with over 15 years of experience in start up and real estate industries. He has a track record of success in leading finance teams, developing financial strategies, and driving growth for companies of all sizes.
 
 Throughout his career, Josh has been instrumental in the success of several high growth start ups, helping to secure funding, launch products, and scale operations. He has a deep understanding of the unique challenges and opportunities that come with building a successful start up and has honed his ability to navigate complex financial issues with ease.
@@ -32,7 +31,6 @@ In addition to his experience in start ups, Josh has also held senior financial 
   },
 
   // Business details
-  targetRevenue: "$1M+",
   serviceArea: "Orange County and Southern California",
   // D3: cities listed on the Service Areas hub and in JSON-LD areaServed (confirmed by Josh, 2026-10-03).
   serviceAreaCities: [
@@ -62,22 +60,6 @@ In addition to his experience in start ups, Josh has also held senior financial 
     accentNavy: "#3e5a81",
     accentCoral: "#d66c4c",
   },
-
-  // Core values
-  values: [
-    {
-      title: "Trust",
-      description: "The foundation of every relationship we build, established through transparency, consistency, and sound financial judgment.",
-    },
-    {
-      title: "Value",
-      description: "Delivering clear insights that lead to measurable business impact rather than unnecessary complexity.",
-    },
-    {
-      title: "Being Heard",
-      description: "Taking time to understand each client's challenges, priorities, and long term vision to ensure strategies align with real business goals.",
-    },
-  ],
 } as const;
 
 export type SiteConfig = typeof siteConfig;
