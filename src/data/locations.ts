@@ -23,7 +23,7 @@ export const locations: Location[] = [
     county: "Orange County",
     state: "California",
     stateAbbr: "CA",
-    shortDescription: "Premium fractional CFO and accounting services for Newport Beach businesses seeking strategic financial leadership.",
+    shortDescription: "Our home base, with in-person support for businesses from Fashion Island to Newport Coast.",
     intro: "Newport Beach is one of Orange County's premier business communities and a regional center for financial services, healthcare, and professional firms, alongside a growing base of entrepreneurs and fast-growing companies. As a Newport Beach firm, BlueCrest Group provides fractional CFO and accounting services to businesses across the city, from Fashion Island to Corona del Mar and Newport Coast, with the hands-on, in-person support local business owners expect.",
     isPrimary: true,
     population: 85000,

@@ -6,7 +6,6 @@ import { siteConfig } from "@/data/site-config";
 import { serviceCategories, getServicesByCategory } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
 import { getLocationImagePath, getPrimaryLocation } from "@/data/locations";
-import { getServiceIcon } from "@/utils/service-icons";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
 import HeroVideo from "@/components/HeroVideo";
@@ -15,19 +14,6 @@ import CaseStudyCards from "@/components/CaseStudyCards";
 export default function HomePageClient() {
   const primaryLocation = getPrimaryLocation();
 
-  const scrollToCategory = (categoryId: string) => {
-    const element = document.getElementById(`category-${categoryId}`);
-    if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
   return (
     <>
       {/* Hero Section - BlueCrest Brand */}
@@ -193,15 +179,15 @@ export default function HomePageClient() {
                       <h3 className="text-xl font-bold mb-2">{category.name}</h3>
                       <p className="text-white/80 text-sm">{category.description}</p>
                     </div>
-                    <button
-                      onClick={() => scrollToCategory(category.id)}
-                      className="inline-flex items-center text-white/90 hover:text-white font-medium text-sm gap-2 mt-4 cursor-pointer"
+                    <Link
+                      href={`/services#${category.id}`}
+                      className="inline-flex items-center text-white/90 hover:text-white font-medium text-sm gap-2 mt-4"
                     >
                       Explore
                       <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </button>
+                    </Link>
                   </div>
                   <ul className="space-y-2">
                     {categoryServices.map((service) => (
@@ -223,49 +209,60 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Services by Category Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Service Areas */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {serviceCategories.map((category, categoryIndex) => {
-            const categoryServices = getServicesByCategory(category.id);
-            const colors = [
-              "from-[var(--color-brand-blue)] to-[var(--color-brand-navy)]",
-              "from-[var(--color-brand-gold)] to-[var(--color-gold-dark)]",
-              "from-[var(--color-brand-navy)] to-[#1a3a5a]",
-              "from-[var(--color-brand-coral)] to-[var(--color-brand-gold)]",
-            ];
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 mb-4 justify-center">
+              <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
+              <span className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">Service Areas</span>
+              <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-[var(--color-brand-navy)] mb-6">
+              Serving {siteConfig.region}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              From our base in Newport Beach, we work with businesses across Orange County.
+            </p>
+          </div>
 
-            return (
-              <div
-                key={category.id}
-                id={`category-${category.id}`}
-                className="mb-20 scroll-mt-24"
-              >
-                <div className={`bg-gradient-to-r ${colors[categoryIndex]} rounded-2xl p-8 mb-8`}>
-                  <p className="text-3xl lg:text-4xl font-bold text-white mb-2">{category.name}</p>
-                  <p className="text-white/90 text-lg">{category.description}</p>
-                </div>
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 max-w-4xl mx-auto mb-10 text-gray-700">
+            {siteConfig.serviceAreaCities.map((city) => (
+              <li key={city}>{city}</li>
+            ))}
+          </ul>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {categoryServices.map((service) => (
-                    <Link
-                      key={service.slug}
-                      href={`/services/${service.slug}`}
-                      className="group bg-white rounded-2xl border border-gray-100 p-6 lg:p-8 shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
-                    >
-                      <div className={`w-12 h-12 bg-gradient-to-br ${colors[categoryIndex]} rounded-xl flex items-center justify-center mb-5`}>
-                        {getServiceIcon(service.slug)}
-                      </div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[var(--color-brand-blue)] transition-colors">
-                        {service.name}
-                      </h4>
-                      <p className="text-gray-600">{service.shortDescription}</p>
-                    </Link>
-                  ))}
-                </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
+            <Link
+              href={`/service-areas/${primaryLocation.slug}`}
+              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
+            >
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src={getLocationImagePath(primaryLocation)}
+                  alt={`${primaryLocation.name}, ${primaryLocation.stateAbbr}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
-            );
-          })}
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
+                  {primaryLocation.name}
+                </h3>
+                <p className="text-gray-600 text-sm line-clamp-2">{primaryLocation.shortDescription}</p>
+              </div>
+            </Link>
+            <Link
+              href="/service-areas"
+              className="group bg-slate-50 rounded-2xl border border-gray-100 p-8 flex flex-col justify-center hover:border-[var(--color-brand-blue)]/30 transition-all"
+            >
+              <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
+                Service Areas
+              </h3>
+              <p className="text-gray-600 text-sm">The Orange County cities we serve.</p>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -333,63 +330,6 @@ export default function HomePageClient() {
               </p>
               <ContactForm variant="default" />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Service Areas */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-4 justify-center">
-              <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
-              <span className="text-[var(--color-brand-gold)] font-semibold text-sm uppercase tracking-wider">Service Areas</span>
-              <span className="w-12 h-0.5 bg-[var(--color-brand-gold)]"></span>
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[var(--color-brand-navy)] mb-6">
-              Serving {siteConfig.region}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Southern California&apos;s Fractional Path to Financial Clarity & Strategic Growth
-            </p>
-          </div>
-
-          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 max-w-4xl mx-auto mb-10 text-gray-700">
-            {siteConfig.serviceAreaCities.map((city) => (
-              <li key={city}>{city}</li>
-            ))}
-          </ul>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
-            <Link
-              href={`/service-areas/${primaryLocation.slug}`}
-              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
-            >
-              <div className="relative h-40 w-full overflow-hidden">
-                <Image
-                  src={getLocationImagePath(primaryLocation)}
-                  alt={`${primaryLocation.name}, ${primaryLocation.stateAbbr}`}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
-                  {primaryLocation.name}
-                </h3>
-                <p className="text-gray-600 text-sm line-clamp-2">{primaryLocation.shortDescription}</p>
-              </div>
-            </Link>
-            <Link
-              href="/service-areas"
-              className="group bg-slate-50 rounded-2xl border border-gray-100 p-8 flex flex-col justify-center hover:border-[var(--color-brand-blue)]/30 transition-all"
-            >
-              <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
-                All Service Areas
-              </h3>
-              <p className="text-gray-600 text-sm">See every community we serve across Orange County.</p>
-            </Link>
           </div>
         </div>
       </section>

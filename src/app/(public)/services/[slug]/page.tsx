@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/data/site-config";
-import { services, getServiceBySlug, getRelatedServices } from "@/data/services";
+import { services, serviceCategories, getServiceBySlug, getRelatedServices } from "@/data/services";
 import { getServiceContent, PRICING_CLOSING_LINE } from "@/data/service-content";
 import { getTestimonial } from "@/data/testimonials";
 import ContactForm from "@/components/ContactForm";
@@ -87,7 +87,7 @@ export default async function ServicePage({ params }: Props) {
 
           <div className="max-w-3xl">
             <span className="inline-block !text-white font-semibold text-sm tracking-wide uppercase mb-4">
-              Our Services
+              {serviceCategories.find((c) => c.id === service.category)?.name}
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold !text-white mb-6">
               {service.name} in{" "}

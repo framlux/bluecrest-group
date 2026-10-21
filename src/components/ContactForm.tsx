@@ -124,7 +124,7 @@ export default function ContactForm({
           Thank You!
         </h3>
         <p className={variant === "compact" ? "text-gray-300" : "text-gray-600"}>
-          We have received your message and will be in touch shortly.
+          We have received your message and will reach out within one business day to schedule your free 15-minute consultation.
         </p>
       </div>
     );

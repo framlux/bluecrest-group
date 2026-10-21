@@ -75,10 +75,6 @@ export default function PrivacyPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Subscribe to our communications
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
                     Engage our services
                   </li>
                 </ul>
@@ -121,7 +117,8 @@ export default function PrivacyPage() {
                   <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] transition-colors">
                     policies.google.com/privacy
                   </a>
-                  . Our contact form also uses Cloudflare Turnstile, which checks browser and device
+                  . We also use Vercel Web Analytics, which counts page views without using cookies. Our
+                  contact form also uses Cloudflare Turnstile, which checks browser and device
                   signals to protect the form from spam.
                 </p>
                 <p className="text-gray-600 leading-relaxed mt-4">

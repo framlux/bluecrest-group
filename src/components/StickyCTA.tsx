@@ -1,15 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import ContactCta from "@/components/ContactCta";
+
+/** Pages that already show a contact form, where the desktop pop-up would only repeat it. */
+function hasInlineForm(pathname: string) {
+  return pathname === "/contact" || pathname.startsWith("/services/") || pathname.startsWith("/service-areas/");
+}
 
 export default function StickyCTA() {
   const [isMinimized, setIsMinimized] = useState(false);
+  const pathname = usePathname() ?? "";
+  const showDesktop = !hasInlineForm(pathname);
 
   return (
     <>
       {/* Desktop Sticky CTA */}
-      <div className="hidden lg:block fixed bottom-6 right-6 z-40">
+      {showDesktop && <div className="hidden lg:block fixed bottom-6 right-6 z-40">
         {isMinimized ? (
           <button
             onClick={() => setIsMinimized(false)}
@@ -40,11 +48,11 @@ export default function StickyCTA() {
             </div>
           </div>
         )}
-      </div>
+      </div>}
 
       {/* Mobile Sticky Bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg safe-area-inset-bottom">
-        <div className="grid grid-cols-2 divide-x divide-gray-200">
+        <div className="grid grid-cols-1">
           <ContactCta
             className="flex items-center justify-center gap-2 py-4 bg-[var(--color-brand-gold)] text-white font-semibold"
             icon={

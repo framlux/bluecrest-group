@@ -4,6 +4,7 @@ import Link from "next/link";
 import { caseStudies, getCaseStudyBySlug } from "@/data/case-studies";
 import { getServiceBySlug, type Service } from "@/data/services";
 import ContactCta from "@/components/ContactCta";
+import CaseStudyCards from "@/components/CaseStudyCards";
 import { JsonLd } from "@/components/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
@@ -133,11 +134,20 @@ export default async function CaseStudyPage({ params }: Props) {
               </ul>
             </div>
 
+            <p className="text-lg text-gray-600 mb-6">Facing a similar challenge? Let&apos;s talk about your business.</p>
             <ContactCta
               label="Contact Us"
               className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Other case studies */}
+      <section className="pb-20 lg:pb-28">
+        <div className="container-site">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">More Client Results</h2>
+          <CaseStudyCards excludeSlug={study.slug} />
         </div>
       </section>
 

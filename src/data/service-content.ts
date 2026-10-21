@@ -264,7 +264,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   "accounting-system-setup": {
     intro: "The right accounting software, set up correctly, is the foundation for accurate books and reliable reporting. We select, set up, migrate, and automate your accounting and reporting software, including QuickBooks, Xero, NetSuite, and Yardi, whether you're starting fresh, outgrowing your current system, or fixing a setup that was never built right.",
     whatsIncluded: {
-      heading: "What Our Accounting Software Setup Services Include",
+      heading: "What Our Software Setup and Migration Services Include",
       bullets: [
         "Platform selection based on your business requirements",
         "Chart of accounts design aligned with your reporting needs",
@@ -280,7 +280,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     process: {
-      heading: "Our Software Implementation Process",
+      heading: "How Our Setup and Migration Process Works",
       steps: [
         { heading: "Requirements Analysis", content: "We learn your business processes, reporting needs, and integrations, which drives platform selection and configuration." },
         { heading: "System Design", content: "We design your chart of accounts, tracking dimensions, and workflows, and get your approval before building." },
@@ -460,7 +460,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       },
     ],
     process: {
-      heading: "Our FP&A Process",
+      heading: "How Our FP&A Process Works",
       steps: [
         { heading: "Historical Analysis", content: "We analyze your historical performance to understand trends, seasonality, and cost drivers." },
         { heading: "Assumptions and KPIs", content: "We set the assumptions behind the plan with you, including growth, pricing, hiring, and major initiatives, and define the KPIs you'll manage against." },
@@ -515,7 +515,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     process: {
-      heading: "How We Build Financial Models",
+      heading: "How Our Financial Modeling Process Works",
       steps: [
         { heading: "Scope Definition", content: "We define exactly which questions the model needs to answer, which sets its structure and level of detail." },
         { heading: "Data Gathering", content: "We collect and validate your historical data, operating metrics, and assumptions." },
@@ -560,7 +560,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     process: {
-      heading: "How We Support Your Fundraising Process",
+      heading: "How Our Fundraising Support Works",
       steps: [
         { heading: "Readiness Assessment", content: "We evaluate your financial position, identify gaps in your materials or records, and build a preparation plan." },
         { heading: "Material Development", content: "We build your financial model and pro formas, prepare clean historical financials, and develop the financial sections of your pitch materials." },
@@ -617,7 +617,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     process: {
-      heading: "How We Support M&A Transactions",
+      heading: "How Our M&A Advisory Process Works",
       steps: [
         { heading: "Transaction Assessment", content: "We review the financial merits and risks of the transaction with you and your advisors before you commit." },
         { heading: "Valuation and Deal Modeling", content: "We build valuation and deal models, including return and debt coverage analysis, and show the financial impact of the proposed structure and terms." },

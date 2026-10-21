@@ -113,7 +113,8 @@ export default async function LocationPage({ params }: Props) {
                     href={`/services#${category.id}`}
                     className="group bg-white rounded-2xl border border-gray-100 shadow-soft p-6 hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
                   >
-                    <h3 className="font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors">{category.name}</h3>
+                    <h3 className="font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">{category.name}</h3>
+                    <p className="text-gray-600 text-sm">{category.description}.</p>
                   </Link>
                 ))}
               </div>
@@ -127,7 +128,7 @@ export default async function LocationPage({ params }: Props) {
                     Get Started Today
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Tell us about your business and we will be in touch.
+                    Schedule your free 15-minute consultation to discuss your business&apos;s financial needs.
                   </p>
                   <ContactForm variant="default" prefilledLocation={location.name} />
                 </div>
