@@ -24,7 +24,7 @@ export const locations: Location[] = [
     state: "California",
     stateAbbr: "CA",
     shortDescription: "In-person support for businesses from Fashion Island to Newport Coast.",
-    intro: "We're based in Newport Beach and work with businesses across the city, from Fashion Island to Corona del Mar and Newport Coast. Much of the local economy is professional firms, healthcare practices, and owner-run companies, and those are the businesses we know best. We're glad to meet in person, and we handle everything else remotely.",
+    intro: "We're based in Newport Beach and work with businesses across the city, from Fashion Island to Corona del Mar and Newport Coast. We're glad to meet in person, and we handle everything else remotely.",
     isPrimary: true,
     population: 85000,
   },

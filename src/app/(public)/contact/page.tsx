@@ -51,7 +51,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              Send us a note or email us directly. We respond within one business day.
+              Send us a note, email, or call.
             </p>
           </div>
         </div>

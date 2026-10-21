@@ -64,8 +64,7 @@ export default function HomePageClient() {
               <p className="text-lg leading-relaxed text-white/90">
                 {siteConfig.businessName} provides fractional CFO and accounting services to growing
                 businesses. We&apos;re based in Orange County and work with clients nationwide, partnering
-                with owners and leadership teams to bring clarity, control, and confidence to their
-                finances.
+                with owners and leadership teams who want accurate numbers and a plan.
               </p>
             </div>
           </div>

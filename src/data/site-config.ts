@@ -24,7 +24,7 @@ export const siteConfig = {
     title: "Principal",
     longBio: `Josh is a finance executive with more than 15 years of experience in startups and real estate. He has led finance teams, built financial strategies, and helped companies of all sizes grow.
 
-Over his career, Josh has helped several high-growth startups raise funding, launch products, and scale their operations. He understands what it takes to build a startup and how to work through the hard financial questions that come with it.
+Over his career, Josh has helped several high-growth startups raise funding, launch products, and scale their operations. He has handled the financial side of raising money and scaling a young company more than once.
 
 Josh has also held senior finance roles in real estate, where he helped manage complex property portfolios. He brings deep experience in financial modeling, forecasting, and budgeting, and he has led numerous financing and acquisition transactions. He works collaboratively and stays focused on results that matter to owners and investors.`,
     image: "/images/josh-miller.jpg",
