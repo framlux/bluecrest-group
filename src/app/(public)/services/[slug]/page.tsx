@@ -145,7 +145,7 @@ export default async function ServicePage({ params }: Props) {
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.cards.heading}</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {content.cards.items.map((card) => (
-                      <div key={card.heading} className="bg-white rounded-2xl shadow-soft border border-gray-100 p-6">
+                      <div key={card.heading} className="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 md:[&:last-child:nth-child(odd)]:col-span-2">
                         <h3 className="text-lg font-bold text-gray-900 mb-3">{card.heading}</h3>
                         <p className="text-gray-600">{card.content}</p>
                       </div>

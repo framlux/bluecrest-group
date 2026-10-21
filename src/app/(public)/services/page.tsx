@@ -51,9 +51,9 @@ export default function ServicesPage() {
               <span className="text-[var(--color-brand-gold)]">Orange County</span>
             </h1>
             <p className="text-xl !text-white/90 leading-relaxed">
-              From clean books and month-end close to forecasting, financial analysis, and strategic
-              advisory, BlueCrest Group supports small and growing businesses across Orange County.
-              Every engagement is tailored to your business and its stage of growth.
+              BlueCrest Group handles bookkeeping, month-end close, forecasting, and financial analysis
+              for small and growing businesses across Orange County. We scope each engagement to your
+              business and where it is today.
             </p>
           </div>
         </div>

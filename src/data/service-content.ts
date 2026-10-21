@@ -27,7 +27,7 @@ export const PRICING_CLOSING_LINE = "Other details specific to your business can
 
 export const serviceContent: Record<string, ServiceContent> = {
   "fractional-controller-services": {
-    intro: "A fractional controller gives your business senior-level oversight of its accounting operations without the cost of a full-time hire. Your bookkeeper handles day-to-day transactions. We make sure the books are accurate, processes are efficient, internal controls are in place, and your financial statements are reliable enough to support confident decisions.",
+    intro: "A fractional controller gives your business senior-level oversight of its accounting operations without the cost of a full-time hire. Your bookkeeper handles day-to-day transactions. We make sure the books are accurate, processes are efficient, internal controls are in place, and your financial statements are reliable enough to make decisions from.",
     whatsIncluded: {
       heading: "What Our Fractional Controller Services Include",
       bullets: [
@@ -47,7 +47,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "How Our Fractional Controller Engagement Works",
       steps: [
         { heading: "Current State Assessment", content: "We evaluate your accounting processes, systems, staff, recent financial statements, and internal controls to find where accuracy or efficiency can improve." },
-        { heading: "Process Optimization", content: "We tighten your month-end close, reconciliation procedures, and reporting workflows, with clear timelines and responsibilities." },
+        { heading: "Process Cleanup", content: "We tighten your month-end close, reconciliation procedures, and reporting workflows, with clear timelines and responsibilities." },
         { heading: "Ongoing Oversight", content: "We review transactions, approve reconciliations, and work with your bookkeeper or accounting staff to keep the books accurate." },
         { heading: "Reporting and Communication", content: "We deliver monthly financial statements and management reports, and meet with you regularly to review results and trends." },
       ],
@@ -66,12 +66,12 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Fractional Controller Services",
       paragraphs: [
         "Most growing businesses don't need another bookkeeper. They need someone senior making sure the numbers are right. We've done that for everything from single-location businesses to a 17-entity real estate portfolio.",
-        "We work in the system you already use, keep your current bookkeeper in place, and scale our involvement to what you need: hands-on during a cleanup or transition, lighter oversight once things run smoothly. When you're ready for forecasting, budgeting, and strategic planning, you can add CFO-level support from people who already know your numbers.",
+        "We work in the system you already use, keep your current bookkeeper in place, and scale our involvement to what you need: hands-on during a cleanup or transition, lighter oversight once things run smoothly. We also write down your accounting policies and close procedures. If your bookkeeper leaves, the next one can pick up where they left off.",
       ],
       testimonial: "chris-gormley",
     },
     pricing: {
-      heading: "Factors That Influence Fractional Controller Pricing",
+      heading: "Factors That Affect Fractional Controller Pricing",
       factors: [
         { heading: "Transaction Volume", content: "More monthly transactions mean more review time and controller involvement." },
         { heading: "Accounting Complexity", content: "Multiple entities, complex revenue recognition, or specialized accounting requirements call for more involved support." },
@@ -96,9 +96,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     whatsIncluded: {
       heading: "What Our Bookkeeping and Reconciliation Services Include",
       bullets: [
-        "Chart of accounts review and setup tailored to your business",
+        "Chart of accounts review and setup for your business",
         "Regular transaction recording from bank feeds, credit cards, and other sources",
-        "Expense categorization aligned with your chart of accounts",
+        "Expense categorization that matches your chart of accounts",
         "Bill entry and payment tracking",
         "Invoice recording and receivables aging",
         "Monthly bank reconciliations",
@@ -122,7 +122,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       },
       {
         heading: "Accounts Payable and Receivable Services",
-        text: "Streamlined vendor bill processing, payment runs, customer invoicing, and collections follow-up, with cash flow optimization to improve working capital. We keep your vendors paid on time, bring cash in faster, and show you exactly what's owed in both directions.",
+        text: "We enter and pay vendor bills, send customer invoices, and follow up on late payments. Each month you see exactly who owes you and whom you owe.",
       },
     ],
     process: {
@@ -137,13 +137,13 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Bookkeeping and Reconciliation Services",
       paragraphs: [
-        "You work directly with experienced people, not a rotating cast of junior staff or an offshore team. We answer questions in plain language, respond quickly, and take the time to learn how your business runs.",
+        "You work directly with the experienced people doing your books. We answer questions in plain language, respond quickly, and take the time to learn how your business runs.",
         "As your business grows, the same people who know your books can take on controller and CFO work, so you aren't starting over with someone new.",
       ],
       testimonial: "michael-royer",
     },
     pricing: {
-      heading: "Factors That Affect Bookkeeping Service Pricing",
+      heading: "Factors That Affect Bookkeeping Pricing",
       factors: [
         { heading: "Transaction Volume", content: "More monthly transactions mean more time to record, categorize, and reconcile." },
         { heading: "Number of Accounts", content: "Multiple bank accounts, credit cards, or entities add reconciliation work each month." },
@@ -256,12 +256,12 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "accounting-system-setup": {
-    intro: "Accurate books and useful reports depend on accounting software that's set up correctly. We choose, set up, migrate, and automate accounting and reporting software, including QuickBooks, Xero, NetSuite, and Yardi. We work with new businesses, companies that have outgrown their system, and setups that need fixing.",
+    intro: "We choose, set up, migrate, and automate accounting and reporting software, including QuickBooks, Xero, NetSuite, and Yardi. We work with new businesses, companies that have outgrown their system, and setups that need fixing.",
     whatsIncluded: {
       heading: "What Our Software Setup and Migration Services Include",
       bullets: [
         "Platform selection based on your business requirements",
-        "Chart of accounts design aligned with your reporting needs",
+        "Chart of accounts design built around your reporting needs",
         "Job and cost codes, plus class, location, and department tracking",
         "Multi-entity configuration and consolidated reporting",
         "Historical data migration and imports from your previous system",
@@ -285,7 +285,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Software Setup and Migration Services",
       paragraphs: [
-        "We're accountants first. Your system gets built around how your books, reporting, and month-end close need to work, rather than the software's default settings. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and we can build custom integrations when you need more than accounting software.",
+        "We're accountants first. Your system gets built around how your books, reporting, and month-end close need to work. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and we can build custom integrations when you need more than accounting software.",
         "When we migrate your data, we check every balance against your old system before switching over, and we time the cutover to a month-end when we can. Your team is trained on the system before go-live.",
       ],
       testimonial: "lu-miller",
@@ -304,7 +304,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "startup-business-services": {
-    intro: "The decisions you make in your first year shape how easily your company can grow and stay compliant. We handle the financial and administrative setup: state registration, your accounting system, payroll, sales tax, and card processing.",
+    intro: "We set up the financial and administrative side of a new business: state registration, your accounting system, payroll, sales tax, and card processing. Getting these right in the first year makes it easier to grow and stay compliant later.",
     whatsIncluded: {
       heading: "What Our Startup Accounting and Finance Services Include",
       bullets: [
@@ -361,14 +361,14 @@ export const serviceContent: Record<string, ServiceContent> = {
     whatsIncluded: {
       heading: "What Our Fractional CFO Services Include",
       bullets: [
-        "Financial strategy and execution planning aligned with your business objectives",
+        "A financial plan for the year, with the steps to carry it out",
         "Monthly and quarterly financial reviews with clear recommendations",
         "Cash flow management and forecasting to maintain healthy working capital",
         "Budget development and budget-to-actual variance analysis",
         "KPI and performance reporting that tracks what drives your business",
         "Investor, lender, and board reporting",
         "Scenario planning for growth, expansion, and major decisions",
-        "Vendor and partner negotiations leveraging financial data and analysis",
+        "Vendor and partner negotiations backed by your numbers",
         "Mentoring and development for your internal finance staff",
         "Profitability and pricing analysis",
         "Capital, financing, and entity structuring strategy",
@@ -377,30 +377,30 @@ export const serviceContent: Record<string, ServiceContent> = {
     process: {
       heading: "How Our Fractional CFO Engagement Works",
       steps: [
-        { heading: "Discovery and Assessment", content: "We review your financial operations, systems, reporting, and historical results, and meet with key stakeholders to understand your goals and identify immediate opportunities for improvement." },
-        { heading: "Strategy Development", content: "We build a financial strategy aligned with your objectives, including KPIs, reporting frameworks, and financial models, and prioritize initiatives with you." },
-        { heading: "Implementation and Execution", content: "We put the plan in place, upgrading reporting, establishing new processes, and training your team so improvements last." },
-        { heading: "Ongoing Strategic Partnership", content: "We meet regularly to review performance, guide major decisions, and prepare for board, investor, and lender meetings as your business evolves." },
+        { heading: "Discovery and Assessment", content: "We review your financial operations, systems, reporting, and historical results, and meet with your key people to understand your goals and find what can be fixed right away." },
+        { heading: "Strategy Development", content: "We set the KPIs, reports, and models we'll use, and agree with you on what to tackle first." },
+        { heading: "Implementation", content: "We put the plan in place with new reports, new processes, and training for your team." },
+        { heading: "Ongoing Partnership", content: "We meet regularly to review performance, work through major decisions, and prepare for board, investor, and lender meetings." },
       ],
     },
     cards: {
       heading: "Types of Businesses We Serve",
       items: [
-        { heading: "Growth Stage Companies", content: "Companies that have outgrown basic accounting and need strategic oversight to manage growth, optimize cash flow, and make data-driven decisions about expansion." },
-        { heading: "Venture-Backed Startups", content: "Startups preparing for or managing through funding rounds. We prepare financial models, investor materials, and reporting packages, and build financial operations that scale with you." },
-        { heading: "Family-Owned Businesses", content: "Family businesses that need to professionalize their financial operations while preserving the values that made them successful." },
+        { heading: "Growth Stage Companies", content: "Companies that have outgrown basic accounting and need help managing cash and deciding when and where to expand." },
+        { heading: "Venture-Backed Startups", content: "Startups preparing for or managing through funding rounds. We prepare financial models, investor materials, and reporting packages, and set up the reporting investors expect after the round closes." },
+        { heading: "Family-Owned Businesses", content: "Family businesses moving from informal bookkeeping to monthly reporting, budgets, and controls." },
       ],
     },
     whyChoose: {
       heading: "Why Choose Our Fractional CFO Services",
       paragraphs: [
-        "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services, so we bring proven approaches to the challenges you face.",
-        "We explain the numbers in plain language and tell you what we'd do in your position. You'll know the financial impact of a decision before you make it, and you'll have someone to call when a question can't wait for the next monthly meeting.",
+        "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services, and we've seen most cash and growth problems before.",
+        "We explain the numbers in plain language and tell you what we'd do in your position, and you'll have someone to call when a question can't wait for the next monthly meeting.",
       ],
       testimonial: "tyson-johnson",
     },
     pricing: {
-      heading: "Factors That Influence Fractional CFO Engagement Pricing",
+      heading: "Factors That Affect Fractional CFO Pricing",
       intro: "Every engagement is priced to the level of support your business needs.",
       factors: [
         { heading: "Scope of Services", content: "Focused support in one area, such as cash flow management or fundraising, costs less than full CFO oversight across every financial function." },
@@ -412,7 +412,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     faq: {
       heading: "Frequently Asked Questions About Fractional CFO Services",
       items: [
-        { question: "What is the difference between a fractional CFO and a full-time CFO?", answer: "A fractional CFO provides the same strategic financial leadership as a full-time CFO on a part-time or project basis, giving you senior-level expertise at a fraction of the cost of a full-time executive." },
+        { question: "What is the difference between a fractional CFO and a full-time CFO?", answer: "A fractional CFO does the same work as a full-time CFO on a part-time or project basis. You get senior-level experience and pay only for the time you use." },
         { question: "How much time does a typical fractional CFO engagement require?", answer: "Most clients start with a set amount of time each month. That goes up during busy stretches, like a capital raise or a system change, and back down afterward." },
         { question: "At what stage should a business consider hiring a fractional CFO?", answer: "When financial decisions start carrying real weight: difficulty managing cash flow, preparing to raise capital, considering an acquisition or sale, or needing better visibility to support growth." },
         { question: "How is a fractional CFO different from an accountant or bookkeeper?", answer: "Accountants and bookkeepers make sure your records are accurate. A fractional CFO uses those records to plan cash and budgets and to weigh big decisions." },
@@ -422,7 +422,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "financial-planning-and-analysis": {
-    intro: "A strong financial plan turns your goals into numbers you can manage against. Our financial planning and analysis services deliver annual budgets, rolling forecasts, and cash flow projections, measured against actual results every month and tied to the KPIs that drive your business. We also build dynamic growth plans for scaling locations, fleets, or product lines, with debt, equity, or blended financing scenarios you can use internally and with lenders and investors.",
+    intro: "Our financial planning and analysis services deliver annual budgets, rolling forecasts, and cash flow projections, measured against actual results every month and tied to the KPIs that drive your business. We also build growth plans for scaling locations, fleets, or product lines, with debt, equity, or blended financing scenarios you can use internally and with lenders and investors.",
     whatsIncluded: {
       heading: "What Our FP&A Services Include",
       bullets: [
@@ -442,7 +442,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       {
         heading: "KPI Development and Dashboards",
         bullets: [
-          "KPI selection and definition aligned with your business objectives",
+          "KPI selection and definitions for your business",
           "Dashboard design and setup on the right platform",
           "Automated data feeds from your accounting and operational systems",
           "Trend, variance, and exception reporting",
@@ -467,7 +467,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     pricing: {
-      heading: "FP&A Service Pricing Factors",
+      heading: "Factors That Affect FP&A Pricing",
       factors: [
         { heading: "Business Complexity", content: "Multiple revenue streams, product lines, locations, or entities require more detailed modeling." },
         { heading: "Level of Detail", content: "Line-item budgets take more work than high-level departmental summaries." },
@@ -586,7 +586,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "mergers-acquisitions-advisory": {
-    intro: "For most owners, buying or selling a business is a decision they make only once or twice. We provide buy-side and sell-side financial support alongside your investment bank, broker, or ownership team, from due diligence and deal modeling to the financial package buyers expect. You go into the transaction with a clear view of the numbers, and the financial work stays on schedule through closing.",
+    intro: "For most owners, buying or selling a business is a decision they make only once or twice. We provide buy-side and sell-side financial support alongside your investment bank, broker, or ownership team, including due diligence, deal modeling, and the financial package buyers expect. You go into the transaction with a clear view of the numbers, and the financial work stays on schedule through closing.",
     whatsIncluded: {
       heading: "What Our M&A Advisory Services Include",
       bullets: [
@@ -615,8 +615,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our M&A Advisory Services",
       paragraphs: [
-        "The financial work decides whether the deal you close is the deal you intended. We've underwritten acquisitions, built deal models, and structured financing. That experience helps problems surface in diligence, before closing.",
-        "We work alongside your banker, broker, and attorneys and keep the financial workstream organized and on schedule. If you're selling, your financials will hold up under buyer review. If you're buying, you'll know what you're paying for.",
+        "We've underwritten acquisitions, built deal models, and structured financing. That experience helps problems surface in diligence, before closing.",
+        "We work alongside your banker, broker, and attorneys and keep the financial workstream organized and on schedule. Sellers go to market with financials that hold up in diligence, and buyers know what they're paying for.",
       ],
     },
     faq: {
@@ -633,7 +633,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "tax-strategy-planning": {
-    intro: "Effective tax planning happens throughout the year, not just at filing time. We keep your books tax-ready and model the tax impact of major business decisions as they happen, then coordinate with your CPA or our tax partners to put the right strategies in place, so you stay compliant and keep more of what your business earns.",
+    intro: "We keep your books tax-ready and model the tax impact of major business decisions as they happen, then coordinate with your CPA or our tax partners to put the right strategies in place.",
     whatsIncluded: {
       heading: "What Our Business Tax Planning Services Include",
       bullets: [
@@ -663,7 +663,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Tax Planning Services",
       paragraphs: [
-        "Tax planning works best when it's built on accurate, current books. We maintain the numbers your tax strategy depends on and bring the tax view into everyday decisions, from equipment purchases to owner compensation, rather than leaving it for year-end.",
+        "We maintain the books your tax strategy depends on and bring the tax view into everyday decisions, such as equipment purchases and owner compensation, rather than leaving it for year-end.",
         "We don't prepare returns, so our focus stays on planning. Whoever prepares your return handles the filing, and we deliver organized workpapers and clear projections that make their work faster and more accurate.",
       ],
     },
@@ -689,7 +689,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "sales-tax-compliance": {
-    intro: "Selling across multiple channels and states can create sales tax obligations well beyond your home state. We determine where you have obligations, register where required, reconcile sales across every channel, calculate what's owed, and prepare and file accurate returns on time, so you stay compliant everywhere you sell.",
+    intro: "Selling across multiple channels and states can create sales tax obligations well beyond your home state. We determine where you have obligations, register where required, reconcile sales across every channel, calculate what's owed, and prepare and file accurate returns on time.",
     whatsIncluded: {
       heading: "What Our Sales Tax Compliance Services Include",
       bullets: [
@@ -718,8 +718,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Sales Tax Compliance Services",
       paragraphs: [
-        "Sales tax touches every sale your business makes, so accuracy depends on knowing your operations, not just the tax rates. We learn how and where you sell, keep up with rate and rule changes in every state where you file, and catch issues before they turn into penalties.",
-        "The figures on every return tie back to your books and financial statements, which matters if a state ever audits you. You get one point of contact for registrations, filings, and sales tax questions, and your team gets its time back.",
+        "Getting sales tax right means knowing how and where you sell. We learn your operations, keep up with rate and rule changes in every state where you file, and catch issues before they turn into penalties.",
+        "The figures on every return tie back to your books and financial statements, which matters if a state ever audits you. You get one point of contact for registrations, filings, and sales tax questions.",
       ],
     },
     pricing: {
@@ -744,7 +744,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "audit-preparation": {
-    intro: "A smooth audit starts long before the auditors arrive. Whether you're facing a financial statement, lender, or investor audit, we reconcile your accounts, organize your schedules and documentation, and prepare your team for auditor requests, so fieldwork stays on schedule with minimal disruption to your business.",
+    intro: "For financial statement, lender, and investor audits, we reconcile your accounts, prepare schedules and support, and get your team ready for auditor requests before fieldwork starts.",
     whatsIncluded: {
       heading: "What Our Audit Preparation Services Include",
       bullets: [

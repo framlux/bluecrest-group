@@ -31,7 +31,7 @@ export default function NotFoundContent() {
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
                 The page you&apos;re looking for may have moved or been removed.
-                Let&apos;s get you back on track.
+                Here are a few places to start.
               </p>
             </div>
 
@@ -92,7 +92,7 @@ export default function NotFoundContent() {
                     <div className="font-semibold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors">
                       About Us
                     </div>
-                    <div className="text-sm text-gray-500">Learn our story</div>
+                    <div className="text-sm text-gray-500">Meet Josh and how we work</div>
                   </div>
                 </Link>
 

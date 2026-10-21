@@ -37,10 +37,9 @@ export default function HomePageClient() {
               From Clean Books to Executive-Level Finance, Scaled to Your Business
             </p>
             <p className="text-lg text-gray-700 mb-10 leading-relaxed drop-shadow-md font-medium">
-              Grow your business with strategic CFO guidance and expert accounting support. We keep
-              your books accurate and current, build the forecasts and analysis behind your biggest
-              decisions, and coordinate payroll, tax, and compliance, giving you a clear view of your
-              numbers and the confidence to act on them.
+              We keep your books accurate and current, build the forecasts and analysis behind your
+              biggest decisions, and coordinate payroll, tax, and compliance. You always know where your
+              numbers stand.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2" />
@@ -76,10 +75,8 @@ export default function HomePageClient() {
             </div>
             <div>
               <p className="text-lg leading-relaxed text-white/90">
-                You get strategic insight and the financial visibility to grow profitably and plan
-                ahead, along with more time to focus on running your business. Opportunities are easier
-                to spot, growth plans rest on solid ground, and your business is always ready for what
-                comes next.
+                Each month you see how the business is doing and what changed. You can plan a hire or
+                an expansion against real numbers, and you spend less of your own time on the books.
               </p>
             </div>
           </div>
@@ -91,10 +88,10 @@ export default function HomePageClient() {
             </div>
             <div>
               <p className="text-lg leading-relaxed text-white/90">
-                We act as an extension of your team, bringing senior-level financial leadership and
-                hands-on accounting expertise to businesses in every industry. From day-to-day
-                bookkeeping to forecasting, capital raises, and acquisitions, we work across every level
-                of your finances, so the same team supports you at every stage of growth.
+                We work as an extension of your team, with senior financial experience and hands-on
+                accounting in one firm. We handle day-to-day bookkeeping as well as forecasting, capital
+                raises, and acquisitions, and as the business grows, you keep working with the same
+                people.
               </p>
             </div>
           </div>
@@ -222,7 +219,7 @@ export default function HomePageClient() {
               Serving {siteConfig.region}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From our base in Newport Beach, we work with businesses across Orange County.
+              We&apos;re based in Newport Beach and work with businesses throughout Orange County.
             </p>
           </div>
 

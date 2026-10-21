@@ -50,8 +50,8 @@ export default function AboutPage() {
               <span className="text-[var(--color-brand-gold)]">Growing Businesses</span>
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              We help small and growing businesses in {siteConfig.region} build stronger financial foundations
-              and make better decisions with expert fractional CFO and accounting services.
+              We provide fractional CFO and accounting services to small and growing businesses in{" "}
+              {siteConfig.region}.
             </p>
           </div>
         </div>
@@ -70,22 +70,18 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-5 text-gray-600">
                 <p className="text-lg">
-                  Many growing businesses reach a point where they need senior financial
-                  expertise but aren&apos;t ready for a full-time CFO. They
-                  have outgrown basic bookkeeping but lack the strategic financial
-                  guidance to reach the next level.
+                  Many growing businesses reach a point where basic bookkeeping isn&apos;t
+                  enough, but a full-time CFO doesn&apos;t make sense yet.
                 </p>
                 <p>
-                  BlueCrest Group exists to fill this gap. We provide fractional CFO,
-                  controller, and accounting services that give businesses access to
-                  experienced financial leadership at a fraction of the cost of
-                  traditional executive hires.
+                  That&apos;s the gap we fill. We provide fractional CFO, controller, and
+                  accounting services. You get experienced financial help for the hours
+                  you need it, without adding an executive to the payroll.
                 </p>
                 <p>
-                  Our approach is simple: understand your business deeply, provide
-                  clear financial insights, and help you make better decisions. No
-                  unnecessary complexity, no jargon-filled reports that sit unread.
-                  Just practical advice that helps your business grow.
+                  We start by learning how your business makes money. Our reports are
+                  short and written in plain English, and each month we tell you what
+                  we&apos;d do next.
                 </p>
               </div>
             </div>
@@ -101,7 +97,7 @@ export default function AboutPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-white/90">Small and growing businesses, from startups to established companies</span>
+                  <span className="text-white/90">Startups and established small businesses</span>
                 </li>
                 <li className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center shrink-0">
@@ -125,7 +121,7 @@ export default function AboutPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-white/90">Entrepreneurs who want a trusted financial partner, not just a vendor</span>
+                  <span className="text-white/90">Owners who want one person to call about their finances</span>
                 </li>
               </ul>
             </div>
@@ -191,8 +187,7 @@ export default function AboutPage() {
                 Ready to Get Started?
               </h2>
               <p className="text-xl text-white/90 mb-8">
-                Schedule a free 15-minute consultation to discuss how BlueCrest Group can
-                support your business with strategic financial leadership.
+                Schedule a free 15-minute call to talk through where your finances stand.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <ContactCta label="Contact Us" className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
