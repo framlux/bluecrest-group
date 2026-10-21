@@ -7,6 +7,7 @@ import { serviceCategories } from "@/data/services";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
 import CaseStudyCards from "@/components/CaseStudyCards";
+import { getTestimonial } from "@/data/testimonials";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
@@ -48,6 +49,7 @@ export default async function LocationPage({ params }: Props) {
   }
 
   const path = `/service-areas/${location.slug}`;
+  const testimonial = getTestimonial("michael-royer");
 
   return (
     <>
@@ -88,7 +90,7 @@ export default async function LocationPage({ params }: Props) {
               Service Area
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold !text-white mb-8">
-              Fractional CFO & Accounting in{" "}
+              Fractional CFO and Accounting in{" "}
               <span className="text-[var(--color-brand-gold)]">{location.name}, {location.stateAbbr}</span>
             </h1>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -119,8 +121,16 @@ export default async function LocationPage({ params }: Props) {
                 ))}
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-12 mb-6">Client Results</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-12 mb-6">Recent Client Work</h2>
               <CaseStudyCards stacked />
+
+              <figure className="mt-12 bg-slate-50 rounded-2xl border border-gray-100 p-6 lg:p-8">
+                <blockquote className="text-gray-700 italic leading-relaxed">&ldquo;{testimonial.quote}&rdquo;</blockquote>
+                <figcaption className="mt-4 text-sm">
+                  <span className="font-semibold text-gray-900">{testimonial.name}</span>
+                  <span className="text-gray-600">, {testimonial.role}</span>
+                </figcaption>
+              </figure>
             </div>
 
             {/* Sidebar */}

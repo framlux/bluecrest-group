@@ -81,7 +81,7 @@ export default function ServiceAreasPage() {
               ))}
             </ul>
             <p className="text-lg text-gray-600 mt-8">
-              {primaryLocation.name} is our home base, and we work with clients across the county in person or remotely.
+              We work with clients across the county, in person or remotely.
             </p>
           </div>
           <div className="max-w-md mx-auto mt-12">

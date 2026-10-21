@@ -140,7 +140,7 @@ export default function TermsPage() {
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Intellectual Property</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  All reports, analyses, and other deliverables created by us remain our intellectual property. You are granted a license to use these materials for your internal business purposes only. You may not reproduce, distribute, or use these materials for any other purpose without our written consent.
+                  All reports, analyses, and other deliverables created by us remain our intellectual property. You are granted a license to use these materials for your internal business purposes and to share them with your lenders, investors, and advisors. You may not otherwise reproduce, distribute, or use these materials without our written consent.
                 </p>
               </div>
 

@@ -71,7 +71,7 @@ export default function AboutPage() {
               <div className="space-y-5 text-gray-600">
                 <p className="text-lg">
                   Many growing businesses reach a point where they need senior financial
-                  expertise but are not ready for a full-time CFO. They
+                  expertise but aren&apos;t ready for a full-time CFO. They
                   have outgrown basic bookkeeping but lack the strategic financial
                   guidance to reach the next level.
                 </p>

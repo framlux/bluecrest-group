@@ -30,7 +30,7 @@ export default function NotFoundContent() {
                 <span className="text-[var(--color-brand-gold)]">doesn&apos;t exist</span>
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                The page you&apos;re looking for may have been moved, deleted, or doesn&apos;t exist.
+                The page you&apos;re looking for may have moved or been removed.
                 Let&apos;s get you back on track.
               </p>
             </div>

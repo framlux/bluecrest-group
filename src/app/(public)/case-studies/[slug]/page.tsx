@@ -101,7 +101,7 @@ export default async function CaseStudyPage({ params }: Props) {
             </div>
 
             <div className="mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">What BlueCrest Did</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">What We Did</h2>
               {study.whatWeDidIntro && <p className="text-gray-600 text-lg leading-relaxed mb-6">{study.whatWeDidIntro}</p>}
               <ul className="space-y-3 list-disc pl-6 text-gray-700 text-lg">
                 {study.whatWeDid.map((item) => (

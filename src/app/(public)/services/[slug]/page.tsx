@@ -180,7 +180,7 @@ export default async function ServicePage({ params }: Props) {
               {content.pricing && (
                 <div className="mb-12">
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{content.pricing.heading}</h2>
-                  <p className="text-gray-600 mb-8">{content.pricing.intro}</p>
+                  {content.pricing.intro && <p className="text-gray-600 mb-8">{content.pricing.intro}</p>}
                   <div className="space-y-6">
                     {content.pricing.factors.map((factor) => (
                       <div key={factor.heading} className="border-l-4 border-[var(--color-brand-blue)] pl-6">

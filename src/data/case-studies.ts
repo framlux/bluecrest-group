@@ -21,20 +21,20 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "yardi-implementation-industrial-real-estate",
     title: "Yardi Implementation Case Study: Industrial Real Estate | BlueCrest Group",
-    description: "How BlueCrest Group took an industrial real estate developer from AP tracking alone to full accounting, finance, and reporting on Yardi across about 17 entities.",
+    description: "How BlueCrest Group took an industrial real estate developer from AP tracking alone to full accounting, finance, and reporting on Yardi across 17 entities.",
     h1: "Case Study: Implementing Yardi for an Industrial Real Estate Developer",
     atAGlance: [
       { label: "Client", value: "Industrial real estate developer and investment manager" },
       { label: "Portfolio", value: "About 2.5 million square feet of Class A industrial development across Nevada and Arizona" },
       { label: "Scope", value: "Full Yardi implementation" },
-      { label: "Scale", value: "About 17 entities at the corporate, fund, and property levels" },
+      { label: "Scale", value: "17 entities at the corporate, fund, and property levels" },
       { label: "Result", value: "Full accounting, finance, and reporting capabilities in one system" },
     ],
     challenge: "The company was building a multi-state industrial development platform with no accounting system. Its finance function ran on accounts payable management alone, with no general ledger and no way to produce entity-level financial statements or consolidated reporting across its corporate, fund, and property entities.",
-    whatWeDidIntro: "BlueCrest led a full implementation of Yardi, a real estate accounting and property management platform:",
+    whatWeDidIntro: "We led a full implementation of Yardi, a real estate accounting and property management platform:",
     whatWeDid: [
       "Designed the chart of accounts for a development company with corporate, fund, and property entities.",
-      "Set up about 17 entities in the system.",
+      "Set up 17 entities in the system.",
       "Imported the general ledger and migrated historical data.",
       "Moved accounts payable data and workflows from the prior AP system.",
       "Built approval workflows and financial reporting.",
@@ -43,7 +43,7 @@ export const caseStudies: CaseStudy[] = [
     relatedSlugs: ["accounting-system-setup", "fractional-controller-services", "bookkeeping-and-reconciliation"],
     card: {
       heading: "Implementing Yardi for an Industrial Real Estate Developer",
-      text: "From AP tracking alone to full accounting, finance, and reporting across about 17 corporate, fund, and property entities.",
+      text: "From AP tracking alone to full accounting, finance, and reporting across 17 corporate, fund, and property entities.",
     },
     datePublished: "2026-10-20",
     updatedAt: "2026-10-20",
@@ -93,7 +93,7 @@ export const caseStudies: CaseStudy[] = [
       "Implemented inventory management processes.",
       "Built KPIs to track profitability.",
     ],
-    result: "The company grew from zero to over $100,000 in monthly revenue in under six months. BlueCrest's accounting, inventory, and profitability tracking supported that growth and kept the numbers reliable as volume scaled.",
+    result: "The company grew from zero to over $100,000 in monthly revenue in under six months. Our accounting, inventory, and profitability tracking supported that growth and kept the numbers reliable as volume scaled.",
     relatedSlugs: ["accounting-system-setup", "bookkeeping-and-reconciliation", "financial-planning-and-analysis"],
     card: {
       heading: "Building the Finance Function for a Fast-Growing E-Commerce Company",

@@ -17,15 +17,13 @@ export interface ServiceContent {
   cards?: { heading: string; items: { heading: string; content: string }[] };
   whyChoose: { heading: string; paragraphs: string[]; testimonial?: Testimonial["id"] };
   /** Omitted where partners set pricing or scope varies too much. */
-  pricing?: { heading: string; intro: string; factors: { heading: string; content: string }[] };
-  /** Plain page content: no FAQPage markup. Always includes a cost question. */
+  pricing?: { heading: string; intro?: string; factors: { heading: string; content: string }[] };
+  /** Plain page content: no FAQPage markup. Pages without a pricing section answer the cost question here. */
   faq: { heading: string; items: { question: string; answer: string }[] };
 }
 
-/** Closes every pricing section (item 18). */
-export const PRICING_CLOSING_LINE = "Additional client-specific factors may also affect pricing.";
-
-const FOUR_FACTORS = "Pricing depends on four main factors.";
+/** Closes every pricing section (item 18), and stands in for the cost FAQ on those pages. */
+export const PRICING_CLOSING_LINE = "Other details specific to your business can affect pricing too. After a free 15-minute call, we'll send you a proposal.";
 
 export const serviceContent: Record<string, ServiceContent> = {
   "fractional-controller-services": {
@@ -67,14 +65,13 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Fractional Controller Services",
       paragraphs: [
-        "Most growing businesses don't need another bookkeeper. They need someone senior making sure the numbers are right. That's what we deliver. With more than 15 years in accounting, internal controls, and financial reporting, we've managed everything from single-location businesses to a 17-entity real estate portfolio, so we know how to bring structure to whatever you're running.",
-        "We work in the system you already use, keep your current bookkeeper in place, and scale our involvement to what you need: hands-on during a cleanup or transition, lighter oversight once things run smoothly. And when you're ready for forecasting, budgeting, and strategic planning, CFO-level support is already in place, from a firm that already knows your numbers.",
+        "Most growing businesses don't need another bookkeeper. They need someone senior making sure the numbers are right. We've done that for everything from single-location businesses to a 17-entity real estate portfolio, and we bring the same structure to whatever you're running.",
+        "We work in the system you already use, keep your current bookkeeper in place, and scale our involvement to what you need: hands-on during a cleanup or transition, lighter oversight once things run smoothly. When you're ready for forecasting, budgeting, and strategic planning, you can add CFO-level support from people who already know your numbers.",
       ],
       testimonial: "chris-gormley",
     },
     pricing: {
       heading: "Factors That Influence Fractional Controller Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Transaction Volume", content: "More monthly transactions mean more review time and controller involvement." },
         { heading: "Accounting Complexity", content: "Multiple entities, complex revenue recognition, or specialized accounting requirements call for more involved support." },
@@ -87,7 +84,6 @@ export const serviceContent: Record<string, ServiceContent> = {
       items: [
         { question: "What is the difference between a bookkeeper and a controller?", answer: "A bookkeeper records daily transactions and basic reconciliations. A controller oversees that work, manages the close, prepares financial statements, and implements internal controls: the quality assurance layer for your books." },
         { question: "How often will a fractional controller review our books?", answer: "Typically weekly or biweekly reviews of key accounts, plus a full monthly close. Frequency depends on your transaction volume and complexity." },
-        { question: "How much does a fractional controller cost?", answer: "Cost depends on your transaction volume, complexity, and reporting needs. After a free 15-minute consultation, we provide a proposal priced to the support you need." },
         { question: "What accounting systems do you work with?", answer: "QuickBooks, Xero, NetSuite, Yardi, and other platforms. If you're considering a system change, we can evaluate options and manage the transition." },
         { question: "How quickly can you identify problems in our books?", answer: "Our initial assessment identifies accuracy, completeness, and process issues, and we deliver a prioritized plan that addresses the most critical problems first." },
         { question: "Do we need both a fractional controller and a fractional CFO?", answer: "It depends. A controller ensures accurate accounting and reporting; a CFO provides strategic financial leadership. Many businesses start with controller services and add CFO support as they grow." },
@@ -96,7 +92,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "bookkeeping-and-reconciliation": {
-    intro: "Accurate books are the foundation of every good business decision. We review and tailor your chart of accounts to fit your business, then record, categorize, and reconcile every transaction so you always know where your business stands, whether you need ongoing monthly bookkeeping or a cleanup of past months and historical records.",
+    intro: "Good decisions start with accurate books. We set up your chart of accounts to fit how your business works, then record, categorize, and reconcile every transaction. That covers ongoing monthly bookkeeping as well as cleaning up months or years that fell behind.",
     whatsIncluded: {
       heading: "What Our Bookkeeping and Reconciliation Services Include",
       bullets: [
@@ -135,20 +131,19 @@ export const serviceContent: Record<string, ServiceContent> = {
         { heading: "System Setup and Integration", content: "We connect your bank and credit card accounts for automated imports and configure your chart of accounts to match your reporting needs." },
         { heading: "Transaction Processing", content: "We review and categorize transactions on a regular schedule, apply consistent coding rules, and keep supporting documentation organized." },
         { heading: "Reconciliation", content: "We reconcile every bank and credit card account to its statement each month, resolve discrepancies, and flag anything that needs your attention." },
-        { heading: "Monthly Reporting", content: "We deliver your profit and loss, balance sheet, and cash flow statement on a set schedule after each month closes." },
+        { heading: "Monthly Review", content: "After each month closes, we send your reports and walk through the results with you." },
       ],
     },
     whyChoose: {
       heading: "Why Choose Our Bookkeeping and Reconciliation Services",
       paragraphs: [
-        "We build books you can run your business on, not just a record of transactions, and we treat your business like it matters. You work directly with experienced professionals, not a rotating cast of junior staff or an offshore team, so you always know who to call. We answer questions in plain language, respond quickly, and take the time to understand how your business actually runs.",
-        "We're invested in the long-term success of every business we work with, whether we meet in person or work entirely remotely. And as you grow, the same people who know your books can step in with controller and CFO-level support, so you never have to start over with someone new.",
+        "You work directly with experienced people, not a rotating cast of junior staff or an offshore team, and you always know who to call. We answer questions in plain language, respond quickly, and take the time to learn how your business runs.",
+        "As your business grows, the same people who know your books can take on controller and CFO work. You never have to start over with someone new.",
       ],
       testimonial: "michael-royer",
     },
     pricing: {
       heading: "Factors That Affect Bookkeeping Service Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Transaction Volume", content: "More monthly transactions mean more time to record, categorize, and reconcile." },
         { heading: "Number of Accounts", content: "Multiple bank accounts, credit cards, or entities add reconciliation work each month." },
@@ -163,21 +158,20 @@ export const serviceContent: Record<string, ServiceContent> = {
         { question: "What accounting software do you use?", answer: "QuickBooks, Xero, NetSuite, Yardi, and other platforms. We can recommend the best fit and handle any migration." },
         { question: "How far behind can my books be for you to help?", answer: "We catch up months or even years of backlogged books, including a two-year cleanup across three restaurant locations. Timing depends on the volume of work and the records available." },
         { question: "What information do you need access to?", answer: "Read-only access to your bank and credit card accounts for transaction feeds, plus access to your accounting software. Sensitive information is shared through secure methods." },
-        { question: "How much does bookkeeping cost?", answer: "Cost depends on your transaction volume, number of accounts, and complexity. After a free 15-minute consultation, we provide a proposal priced to the support you need." },
         { question: "Can you work with our existing accountant or CPA?", answer: "Yes. We deliver clean, organized books that make tax preparation easier and coordinate directly with your CPA during tax season and audits." },
       ],
     },
   },
 
   "payroll-and-hr-services": {
-    intro: "We set up and run payroll and core HR processes across one or multiple locations through our payroll partners, so your team is paid accurately, your HR processes run smoothly, and every payroll is recorded correctly in your books.",
+    intro: "We set up and run payroll and core HR processes for one location or many, using established payroll partners. Your team gets paid correctly, HR paperwork stays in order, and every payroll is recorded in your books.",
     whatsIncluded: {
       heading: "What Our Payroll and HR Services Include",
       bullets: [
         "Payroll processing for hourly, salary, and commission pay",
         "Direct deposit setup and management",
-        "Federal, state, and local withholding, deposits, and filings through our payroll partners",
-        "W-2 and 1099 preparation and distribution through our payroll partners",
+        "Federal, state, and local withholding, deposits, and filings",
+        "W-2 and 1099 preparation and distribution",
         "Benefits setup and deduction management",
         "Time and attendance system setup, integrated with payroll",
         "HR process setup and monitoring, including onboarding, offboarding, and employee records",
@@ -194,14 +188,14 @@ export const serviceContent: Record<string, ServiceContent> = {
         { heading: "Setup and Configuration", content: "We set up payroll, benefits, time and attendance, and HR processes on our partner platform, including employee data, pay rates, deductions, and tax jurisdictions." },
         { heading: "Time and Pay Collection", content: "Each pay period, hours, commissions, bonuses, and other variable pay flow in from your time system or are collected in whatever format works for you." },
         { heading: "Processing and Review", content: "We process and review every payroll for accuracy, and you approve a preview before funds are released." },
-        { heading: "Payment, Filing, and Recording", content: "Employees are paid on schedule, tax deposits and filings are completed through our payroll partners, and every payroll is recorded to your general ledger." },
+        { heading: "Payment, Filing, and Recording", content: "Employees are paid on schedule, tax deposits and filings go out on time, and every payroll is recorded to your general ledger." },
       ],
     },
     whyChoose: {
       heading: "Why Choose Our Payroll and HR Services",
       paragraphs: [
-        "Most payroll services stop at the paycheck. We connect payroll to the rest of your finances, so every payroll lands correctly in your books and you can see exactly what labor costs by location, department, or job. You work directly with experienced professionals who know your business, not a call center, with one point of contact for payroll, HR, and accounting questions.",
-        "Payroll runs through established partner platforms for reliable processing and tax filing, and we review every payroll before it goes out. As your team grows, your payroll, HR processes, and financial reporting grow with it, with one team handling all three.",
+        "Most payroll services stop at the paycheck. We tie payroll to the rest of your finances. Every payroll lands correctly in your books, and you can see what labor costs by location, department, or job. Questions about payroll, HR, or accounting all go to one person who knows your business.",
+        "We review every payroll before it goes out, which catches mistakes before they reach your employees. When you hire, open a new location, or add benefits, we update the setup and payroll keeps running on schedule.",
       ],
     },
     faq: {
@@ -218,11 +212,11 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "merchant-processing": {
-    intro: "We provide merchant and credit card processing directly through our ISO partnership, including for high-risk industries such as cannabis, peptides, and iGaming. From underwriting and approval to reconciling deposits in your books and analyzing your sales data, we handle payments as part of your financial operations, not as a separate vendor.",
+    intro: "We provide merchant and credit card processing through our direct ISO partnership, including for high-risk industries. We handle underwriting and approval, reconcile deposits in your books, and analyze your sales data. Payments become part of your financial operations instead of one more vendor to manage.",
     whatsIncluded: {
       heading: "What Our Merchant and Credit Card Processing Services Include",
       bullets: [
-        "Merchant account setup through our direct ISO partnership",
+        "Merchant account setup",
         "Credit and debit card processing for in-person and online sales",
         "High-risk merchant accounts, including cannabis, peptides, and iGaming",
         "Underwriting package preparation, including the financial statements and documentation processors require",
@@ -235,7 +229,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     process: {
       heading: "How Our Merchant Processing Services Work",
       steps: [
-        { heading: "Application and Underwriting", content: "We review your business, prepare the financial statements and documentation underwriters require, and submit your application through our ISO partnership." },
+        { heading: "Application and Underwriting", content: "We review your business, prepare the financial statements and documentation underwriters require, and submit your application." },
         { heading: "Account and Systems Setup", content: "Once you're approved, we set up your merchant account and connect it to your CRM, point-of-sale, and online sales systems, and manage those systems as you grow." },
         { heading: "Accounting Integration", content: "We sync your sales and processing data to your accounting software so deposits and fees post automatically." },
         { heading: "Reconciliation and Analysis", content: "Each month, we reconcile deposits and fees to your books and analyze your sales data for margins, pricing, and product performance." },
@@ -244,8 +238,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Merchant Processing Services",
       paragraphs: [
-        "We work with you from the application forward, not just at signup. Because we prepare the financials underwriters review, businesses in high-risk industries start with a stronger application, and you have a direct contact through our ISO partnership instead of a call center.",
-        "Your payment data doesn't stop at the deposit, either. Sales, fees, and deposits flow into your books, and we turn that data into insight on margins, pricing, and which products are driving your business.",
+        "We prepare the financial statements underwriters review, which gives businesses in high-risk industries a stronger application from the start. After approval, you have a direct contact for your account instead of a processor's call center.",
+        "We also check your processing statements for fees you shouldn't be paying, and we use your sales data to show which products earn the most and where your pricing could change.",
       ],
     },
     faq: {
@@ -262,7 +256,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "accounting-system-setup": {
-    intro: "The right accounting software, set up correctly, is the foundation for accurate books and reliable reporting. We select, set up, migrate, and automate your accounting and reporting software, including QuickBooks, Xero, NetSuite, and Yardi, whether you're starting fresh, outgrowing your current system, or fixing a setup that was never built right.",
+    intro: "Accurate books and useful reports depend on accounting software that's set up correctly. We choose, set up, migrate, and automate accounting and reporting software, including QuickBooks, Xero, NetSuite, and Yardi. Some clients are starting fresh, some have outgrown their current system, and some have a setup that was never built right.",
     whatsIncluded: {
       heading: "What Our Software Setup and Migration Services Include",
       bullets: [
@@ -291,8 +285,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Software Setup and Migration Services",
       paragraphs: [
-        "We're accountants first, not just software specialists, so your system is built around how your books, reporting, and close actually need to work, not just how the software comes out of the box. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and when your needs go beyond accounting software, we can deliver custom integrations and a full technology stack.",
-        "And when the project ends, you're not left on your own. The same firm that built your system can keep your books, run your close, and provide controller or CFO support, so the system keeps working the way it was designed.",
+        "We're accountants first. Your system gets built around how your books, reporting, and month-end close need to work, rather than the software's default settings. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and we can build custom integrations when you need more than accounting software.",
+        "Before we hand the system over, we train your team and document how it's set up, so the next person who touches it can follow along. If something needs adjusting after go-live, you call the people who built it.",
       ],
       testimonial: "lu-miller",
     },
@@ -310,7 +304,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "startup-business-services": {
-    intro: "The decisions you make in your first year shape how easily your company can grow and stay compliant. We handle the setup, from state registration, formation documents, and entity structure to your accounting system, chart of accounts, payroll, and sales tax registrations, so your business is ready to operate from day one.",
+    intro: "The decisions you make in your first year shape how easily your company can grow and stay compliant. We handle the financial and administrative setup, from registering your business to getting your books, payroll, and payments running. When you open, the basics are already done.",
     whatsIncluded: {
       heading: "What Our Startup Accounting and Finance Services Include",
       bullets: [
@@ -318,8 +312,8 @@ export const serviceContent: Record<string, ServiceContent> = {
         "Entity structure selection and setup",
         "Accounting system setup and chart of accounts design",
         "Bank and credit card connections to your accounting system",
-        "Merchant processing setup through our ISO partnership",
-        "Payroll setup for your first employees through our payroll partners",
+        "Merchant processing setup",
+        "Payroll setup for your first employees",
         "Sales tax registration where required",
         "Software and tool selection for your business",
         "Recordkeeping and document organization systems",
@@ -330,20 +324,19 @@ export const serviceContent: Record<string, ServiceContent> = {
       steps: [
         { heading: "Formation and Registration", content: "We register your business with the state, prepare your formation documents, and set up the entity structure that fits your goals." },
         { heading: "Accounting Setup", content: "We set up your accounting system and chart of accounts and connect your bank and credit card accounts." },
-        { heading: "Payroll, Sales Tax, and Payments", content: "We set up payroll through our payroll partners, register for sales tax where required, and set up merchant processing through our ISO partnership." },
-        { heading: "Ready to Operate", content: "Once setup is complete, your business is ready to run, and we can continue with bookkeeping and other ongoing services when you need them." },
+        { heading: "Payroll, Sales Tax, and Payments", content: "We set up payroll, register for sales tax where required, and get you approved to accept card payments." },
+        { heading: "Handoff", content: "We walk you through each system, show you what to keep up with each month, and can stay on for bookkeeping or payroll if you want ongoing help." },
       ],
     },
     whyChoose: {
       heading: "Why Choose Our Startup Accounting and Finance Services",
       paragraphs: [
-        "Starting a business comes with a lot of decisions, and we help you make each one with confidence. We work alongside you through formation, state registration, entity structure, accounting system setup, payroll, sales tax, and merchant processing, so every piece fits together and supports your plans.",
-        "We help you choose the software and tools that fit your business today and set them up to grow with you. From day one, you have an experienced finance partner in your corner.",
+        "Your first year comes with a long list of decisions, and they affect each other. Your entity type changes how you pay yourself, and where you sell decides where you owe sales tax. We look at the whole picture so the pieces fit together.",
+        "We'll help you pick software that fits the business you have today and can grow with you. And when a question comes up later, you'll know who to ask.",
       ],
     },
     pricing: {
       heading: "Factors That Affect Startup Accounting and Finance Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Setup Scope", content: "The number of setup items, such as formation, registrations, and system setup, affects the cost." },
         { heading: "Number of Entities", content: "Each additional entity adds formation, registration, and setup work." },
@@ -359,13 +352,12 @@ export const serviceContent: Record<string, ServiceContent> = {
         { question: "How long does setup take?", answer: "It depends mostly on state processing times for formation and registrations. Accounting, payroll, and payment setup can begin as soon as your business is registered." },
         { question: "What do you need from us to get started?", answer: "Your business name, owners and ownership percentages, business address, and a description of what you sell and where. We guide you through the rest." },
         { question: "Can you support us after setup?", answer: "Yes. Once setup is complete, we can provide ongoing bookkeeping, payroll, sales tax, and controller or CFO support as your business grows." },
-        { question: "How much does startup accounting and finance cost?", answer: "Cost depends on your setup scope, the number of entities and states, and the complexity of your systems. After a free 15-minute consultation, we provide a proposal priced to your needs." },
       ],
     },
   },
 
   "fractional-cfo-services": {
-    intro: "A fractional CFO gives your business executive-level financial leadership without the cost of a full-time hire. We step in as an extension of your leadership team, bringing clarity to your financial position, identifying opportunities for growth, and guiding complex decisions, whether you need tighter cash flow management, stronger margins, a plan for growth, or support through a capital raise or acquisition.",
+    intro: "A fractional CFO brings executive-level financial leadership to your business on a part-time basis. We work as part of your leadership team: we show you where your finances stand, find room to grow, and help with the big decisions, whether that means tighter cash flow, better margins, a growth plan, or a capital raise or acquisition.",
     whatsIncluded: {
       heading: "What Our Fractional CFO Services Include",
       bullets: [
@@ -403,13 +395,13 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Fractional CFO Services",
       paragraphs: [
         "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services, so we bring proven approaches to the challenges you face.",
-        "Because we also manage accounting and the month-end close, our CFO guidance is built on numbers we have verified ourselves, not inherited. And we communicate clearly, without unnecessary jargon, so you always understand the financial impact of major decisions.",
+        "We explain the numbers in plain language and tell you what we'd do in your position. You'll know the financial impact of a decision before you make it, and you'll have someone to call when a question can't wait for the next monthly meeting.",
       ],
       testimonial: "tyson-johnson",
     },
     pricing: {
       heading: "Factors That Influence Fractional CFO Engagement Pricing",
-      intro: "Every engagement is priced to the level of support your business needs. Four main factors drive the cost.",
+      intro: "Every engagement is priced to the level of support your business needs.",
       factors: [
         { heading: "Scope of Services", content: "Focused support in one area, such as cash flow management or fundraising, costs less than full CFO oversight across every financial function." },
         { heading: "Time Commitment", content: "Engagements range from a few hours per week to several days per month, depending on your complexity, growth stage, and internal finance capabilities." },
@@ -421,11 +413,10 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Frequently Asked Questions About Fractional CFO Services",
       items: [
         { question: "What is the difference between a fractional CFO and a full-time CFO?", answer: "A fractional CFO provides the same strategic financial leadership as a full-time CFO on a part-time or project basis, giving you senior-level expertise at a fraction of the cost of a full-time executive." },
-        { question: "How much time does a typical fractional CFO engagement require?", answer: "Engagements range from a few hours per week to several days per month, and can increase during intensive periods such as fundraising or system implementations. We structure engagements around your actual needs, not fixed commitments." },
+        { question: "How much time does a typical fractional CFO engagement require?", answer: "Most clients start with a set amount of time each month. That goes up during busy stretches, like a capital raise or a system change, and back down afterward." },
         { question: "At what stage should a business consider hiring a fractional CFO?", answer: "When financial decisions start carrying real weight: difficulty managing cash flow, preparing to raise capital, considering an acquisition or sale, or needing better visibility to support growth." },
-        { question: "How is a fractional CFO different from an accountant or bookkeeper?", answer: "Accountants and bookkeepers focus on recording transactions and ensuring accuracy in your financial records. A fractional CFO takes a strategic view, using financial data to guide business decisions, optimize operations, and plan for future growth. Think of it as the difference between knowing where you have been versus planning where you are going." },
+        { question: "How is a fractional CFO different from an accountant or bookkeeper?", answer: "Accountants and bookkeepers make sure your records are accurate. A fractional CFO uses those records to guide decisions, improve operations, and plan for growth." },
         { question: "What should I expect during the first month of a fractional CFO engagement?", answer: "The first month focuses on assessment: reviewing your financial operations and historical data, meeting key stakeholders, and delivering a clear set of priorities and a roadmap for improvement." },
-        { question: "How much does a fractional CFO cost?", answer: "Cost depends on the scope of work, the time commitment, and the complexity of your business. After a free 15-minute consultation, we provide a proposal priced to the level of support you need." },
       ],
     },
   },
@@ -471,13 +462,12 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our FP&A Services",
       paragraphs: [
-        "We build financial plans you'll use every month to run your business. Planning and analysis is the core of our experience, backed by more than 15 years in corporate finance and accounting, so your plan is built on sound modeling and a real understanding of how your business makes money.",
-        "We keep your books and close the month, so your actual results are ready the moment it's time to compare them to plan. You get forecasts you can trust, explained in plain language, and a partner who helps you act on them.",
+        "We've spent more than 15 years in finance and accounting, much of it in planning and analysis. Your plan is built around how your business makes money, and it's meant to be used every month, not filed away after budget season.",
+        "Each month you get a short report on how results compare to plan, what changed, and what to watch next. Then we sit down with you to talk it through and decide what to do about it.",
       ],
     },
     pricing: {
       heading: "FP&A Service Pricing Factors",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Business Complexity", content: "Multiple revenue streams, product lines, locations, or entities require more detailed modeling." },
         { heading: "Level of Detail", content: "Line-item budgets take more work than high-level departmental summaries." },
@@ -490,7 +480,6 @@ export const serviceContent: Record<string, ServiceContent> = {
       items: [
         { question: "How often should we update our forecast?", answer: "Most businesses update their forecast quarterly, and faster-moving businesses update monthly. We set the cadence based on how quickly your business changes." },
         { question: "What is the difference between a budget and a forecast?", answer: "A budget is your fixed annual target. A forecast is a regularly updated estimate of where results are actually heading, measured against that budget." },
-        { question: "How much do FP&A services cost?", answer: "Cost depends on your complexity, level of detail, and how often you reforecast. After a free 15-minute consultation, we provide a proposal priced to the support you need." },
         { question: "Which KPIs should my business track?", answer: "It depends on what drives your business, such as margins by product or location, customer acquisition cost, cash runway, or labor cost as a percentage of revenue. We help you choose the few that matter most." },
         { question: "What if our budget becomes unrealistic mid-year?", answer: "We reforecast while keeping the original budget as a benchmark, so you can see both the plan and where you're actually heading." },
         { question: "Do you integrate budgets with our accounting system?", answer: "Yes. Approved budgets are loaded into your accounting software for automated budget-to-actual reporting." },
@@ -499,7 +488,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "financial-modeling": {
-    intro: "A financial model shows the impact of a decision before you make it. Should you expand into a new market, add a product line, change your pricing, or invest in new equipment? We build models around your specific business drivers and test every scenario, so you can see the range of possible outcomes and decide with confidence.",
+    intro: "A financial model shows the impact of a decision before you make it. Should you expand into a new market, add a product line, change your pricing, or invest in new equipment? We build models around the drivers of your business and test the scenarios that matter. You see the likely range of outcomes before you commit.",
     whatsIncluded: {
       heading: "What Our Financial Modeling Services Include",
       bullets: [
@@ -520,14 +509,14 @@ export const serviceContent: Record<string, ServiceContent> = {
         { heading: "Scope Definition", content: "We define exactly which questions the model needs to answer, which sets its structure and level of detail." },
         { heading: "Data Gathering", content: "We collect and validate your historical data, operating metrics, and assumptions." },
         { heading: "Model Construction", content: "We build a transparent, well-documented model that others can follow and update." },
-        { heading: "Validation and Delivery", content: "We test and stress-test the model, then walk you through it so you can use it with confidence." },
+        { heading: "Validation and Delivery", content: "We test and stress-test the model, then walk you through it until you're comfortable using it on your own." },
       ],
     },
     whyChoose: {
       heading: "Why Choose Our Financial Modeling Services",
       paragraphs: [
-        "We build models you'll actually use, not just present. Every model is designed so you can change an assumption and immediately see the impact, update it as your business evolves, and share it with a lender or investor with confidence. Our modeling experience spans growth planning, acquisitions, capital raises, and investment decisions, backed by more than 15 years in corporate finance and FP&A.",
-        "Your model starts from accurate historical numbers in books we work in every month, not rough estimates, and we can keep it updated with actual results long after it's delivered.",
+        "Every model we build lets you change an assumption and see the effect right away. It's organized so you can update it as the business changes and share it with a lender or investor without walking them through every tab. We've built models for growth plans, acquisitions, capital raises, and investment decisions.",
+        "Before delivery, we check the model against your historical results and stress-test the key assumptions. If the numbers don't hold up in a bad quarter, you'll find out from us instead of from a lender.",
       ],
     },
     faq: {
@@ -543,7 +532,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "fundraising-support": {
-    intro: "Raising capital is one of the most important moments in a company's growth. Whether you're pursuing equity investors or debt financing, we prepare the numbers, the story, and the diligence package investors and lenders expect, so you can present your opportunity with confidence and keep the process moving.",
+    intro: "Raising capital puts your numbers in front of people whose job is to find problems with them. Whether you're raising equity or taking on debt, we prepare the financial model, the story behind it, and the diligence package investors and lenders expect, and we help keep the process moving.",
     whatsIncluded: {
       heading: "What Our Fundraising Support Services Include",
       bullets: [
@@ -572,12 +561,11 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Fundraising Support Services",
       paragraphs: [
         "We prepare your raise the way investors and lenders will review it. Our background in investor relations, capital markets, and investor document production means we know the questions that come up in diligence, and we build the answers into your materials before anyone asks.",
-        "Your model ties directly to clean, reconciled books, so the numbers hold up under scrutiny. While you focus on investor conversations and running the business, we handle the financial workload. Once the raise closes, we set up the reporting your new investors and lenders expect.",
+        "While you're in investor meetings and running the business, we handle the financial workload: diligence requests, follow-up analysis, and term sheet comparisons. Once the raise closes, we set up the reporting your new investors and lenders expect.",
       ],
     },
     pricing: {
       heading: "Factors That Affect Fundraising Support Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Current State", content: "Companies with clean books and an existing model need less preparation than those starting from scratch." },
         { heading: "Deal Complexity", content: "Multiple investor types, layered capital structures, or complex terms call for more analysis." },
@@ -593,13 +581,12 @@ export const serviceContent: Record<string, ServiceContent> = {
         { question: "Do you help find investors?", answer: "No. We focus on financial preparation and diligence support, and we can refer you to bankers, brokers, or advisors who handle investor introductions." },
         { question: "How do you help with valuation?", answer: "We perform valuation analysis suited to your stage and industry, giving you a defensible basis for your ask and an objective way to assess offers." },
         { question: "Can you attend investor meetings?", answer: "Yes. We can present the financials and answer detailed questions, which is most valuable during due diligence." },
-        { question: "How much does fundraising support cost?", answer: "Cost depends on your current financial state, deal complexity, timeline, and scope of support. After a free 15-minute consultation, we provide a proposal priced to your raise." },
       ],
     },
   },
 
   "mergers-acquisitions-advisory": {
-    intro: "Buying, selling, or merging a business is one of the most consequential decisions an owner will make. We provide buy-side and sell-side financial support alongside your investment bank, broker, or ownership team, from due diligence and deal modeling to preparing the financial package buyers expect, so you enter the transaction with a clear view of the numbers and stay on track through close.",
+    intro: "For most owners, buying or selling a business is a decision they make only once or twice. We provide buy-side and sell-side financial support alongside your investment bank, broker, or ownership team, from due diligence and deal modeling to the financial package buyers expect. You go into the transaction with a clear view of the numbers, and the financial work stays on schedule through closing.",
     whatsIncluded: {
       heading: "What Our M&A Advisory Services Include",
       bullets: [
@@ -628,8 +615,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our M&A Advisory Services",
       paragraphs: [
-        "The financial work decides whether the deal you close is the deal you intended. We bring hands-on experience underwriting acquisitions, building deal models, and structuring financing, so the analysis behind your decision is rigorous and risks surface before closing, not after.",
-        "We work alongside your banker, broker, and attorneys rather than replacing them, keeping the financial workstream organized and on schedule. The people who build your deal model also provide your ongoing accounting and CFO support, so they carry it through integration or transition.",
+        "The financial work decides whether the deal you close is the deal you intended. We bring hands-on experience underwriting acquisitions, building deal models, and structuring financing, and problems come up during diligence instead of after closing.",
+        "We work alongside your banker, broker, and attorneys and keep the financial workstream organized and on schedule. Sellers get financials that hold up under buyer review, and buyers get a clear answer on what they're paying for.",
       ],
     },
     faq: {
@@ -661,14 +648,14 @@ export const serviceContent: Record<string, ServiceContent> = {
         "State tax nexus review",
         "Tax credit identification and documentation",
         "Exit and succession tax planning",
-        "Coordination with your CPA or our tax partners",
+        "Coordination with your CPA or tax preparer",
       ],
     },
     process: {
       heading: "How Our Tax Planning Process Works",
       steps: [
         { heading: "Tax Position Assessment", content: "We review your current tax position, entity structure, and recent returns to identify opportunities and risks." },
-        { heading: "Strategy Development", content: "We develop strategies with your CPA or our tax partners and estimate the tax impact of each option." },
+        { heading: "Strategy Development", content: "We develop strategies with your CPA and estimate the tax impact of each option." },
         { heading: "Implementation", content: "We help put approved strategies in place during the year, such as timing purchases, adjusting owner compensation, or funding retirement contributions." },
         { heading: "Ongoing Monitoring", content: "We track your tax position throughout the year and adjust as results and tax laws change." },
       ],
@@ -677,12 +664,11 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Tax Planning Services",
       paragraphs: [
         "Tax planning works best when it's built on accurate, current books. We maintain the numbers your tax strategy depends on and bring the tax view into everyday decisions, from equipment purchases to owner compensation, rather than leaving it for year-end.",
-        "Because we don't prepare returns, our focus stays entirely on planning. Your CPA or our tax partners handle the filing, and we deliver organized workpapers and clear projections that make their work faster and more accurate.",
+        "We don't prepare returns, so our focus stays on planning. Whoever prepares your return handles the filing, and we deliver organized workpapers and clear projections that make their work faster and more accurate.",
       ],
     },
     pricing: {
       heading: "Factors That Affect Business Tax Planning Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Business Complexity", content: "Multiple entities, income streams, or multi-state operations add planning work." },
         { heading: "Planning Depth", content: "Full year-round planning costs more than periodic reviews." },
@@ -696,9 +682,8 @@ export const serviceContent: Record<string, ServiceContent> = {
         { question: "Do you prepare tax returns?", answer: "No. We focus on tax planning. Returns are prepared and filed by your CPA or our tax partners." },
         { question: "When should tax planning start?", answer: "As early in the year as possible, so strategies are in place before major decisions are made. Starting mid-year still captures meaningful opportunities." },
         { question: "How do you work with my CPA?", answer: "We share projections, workpapers, and proposed strategies with your CPA, who reviews them and prepares and files your returns." },
-        { question: "Can you help choose between an S corporation and a C corporation?", answer: "Yes. We model the tax impact of each entity type for your situation and review the results with your CPA or our tax partners before any election is made." },
+        { question: "Can you help choose between an S corporation and a C corporation?", answer: "Yes. We model the tax impact of each entity type for your situation and review the results with your CPA before any election is made." },
         { question: "Do you handle personal tax planning?", answer: "We consider how business decisions affect owners' personal taxes. Individual returns are handled by your CPA or personal tax advisor." },
-        { question: "How much does business tax planning cost?", answer: "Cost depends on your business complexity, planning depth, special situations, and the condition of your books. After a free 15-minute consultation, we provide a proposal priced to your needs." },
       ],
     },
   },
@@ -713,7 +698,7 @@ export const serviceContent: Record<string, ServiceContent> = {
         "Product taxability review by state",
         "Sales reconciliation across every sales channel",
         "Sales tax calculation review and amounts due for each return",
-        "Quarterly return preparation and filing for every jurisdiction",
+        "Return preparation and filing for every jurisdiction, on each state's schedule",
         "Payment coordination and timing",
         "Exemption certificate management",
         "Sales tax audit support",
@@ -724,31 +709,21 @@ export const serviceContent: Record<string, ServiceContent> = {
     process: {
       heading: "How Our Sales Tax Compliance Process Works",
       steps: [
-        { heading: "Nexus Assessment", content: "We review your sales by state, inventory locations, and employee presence to determine where you owe sales tax." },
-        { heading: "Registration", content: "We register your business with each required state and local tax agency." },
-        { heading: "Ongoing Compliance", content: "We reconcile sales across your channels, calculate what's owed, and prepare and file your returns and payments on time." },
-        { heading: "Monitoring and Updates", content: "We track changes in your sales footprint and tax rules and adjust your filings as needed." },
-      ],
-    },
-    cards: {
-      heading: "From Checkout to Filed Return",
-      items: [
-        { heading: "Channel Compilation", content: "We pull sales reports from every POS, delivery app, marketplace, and online store, separate gross sales from discounts, refunds, and tips, and back out marketplace sales where the platform already collected the tax, so you don't pay it twice." },
+        { heading: "Nexus and Registration", content: "We review your sales by state, inventory locations, and employees to find where you owe sales tax, then register with each state and local agency that requires it." },
+        { heading: "Channel Compilation", content: "Each period, we pull sales reports from every POS, delivery app, marketplace, and online store, separate gross sales from discounts, refunds, and tips, and back out marketplace sales where the platform already collected the tax, so you don't pay it twice." },
         { heading: "Reconciliation", content: "We tie reported sales and tax collected to your bank deposits, processor settlements, and general ledger, and resolve differences from fees, chargebacks, and timing before anything is filed." },
-        { heading: "Return Preparation and Filing", content: "We apply the correct state, county, and district rates by location, report taxable, exempt, and marketplace sales on the proper lines, and file and remit by every due date." },
-        { heading: "Filing Package and Records", content: "Each period you receive the filed return with its reconciliation and channel detail, and we keep exemption certificates and supporting records ready in case of an audit." },
+        { heading: "Filing and Records", content: "We apply the correct state, county, and district rates by location, file and pay by every due date, and send you each filed return with its reconciliation. Exemption certificates and supporting records stay organized in case of an audit." },
       ],
     },
     whyChoose: {
       heading: "Why Choose Our Sales Tax Compliance Services",
       paragraphs: [
         "Sales tax touches every sale your business makes, so accuracy depends on knowing your operations, not just the tax rates. We learn how and where you sell, keep up with rate and rule changes in every state where you file, and catch issues before they turn into penalties.",
-        "Because we're accountants first, the figures on every return tie to your books and financial statements. You get one point of contact for registrations, filings, and sales tax questions, and your team gets its time back.",
+        "The figures on every return tie back to your books and financial statements, which matters if a state ever audits you. You get one point of contact for registrations, filings, and sales tax questions, and your team gets its time back.",
       ],
     },
     pricing: {
       heading: "Factors That Affect Sales Tax Compliance Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Number of Jurisdictions", content: "More states and local jurisdictions mean more registrations and returns." },
         { heading: "Transaction Volume and Sales Channels", content: "More sales and more channels add compilation and reconciliation work." },
@@ -764,7 +739,6 @@ export const serviceContent: Record<string, ServiceContent> = {
         { question: "How often do sales tax returns need to be filed?", answer: "Monthly, quarterly, or annually, depending on the state and your sales volume. We track every due date and file on schedule." },
         { question: "Do marketplace sales affect our obligations?", answer: "Marketplaces collect and remit tax on most sales made through their platforms, but in some states those sales still count toward nexus thresholds, and your direct sales remain your responsibility. We review your full sales picture." },
         { question: "What happens if we're audited?", answer: "We gather the records, reconciliations, and schedules the auditor requests and support you through the audit." },
-        { question: "How much does sales tax compliance cost?", answer: "Cost depends on the number of jurisdictions, your sales volume and channels, your product mix, and any past-period work. After a free 15-minute consultation, we provide a proposal priced to your needs." },
       ],
     },
   },
@@ -804,7 +778,6 @@ export const serviceContent: Record<string, ServiceContent> = {
     },
     pricing: {
       heading: "Factors That Affect Audit Preparation Pricing",
-      intro: FOUR_FACTORS,
       factors: [
         { heading: "Audit Scope", content: "First-year and full financial statement audits require more preparation than recurring audits or reviews." },
         { heading: "Condition of Records", content: "Books that need cleanup before fieldwork require more work up front." },
@@ -820,7 +793,6 @@ export const serviceContent: Record<string, ServiceContent> = {
         { question: "Do you perform the audit?", answer: "No. Audits are performed by an independent CPA firm. We prepare your books, schedules, and documentation and coordinate with your auditors throughout the process." },
         { question: "What if the auditors propose adjustments?", answer: "We review each proposed adjustment with you, discuss the support and alternatives with the auditors, and help you decide how to respond." },
         { question: "Do you attend audit meetings?", answer: "Yes, including planning and closing meetings, and we're available throughout fieldwork." },
-        { question: "How much does audit preparation cost?", answer: "Cost depends on the audit scope, the condition of your records, your business complexity, and the level of support you need. After a free 15-minute consultation, we provide a proposal priced to your needs." },
       ],
     },
   },

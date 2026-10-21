@@ -51,7 +51,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              Schedule a free 15-minute consultation or reach out directly.
+              Send us a note or email us directly. We respond within one business day.
             </p>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function ContactPage() {
                   Schedule Your Free 15-Minute Consultation
                 </h2>
                 <p className="text-gray-600 mb-8">
-                  Tell us about your business and financial needs. We will reach out within one business
+                  Tell us about your business and financial needs. We&apos;ll reach out within one business
                   day to schedule a conversation about how we can help.
                 </p>
                 <ContactForm variant="default" />

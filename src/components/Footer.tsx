@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import { serviceCategories, getServicesByCategory } from "@/data/services";
-import ContactCta from "@/components/ContactCta";
+import FooterCta from "@/components/FooterCta";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -64,14 +64,7 @@ export default function Footer() {
 
             {/* Footer Links and Content */}
             <div className="lg:col-span-8 text-white pt-8">
-              {/* The site's one footer call to action (item 10) */}
-              <div className="mb-12">
-                <h2 className="text-3xl lg:text-4xl font-bold !text-white mb-3">Let&apos;s Talk About Your Business</h2>
-                <p className="text-gray-300 text-lg mb-6">
-                  Fractional CFO and accounting services for small and growing businesses in {siteConfig.region}.
-                </p>
-                <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-block" />
-              </div>
+              <FooterCta />
 
               {/* Company Links */}
               <div className="mb-12 border-b border-white/10 pb-8">

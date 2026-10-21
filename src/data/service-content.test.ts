@@ -24,7 +24,9 @@ describe("service page content (Developer Update List item 19)", () => {
     expect(c.whyChoose.paragraphs).toHaveLength(2);
     expect(c.faq.items.length).toBeGreaterThan(0);
     expect(c.faq.items.length).toBeLessThanOrEqual(6);
-    expect(c.faq.items.some((f) => /^How much (does|do)\b/.test(f.question))).toBe(true);
+    // Cost is covered once: by the pricing section, or by an FAQ where there is none.
+    const costFaq = c.faq.items.some((f) => /^How much (does|do)\b/.test(f.question));
+    expect(costFaq).toBe(!c.pricing);
   });
 
   it.each(services.map((s) => [s.slug]))("%s has pricing only where the docs keep it", (slug) => {
@@ -36,9 +38,9 @@ describe("service page content (Developer Update List item 19)", () => {
     }
   });
 
-  it("keeps Who It's For cards only on Controller, CFO, and Sales Tax", () => {
+  it("keeps Who It's For cards only on Controller and CFO (Sales Tax folds its checkout steps into the process)", () => {
     const withCards = Object.entries(serviceContent).filter(([, c]) => c.cards).map(([slug]) => slug).sort();
-    expect(withCards).toEqual(["fractional-cfo-services", "fractional-controller-services", "sales-tax-compliance"]);
+    expect(withCards).toEqual(["fractional-cfo-services", "fractional-controller-services"]);
   });
 
   it("places each testimonial on its page", () => {
