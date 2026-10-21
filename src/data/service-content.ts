@@ -65,7 +65,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     whyChoose: {
-      heading: "Why Businesses Choose Our Fractional Controller Services",
+      heading: "Why Choose Our Fractional Controller Services",
       paragraphs: [
         "Most growing businesses don't need another bookkeeper. They need someone senior making sure the numbers are right. That's what we deliver. With more than 15 years in accounting, internal controls, and financial reporting, we've managed everything from single-location businesses to a 17-entity real estate portfolio, so we know how to bring structure to whatever you're running.",
         "We work in the system you already use, keep your current bookkeeper in place, and scale our involvement to what you need: hands-on during a cleanup or transition, lighter oversight once things run smoothly. And when you're ready for forecasting, budgeting, and strategic planning, CFO-level support is already in place, from a firm that already knows your numbers.",
@@ -139,7 +139,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     whyChoose: {
-      heading: "Why Choose Professional Bookkeeping Services",
+      heading: "Why Choose Our Bookkeeping and Reconciliation Services",
       paragraphs: [
         "Most bookkeeping services record transactions. We build books you can run your business on, and we treat your business like it matters. You work directly with experienced professionals, not a rotating cast of junior staff or an offshore team, so you always know who to call. We answer questions in plain language, respond quickly, and take the time to understand how your business actually runs.",
         "We're invested in the long-term success of every business we work with, whether we meet in person or work entirely remotely. And as you grow, the same people who know your books can step in with controller and CFO-level support, so you never have to start over with someone new.",
@@ -198,7 +198,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     whyChoose: {
-      heading: "Why Choose Professional Payroll Processing",
+      heading: "Why Choose Our Payroll and HR Services",
       paragraphs: [
         "Most payroll services stop at the paycheck. We connect payroll to the rest of your finances, so every payroll lands correctly in your books and you can see exactly what labor costs by location, department, or job. You work directly with experienced professionals who know your business, not a call center, with one point of contact for payroll, HR, and accounting questions.",
         "Payroll runs through established partner platforms for reliable processing and tax filing, and we review every payroll before it goes out. As your team grows, your payroll, HR processes, and financial reporting grow with it, all handled by the same firm.",
@@ -289,7 +289,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     whyChoose: {
-      heading: "Why Choose Professional System Setup",
+      heading: "Why Choose Our Software Setup and Migration Services",
       paragraphs: [
         "Most software setups are handled by people who know the software but not the accounting. We're accountants first, so your system is built around how your books, reporting, and close actually need to work, not just how the software comes out of the box. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and when your needs go beyond accounting software, we can deliver custom integrations and a full technology stack.",
         "And when the project ends, you're not left on your own. The same firm that built your system can keep your books, run your close, and provide controller or CFO support, so the system keeps working the way it was designed.",
@@ -400,7 +400,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     whyChoose: {
-      heading: "Why Orange County Businesses Choose Our Fractional CFO Services",
+      heading: "Why Choose Our Fractional CFO Services",
       paragraphs: [
         "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services, so we bring proven approaches to the challenges you face.",
         "Because we also manage accounting and the month-end close, our CFO guidance is built on numbers we have verified ourselves, not inherited. And we communicate clearly, without unnecessary jargon, so you always understand the financial impact of major decisions.",
@@ -569,7 +569,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       ],
     },
     whyChoose: {
-      heading: "Why Choose Our Fundraising Support",
+      heading: "Why Choose Our Fundraising Support Services",
       paragraphs: [
         "We prepare your raise the way investors and lenders will review it. Our background in investor relations, capital markets, and investor document production means we know the questions that come up in diligence, and we build the answers into your materials before anyone asks.",
         "Your model ties directly to clean, reconciled books, so the numbers hold up under scrutiny. While you focus on investor conversations and running the business, we handle the financial workload. Once the raise closes, we set up the reporting your new investors and lenders expect.",

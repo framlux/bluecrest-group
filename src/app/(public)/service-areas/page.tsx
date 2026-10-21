@@ -61,7 +61,7 @@ export default function ServiceAreasPage() {
         <div className="container-site">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xl text-gray-700 mb-8">
-              We work with businesses throughout {siteConfig.region}, including:
+              Cities we serve include:
             </p>
             <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-lg text-gray-700">
               {siteConfig.serviceAreaCities.map((city) => (

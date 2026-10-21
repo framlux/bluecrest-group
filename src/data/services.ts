@@ -162,12 +162,14 @@ export function getServicesByCategory(category: Service["category"]): Service[] 
 }
 
 const ANCHOR_SERVICE = "fractional-cfo-services";
+/** The startup page's related links are spelled out in the content doc, without the CFO anchor. */
+const NO_ANCHOR = new Set([ANCHOR_SERVICE, "startup-business-services"]);
 
-/** Every service page links to Fractional CFO Services plus its curated related services (T13). */
+/** Service pages link to Fractional CFO Services plus their curated related services (T13). */
 export function getRelatedServices(currentSlug: string): Service[] {
   const current = getServiceBySlug(currentSlug);
   const slugs = [
-    ...(currentSlug === ANCHOR_SERVICE ? [] : [ANCHOR_SERVICE]),
+    ...(NO_ANCHOR.has(currentSlug) ? [] : [ANCHOR_SERVICE]),
     ...(current?.relatedSlugs ?? []),
   ];
   return [...new Set(slugs)]

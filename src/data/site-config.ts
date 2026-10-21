@@ -22,11 +22,11 @@ export const siteConfig = {
   founder: {
     name: "Josh Miller",
     title: "Principal",
-    longBio: `Josh is a dynamic and results driven financial executive with over 15 years of experience in start up and real estate industries. He has a track record of success in leading finance teams, developing financial strategies, and driving growth for companies of all sizes.
+    longBio: `Josh is a finance executive with more than 15 years of experience in startups and real estate. He has led finance teams, built financial strategies, and helped companies of all sizes grow.
 
-Throughout his career, Josh has been instrumental in the success of several high growth start ups, helping to secure funding, launch products, and scale operations. He has a deep understanding of the unique challenges and opportunities that come with building a successful start up and has honed his ability to navigate complex financial issues with ease.
+Over his career, Josh has helped several high-growth startups raise funding, launch products, and scale their operations. He knows the challenges and opportunities that come with building a startup, and he is comfortable working through complex financial issues.
 
-In addition to his experience in start ups, Josh has also held senior financial positions in the real estate industry, where he has played a key role in the management of complex real estate portfolios. He has extensive experience in financial modeling, forecasting, and budgeting, and has successfully led numerous financing and acquisition transactions. His strategic approach to finance has been instrumental in the growth and success of the companies he has worked with, and he is committed to driving results through collaboration, innovation, and a relentless focus on delivering value to stakeholders.`,
+Josh has also held senior finance roles in real estate, where he helped manage complex property portfolios. He brings deep experience in financial modeling, forecasting, and budgeting, and he has led numerous financing and acquisition transactions. He works collaboratively and stays focused on results that matter to owners and investors.`,
     image: "/images/josh-miller.jpg",
   },
 

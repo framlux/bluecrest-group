@@ -53,7 +53,8 @@ describe("service catalogue (Developer Update List item 4)", () => {
 
   it.each(services.map((s) => [s.slug]))("%s related services lead with Fractional CFO", (slug) => {
     const related = getRelatedServices(slug).map((s) => s.slug);
-    if (slug !== CFO) expect(related[0]).toBe(CFO);
+    if (slug !== CFO && slug !== "startup-business-services") expect(related[0]).toBe(CFO);
+    if (slug === "startup-business-services") expect(related).not.toContain(CFO);
     expect(related).not.toContain(slug);
     expect(new Set(related).size).toBe(related.length);
     expect(related.length).toBeGreaterThanOrEqual(2);

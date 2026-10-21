@@ -45,7 +45,7 @@ export default function TermsPage() {
         <div className="container-site">
           <div className="max-w-3xl mx-auto">
             <p className="text-gray-500 mb-10">
-              <em>Last updated: January 2025</em>
+              <em>Last updated: October 2026</em>
             </p>
 
             <div className="space-y-10">
@@ -59,28 +59,20 @@ export default function TermsPage() {
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Services</h2>
                 <p className="text-gray-600 leading-relaxed mb-4">
-                  {siteConfig.businessName} provides fractional CFO, accounting, and business consulting services. Our services include but are not limited to:
+                  {siteConfig.businessName} provides fractional CFO and accounting services. Our services include but are not limited to:
                 </p>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Financial planning and analysis
+                    Accounting and controller services, including bookkeeping, payroll and HR, merchant processing, accounting software setup, and startup accounting
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Bookkeeping and accounting services
+                    Fractional CFO services, including financial planning and analysis, financial modeling, fundraising support, and mergers and acquisitions advisory
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Financial reporting and analysis
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Strategic financial consulting
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Tax planning and preparation support
+                    Tax planning and audit readiness, including business tax planning coordinated with your CPA, sales tax compliance, and audit preparation
                   </li>
                 </ul>
               </div>
@@ -134,7 +126,7 @@ export default function TermsPage() {
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Standards</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  We adhere to professional accounting and financial consulting standards. However, we are not a substitute for legal, tax, or investment advice. We recommend consulting with appropriate professionals for matters outside our scope of services.
+                  We follow professional accounting and finance standards. We do not prepare tax returns or provide legal or investment advice, and we coordinate with your CPA, attorney, or other advisors on matters outside our scope of services.
                 </p>
               </div>
 

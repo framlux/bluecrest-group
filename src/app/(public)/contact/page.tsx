@@ -204,13 +204,6 @@ export default function ContactPage() {
                   </ul>
                 </div>
 
-                {/* Service Area */}
-                <div className="bg-slate-50 rounded-3xl border border-gray-100 p-6 lg:p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Serving {siteConfig.region}</h3>
-                  <p className="text-gray-600">
-                    Based in {siteConfig.city}, we serve businesses throughout {siteConfig.region}.
-                  </p>
-                </div>
               </div>
             </div>
           </div>
