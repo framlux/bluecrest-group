@@ -70,8 +70,8 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-5 text-gray-600">
                 <p className="text-lg">
-                  Many growing businesses reach a point where basic bookkeeping isn&apos;t
-                  enough, but a full-time CFO doesn&apos;t make sense yet.
+                  A lot of growing businesses need more than a bookkeeper but aren&apos;t
+                  ready to hire a full-time CFO.
                 </p>
                 <p>
                   That&apos;s the gap we fill. We provide fractional CFO, controller, and
@@ -79,9 +79,8 @@ export default function AboutPage() {
                   you need it, without adding an executive to the payroll.
                 </p>
                 <p>
-                  We start by learning how your business makes money. Our reports are
-                  short and written in plain English, and each month we tell you what
-                  we&apos;d do next.
+                  We start by learning how your business makes money. We explain the
+                  numbers in plain English and tell you what we&apos;d do in your position.
                 </p>
               </div>
             </div>

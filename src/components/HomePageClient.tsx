@@ -38,8 +38,7 @@ export default function HomePageClient() {
             </p>
             <p className="text-lg text-gray-700 mb-10 leading-relaxed drop-shadow-md font-medium">
               We keep your books accurate and current, build the forecasts and analysis behind your
-              biggest decisions, and coordinate payroll, tax, and compliance. You always know where your
-              numbers stand.
+              biggest decisions, and coordinate payroll, tax, and compliance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <ContactCta className="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center justify-center gap-2" />
@@ -76,7 +75,7 @@ export default function HomePageClient() {
             <div>
               <p className="text-lg leading-relaxed text-white/90">
                 Each month you see how the business is doing and what changed. You can plan a hire or
-                an expansion against real numbers, and you spend less of your own time on the books.
+                an expansion using your current numbers, and you spend less of your own time on the books.
               </p>
             </div>
           </div>
@@ -89,9 +88,8 @@ export default function HomePageClient() {
             <div>
               <p className="text-lg leading-relaxed text-white/90">
                 We work as an extension of your team, with senior financial experience and hands-on
-                accounting in one firm. We handle day-to-day bookkeeping as well as forecasting, capital
-                raises, and acquisitions, and as the business grows, you keep working with the same
-                people.
+                accounting in one firm. We handle day-to-day bookkeeping, forecasting, capital raises, and
+                acquisitions. As the business grows, you keep working with the same people.
               </p>
             </div>
           </div>

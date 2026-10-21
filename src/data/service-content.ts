@@ -122,7 +122,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       },
       {
         heading: "Accounts Payable and Receivable Services",
-        text: "We enter and pay vendor bills, send customer invoices, and follow up on late payments. Each month you see exactly who owes you and whom you owe.",
+        text: "We enter and pay vendor bills, send customer invoices, and follow up on late payments. Each month you get a list of unpaid customer invoices and the bills you still owe.",
       },
     ],
     process: {
@@ -304,7 +304,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "startup-business-services": {
-    intro: "We set up the financial and administrative side of a new business: state registration, your accounting system, payroll, sales tax, and card processing. Getting these right in the first year makes it easier to grow and stay compliant later.",
+    intro: "We set up the financial and administrative side of a new business: state registration, your accounting system, payroll, sales tax, and card processing.",
     whatsIncluded: {
       heading: "What Our Startup Accounting and Finance Services Include",
       bullets: [
@@ -394,7 +394,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Fractional CFO Services",
       paragraphs: [
-        "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services, and we've seen most cash and growth problems before.",
+        "We take time to understand your business, your industry, and your goals before making recommendations. Our experience spans real estate, restaurants and hospitality, e-commerce, telehealth, cannabis, and professional services.",
         "We explain the numbers in plain language and tell you what we'd do in your position, and you'll have someone to call when a question can't wait for the next monthly meeting.",
       ],
       testimonial: "tyson-johnson",
@@ -412,7 +412,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     faq: {
       heading: "Frequently Asked Questions About Fractional CFO Services",
       items: [
-        { question: "What is the difference between a fractional CFO and a full-time CFO?", answer: "A fractional CFO does the same work as a full-time CFO on a part-time or project basis. You get senior-level experience and pay only for the time you use." },
+        { question: "What is the difference between a fractional CFO and a full-time CFO?", answer: "A fractional CFO does the same work as a full-time CFO on a part-time or project basis. You get senior-level experience without paying a full-time salary." },
         { question: "How much time does a typical fractional CFO engagement require?", answer: "Most clients start with a set amount of time each month. That goes up during busy stretches, like a capital raise or a system change, and back down afterward." },
         { question: "At what stage should a business consider hiring a fractional CFO?", answer: "When financial decisions start carrying real weight: difficulty managing cash flow, preparing to raise capital, considering an acquisition or sale, or needing better visibility to support growth." },
         { question: "How is a fractional CFO different from an accountant or bookkeeper?", answer: "Accountants and bookkeepers make sure your records are accurate. A fractional CFO uses those records to plan cash and budgets and to weigh big decisions." },
@@ -616,7 +616,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our M&A Advisory Services",
       paragraphs: [
         "We've underwritten acquisitions, built deal models, and structured financing. That experience helps problems surface in diligence, before closing.",
-        "We work alongside your banker, broker, and attorneys and keep the financial workstream organized and on schedule. Sellers go to market with financials that hold up in diligence, and buyers know what they're paying for.",
+        "We work alongside your banker, broker, and attorneys and keep the financial workstream organized and on schedule. For sellers, we get the financials ready for buyer diligence. For buyers, we check the target's numbers before you commit.",
       ],
     },
     faq: {
@@ -718,7 +718,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Sales Tax Compliance Services",
       paragraphs: [
-        "Getting sales tax right means knowing how and where you sell. We learn your operations, keep up with rate and rule changes in every state where you file, and catch issues before they turn into penalties.",
+        "We learn how and where you sell, keep up with rate and rule changes in every state where you file, and catch issues before they turn into penalties.",
         "The figures on every return tie back to your books and financial statements, which matters if a state ever audits you. You get one point of contact for registrations, filings, and sales tax questions.",
       ],
     },

@@ -67,7 +67,7 @@ export const caseStudies: CaseStudy[] = [
       "Built a system to allocate and track expenses across all three restaurants.",
       "Implemented payroll across every location.",
     ],
-    result: "The owner now sees how each restaurant is performing and can fix a problem at one location without guessing. His books are current, and payroll and expenses are handled the same way at all three.",
+    result: "The owner now sees how each restaurant is performing and can make changes at one location based on its own numbers. His books are current, and payroll and expenses are handled the same way at all three.",
     relatedSlugs: ["bookkeeping-and-reconciliation", "sales-tax-compliance", "tax-strategy-planning"],
     card: {
       heading: "Accounting for a Restaurant Owner Expanding to Three Locations",
@@ -85,7 +85,7 @@ export const caseStudies: CaseStudy[] = [
       { label: "Client", value: "E-commerce company" },
       { label: "Growth", value: "From zero revenue to over $100,000 per month in under six months" },
       { label: "Scope", value: "Accounting system setup, inventory management processes, and profitability KPIs" },
-      { label: "Result", value: "Books, inventory counts, and margin reporting that stayed accurate as sales passed $100,000 a month" },
+      { label: "Result", value: "Accounting system, inventory processes, and profitability KPIs in place as sales passed $100,000 a month" },
     ],
     challenge: "The company was launching from zero revenue and needed financial infrastructure that could keep up with fast growth: an accounting system, a reliable way to track inventory, and visibility into what was actually profitable.",
     whatWeDid: [
@@ -93,7 +93,7 @@ export const caseStudies: CaseStudy[] = [
       "Implemented inventory management processes.",
       "Built KPIs to track profitability.",
     ],
-    result: "With the accounting system, inventory processes, and profitability KPIs in place from the start, the company kept accurate books and inventory counts and could track profitability while sales climbed past $100,000 a month.",
+    result: "The accounting system, inventory processes, and profitability KPIs were in place from launch. The company grew past $100,000 in monthly revenue in under six months, and the owners could see what was profitable along the way.",
     relatedSlugs: ["accounting-system-setup", "bookkeeping-and-reconciliation", "financial-planning-and-analysis"],
     card: {
       heading: "Building the Finance Function for a Fast-Growing E-Commerce Company",
