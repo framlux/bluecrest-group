@@ -664,7 +664,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Tax Planning Services",
       paragraphs: [
         "We maintain the books your tax strategy depends on and bring the tax view into everyday decisions, such as equipment purchases and owner compensation, rather than leaving it for year-end.",
-        "We don't prepare returns, so our focus stays on planning. Whoever prepares your return handles the filing, and we deliver organized workpapers and clear projections that make their work faster and more accurate.",
+        "We don't prepare income tax returns, so our focus stays on planning. Whoever prepares your return handles the filing, and we deliver organized workpapers and clear projections that make their work faster and more accurate.",
       ],
     },
     pricing: {
@@ -679,7 +679,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     faq: {
       heading: "Frequently Asked Questions About Business Tax Planning",
       items: [
-        { question: "Do you prepare tax returns?", answer: "No. We focus on tax planning. Returns are prepared and filed by your CPA or our tax partners." },
+        { question: "Do you prepare tax returns?", answer: "Not income tax returns. We focus on tax planning, and your CPA or our tax partners prepare and file your returns. Sales tax returns are different: we prepare and file those as part of our sales tax compliance service." },
         { question: "When should tax planning start?", answer: "As early in the year as possible, so strategies are in place before major decisions are made. Starting mid-year still captures meaningful opportunities." },
         { question: "How do you work with my CPA?", answer: "We share projections, workpapers, and proposed strategies with your CPA, who reviews them and prepares and files your returns." },
         { question: "Can you help choose between an S corporation and a C corporation?", answer: "Yes. We model the tax impact of each entity type for your situation and review the results with your CPA before any election is made." },

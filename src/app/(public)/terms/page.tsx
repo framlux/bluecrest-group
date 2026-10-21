@@ -126,7 +126,7 @@ export default function TermsPage() {
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Standards</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  We follow professional accounting and finance standards. We do not prepare tax returns or provide legal or investment advice, and we coordinate with your CPA, attorney, or other advisors on matters outside our scope of services.
+                  We follow professional accounting and finance standards. We do not prepare income tax returns or provide legal or investment advice, and we coordinate with your CPA, attorney, or other advisors on matters outside our scope of services.
                 </p>
               </div>
 
