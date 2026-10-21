@@ -9,8 +9,7 @@ export const staticPages: StaticPage[] = [
   { path: "/about", updatedAt: "2026-10-20" },
   { path: "/contact", updatedAt: "2026-10-20" },
   { path: "/services", updatedAt: "2026-10-20" },
-  { path: "/service-areas", updatedAt: "2026-10-20" },
-  { path: "/service-areas/newport-beach-ca", updatedAt: "2026-10-20" },
+  { path: "/service-areas", updatedAt: "2026-10-21" },
   { path: "/privacy", updatedAt: "2026-10-20" },
   { path: "/terms", updatedAt: "2026-10-20" },
 ];

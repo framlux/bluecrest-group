@@ -6,43 +6,28 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site-config";
 import { serviceCategories, getServicesByCategory } from "@/data/services";
-import { getPrimaryLocation } from "@/data/locations";
 import ContactCta from "@/components/ContactCta";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [locationsOpen, setLocationsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   const servicesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const locationsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleServicesEnter = () => {
     if (servicesTimeoutRef.current) clearTimeout(servicesTimeoutRef.current);
     setServicesOpen(true);
-    setLocationsOpen(false);
   };
 
   const handleServicesLeave = () => {
     servicesTimeoutRef.current = setTimeout(() => setServicesOpen(false), 300);
   };
 
-  const handleLocationsEnter = () => {
-    if (locationsTimeoutRef.current) clearTimeout(locationsTimeoutRef.current);
-    setLocationsOpen(true);
-    setServicesOpen(false);
-  };
-
-  const handleLocationsLeave = () => {
-    locationsTimeoutRef.current = setTimeout(() => setLocationsOpen(false), 300);
-  };
-
   useEffect(() => {
     return () => {
       if (servicesTimeoutRef.current) clearTimeout(servicesTimeoutRef.current);
-      if (locationsTimeoutRef.current) clearTimeout(locationsTimeoutRef.current);
     };
   }, []);
 
@@ -50,7 +35,6 @@ export default function Header() {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setServicesOpen(false);
-        setLocationsOpen(false);
         setMobileMenuOpen(false);
       }
     };
@@ -65,8 +49,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const primaryLocation = getPrimaryLocation();
 
   const handleCategoryClick = (categoryId: string, e: React.MouseEvent) => {
     setServicesOpen(false);
@@ -193,68 +175,12 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Locations Dropdown */}
-            <div
-              className="relative group"
-              onMouseEnter={handleLocationsEnter}
-              onMouseLeave={handleLocationsLeave}
+            <Link
+              href="/service-areas"
+              className="text-gray-600 hover:text-[var(--color-brand-blue)] font-medium transition-colors"
             >
-              <button
-                type="button"
-                className="text-gray-600 hover:text-[var(--color-brand-blue)] font-medium transition-colors inline-flex items-center gap-1 py-2"
-                aria-expanded={locationsOpen}
-                aria-haspopup="true"
-                onClick={() => setLocationsOpen(!locationsOpen)}
-              >
-                Service Areas
-                <svg
-                  className={`w-4 h-4 transition-transform ${locationsOpen ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {/* Invisible bridge to prevent hover gap issues */}
-              <div
-                className={`absolute top-full left-0 w-full h-4 ${locationsOpen ? 'block' : 'hidden'}`}
-                onMouseEnter={handleLocationsEnter}
-              />
-
-              <div
-                className={`absolute top-full left-0 pt-2 transition-all duration-200 ${locationsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
-                onMouseEnter={handleLocationsEnter}
-                onMouseLeave={handleLocationsLeave}
-              >
-                <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-4 min-w-[280px]">
-                  <div className="px-4 pb-3 border-b border-gray-100">
-                    <span className="text-xs font-semibold text-[var(--color-brand-blue)] uppercase tracking-wider">
-                      Areas We Serve
-                    </span>
-                  </div>
-                  <div className="py-2">
-                    <Link
-                      href={`/service-areas/${primaryLocation.slug}`}
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[var(--color-brand-blue)] transition-colors"
-                      onClick={() => setLocationsOpen(false)}
-                    >
-                      {primaryLocation.name}, {primaryLocation.stateAbbr}
-                    </Link>
-                  </div>
-                  <div className="px-4 pt-3 border-t border-gray-100">
-                    <Link
-                      href="/service-areas"
-                      className="text-sm font-semibold text-[var(--color-brand-blue)] hover:underline"
-                      onClick={() => setLocationsOpen(false)}
-                    >
-                      View All Service Areas
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+              Service Areas
+            </Link>
 
             <Link
               href="/contact"
@@ -349,25 +275,13 @@ export default function Header() {
                 </div>
               </div>
 
-              <div className="py-3 border-b border-gray-100">
-                <div className="font-semibold text-gray-900 mb-2">Service Areas</div>
-                <div className="pl-4 flex flex-col gap-2">
-                  <Link
-                    href={`/service-areas/${primaryLocation.slug}`}
-                    className="text-gray-600 hover:text-[var(--color-brand-blue)]"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {primaryLocation.name}
-                  </Link>
-                  <Link
-                    href="/service-areas"
-                    className="text-[var(--color-brand-blue)] font-medium"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    View All Service Areas
-                  </Link>
-                </div>
-              </div>
+              <Link
+                href="/service-areas"
+                className="py-3 text-gray-700 font-medium border-b border-gray-100"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Service Areas
+              </Link>
 
               <Link
                 href="/contact"

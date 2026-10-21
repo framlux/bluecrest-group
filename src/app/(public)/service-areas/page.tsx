@@ -1,9 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPrimaryLocation } from "@/data/locations";
-import LocationCard from "@/components/LocationCard";
-import { siteConfig } from "@/data/site-config";
+import { serviceCategories } from "@/data/services";
+import ContactForm from "@/components/ContactForm";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
@@ -11,9 +10,23 @@ import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.serviceAreas);
 
-export default function ServiceAreasPage() {
-  const primaryLocation = getPrimaryLocation();
+/** The site's one location page (Service Areas Page Update, October 21, 2026). */
+const regions = [
+  {
+    heading: "Orange County",
+    body: "Orange County is our home market, and we work with businesses across the county, including Newport Beach, Irvine, Costa Mesa, Huntington Beach, Laguna Beach, Orange, Santa Ana, Anaheim, Fullerton, Tustin, Mission Viejo, and Lake Forest.",
+  },
+  {
+    heading: "Southern California",
+    body: "We also support businesses throughout Southern California, including Los Angeles, San Diego, and the Inland Empire, working on site or remotely as your business needs.",
+  },
+  {
+    heading: "Nationwide",
+    body: "Our accounting, controller, and CFO services run on cloud-based systems, so we support clients in any state, including multi-state payroll, sales tax, and entity structures. Recent work includes a full accounting system implementation for an industrial real estate developer operating across Nevada and Arizona.",
+  },
+];
 
+export default function ServiceAreasPage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Service Areas", path: "/service-areas" }])} />
@@ -46,46 +59,63 @@ export default function ServiceAreasPage() {
 
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="!text-white">Orange County</span>{" "}
-              <span className="text-[var(--color-brand-gold)]">Service Areas</span>
+              <span className="!text-white">Fractional CFO and Accounting Services in</span>{" "}
+              <span className="text-[var(--color-brand-gold)]">Orange County, CA</span>
             </h1>
             <p className="text-xl !text-white/90 leading-relaxed">
-              From our base in {primaryLocation.name}, {siteConfig.businessName} provides fractional CFO
-              and accounting services to businesses throughout {siteConfig.region}.
+              Based in Newport Beach, BlueCrest Group provides fractional CFO and accounting services to businesses
+              throughout Orange County and Southern California, with the systems and experience to support clients
+              nationwide.
             </p>
           </div>
         </div>
       </section>
 
-      {/* City list: plain text, only Newport Beach links (item 14) */}
+      {/* Where we work */}
       <section className="py-20 lg:py-28">
         <div className="container-site">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-xl text-gray-700 mb-8">
-              Cities we serve include:
-            </p>
-            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-lg text-gray-700">
-              {siteConfig.serviceAreaCities.map((city) => (
-                <li key={city}>
-                  {city === primaryLocation.name ? (
-                    <Link
-                      href={`/service-areas/${primaryLocation.slug}`}
-                      className="font-semibold text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] underline underline-offset-4"
-                    >
-                      {city}
-                    </Link>
-                  ) : (
-                    city
-                  )}
-                </li>
-              ))}
-            </ul>
-            <p className="text-lg text-gray-600 mt-8">
-              We work with clients across the county, in person or remotely.
-            </p>
+          <div className="max-w-3xl mx-auto space-y-12">
+            {regions.map((region) => (
+              <div key={region.heading}>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{region.heading}</h2>
+                <p className="text-gray-600 text-lg leading-relaxed">{region.body}</p>
+              </div>
+            ))}
           </div>
-          <div className="max-w-md mx-auto mt-12">
-            <LocationCard location={primaryLocation} />
+        </div>
+      </section>
+
+      {/* Our Services: the same category descriptors as the Services page */}
+      <section className="py-20 lg:py-28 bg-slate-50">
+        <div className="container-site">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Our Services</h2>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {serviceCategories.map((category) => (
+              <Link
+                key={category.id}
+                href={`/services#${category.id}`}
+                className="group bg-white rounded-2xl border border-gray-100 shadow-soft p-6 hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
+              >
+                <h3 className="font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">{category.name}</h3>
+                <p className="text-gray-600 text-sm">{category.description}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Consultation form */}
+      <section className="py-20 lg:py-28">
+        <div className="container-site">
+          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-soft border border-gray-100 p-8 lg:p-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              Schedule Your Free 15-Minute Consultation
+            </h2>
+            <p className="text-gray-600 mb-8">
+              Tell us about your business and financial needs. We&apos;ll reach out within one business day to
+              schedule a conversation about how we can help.
+            </p>
+            <ContactForm variant="default" />
           </div>
         </div>
       </section>

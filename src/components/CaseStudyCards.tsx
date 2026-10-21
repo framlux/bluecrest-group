@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { caseStudies } from "@/data/case-studies";
 
-/** Case study cards for the homepage, Newport Beach, and (minus the current one) each case study. */
-export default function CaseStudyCards({ excludeSlug, stacked = false }: { excludeSlug?: string; stacked?: boolean } = {}) {
+/** Case study cards for the homepage and (minus the current one) each case study. */
+export default function CaseStudyCards({ excludeSlug }: { excludeSlug?: string } = {}) {
   const shown = caseStudies.filter((study) => study.slug !== excludeSlug);
-  const columns = stacked ? "" : shown.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
+  const columns = shown.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
   return (
     <div className={`grid gap-6 ${columns}`}>
       {shown.map((study) => (

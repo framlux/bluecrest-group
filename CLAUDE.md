@@ -23,9 +23,9 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - **Email**: SendGrid (`@sendgrid/mail`) for contact form submissions
 - **Spam Protection**: Cloudflare Turnstile (widget in `ContactForm`, verified in `src/lib/turnstile.ts`)
 - **SEO**: Metadata is built with `buildMetadata()` in `src/lib/metadata.ts`, and JSON-LD with `src/lib/structured-data.ts`.
-- **CTAs**: Every call-to-action renders `<ContactCta>` (`src/lib/cta.ts` holds the "Book a 15-Min Call" label and href logic). Only the About and case study closing buttons pass `label="Contact Us"`. The footer's call to action (`FooterCta`) is skipped on pages that already end on a form or their own ask: Home, Contact, About, and case studies. The contact form's submit button reads "Send Message".
+- **CTAs**: Every call-to-action renders `<ContactCta>` (`src/lib/cta.ts` holds the "Book a 15-Min Call" label and href logic). Only the About and case study closing buttons pass `label="Contact Us"`. The footer's call to action (`FooterCta`) is skipped on pages that already end on a form or their own ask: Home, Contact, About, Service Areas, and case studies. The contact form's submit button reads "Send Message".
 - **Tag Manager**: GTM (`src/lib/gtm.ts`) loads from the root layout on every page: the script in `<head>`, the noscript iframe first in `<body>`.
-- **Meta descriptions**: The 14 service pages and Newport Beach render none. `buildMetadata()` without a `description` returns `description: null` so the layout default isn't inherited.
+- **Meta descriptions**: The 14 service pages render none. `buildMetadata()` without a `description` returns `description: null` so the layout default isn't inherited.
 - **Icons and previews**: favicon set, `apple-touch-icon.png`, `og-image-1200x630.png` (og/twitter image), and `logo-square-512.png` (JSON-LD logo) live at the root of `public/`.
 - **Analytics**: Vercel Analytics
 - **Font**: Poppins (Google Fonts) + Harabara Mais Demo (CDN) for brand headlines
@@ -39,15 +39,15 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - `src/app/not-found.tsx` — Root 404 for unknown URLs (they never reach a route group, so it repeats the Header/Footer chrome). `src/app/(public)/not-found.tsx` handles `notFound()` calls inside the group. Both render `src/components/NotFoundContent.tsx`.
 - `src/app/(public)/api/contact/route.ts` — Contact form API route (SendGrid + Turnstile verification). Returns 400 for missing fields, 403 when Turnstile fails, 502 when the internal notification fails, 500 for unexpected errors (malformed body, missing `TURNSTILE_SECRET`), and 200 otherwise (a failed customer confirmation is logged but still returns 200). `src/lib/email/sendgrid.ts` throws on a missing key, template, or recipients.
 - `src/components/` — Shared components (Header, Footer, StickyCTA, ContactCta, ContactForm, CaseStudyCards, NotFoundContent, JsonLd)
-- `src/data/` — Static data: site config, services, service content, locations, case studies, testimonials, page metadata (`page-meta.ts`), indexable static pages (`pages.ts`), redirects (`redirects.ts`)
+- `src/data/` — Static data: site config, services, service content, case studies, testimonials, page metadata (`page-meta.ts`), indexable static pages (`pages.ts`), redirects (`redirects.ts`)
 - `src/lib/metadata.ts`, `src/lib/structured-data.ts` — `buildMetadata()` and JSON-LD builders
 - `src/lib/brand.ts` — Brand config for email templates
 - `src/lib/email/` — Email template utilities
-- `src/utils/` — Icon components for services and locations
+- `src/utils/` — Icon components for services
 
 ### Data-Driven Pages
 
-Services, service-area, and case study pages are generated from static data in `src/data/`. `services.ts` holds the 14 services in menu order (three categories); `service-content.ts` holds each page's approved copy in the standard layout (no FAQPage markup). `locations.ts` holds Newport Beach, the only city page. `case-studies.ts` feeds `/case-studies/[slug]` and the cards on the homepage and Newport Beach. Retired service URLs redirect via `redirects.ts`.
+Service and case study pages are generated from static data in `src/data/`. `services.ts` holds the 14 services in menu order (three categories); `service-content.ts` holds each page's approved copy in the standard layout (no FAQPage markup). `/service-areas` is the only location page; there are no city pages. `case-studies.ts` feeds `/case-studies/[slug]` and the homepage cards. Retired service and city URLs redirect via `redirects.ts`.
 
 ### Brand Colors
 

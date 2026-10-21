@@ -19,8 +19,8 @@ export const redirects: Redirect[] = [
   ...[
     "irvine-ca", "costa-mesa-ca", "huntington-beach-ca", "laguna-beach-ca", "orange-ca",
     "santa-ana-ca", "anaheim-ca", "fullerton-ca", "tustin-ca", "mission-viejo-ca", "lake-forest-ca",
+    "corona-del-mar-ca",
   ].map((slug): Redirect => ({ source: `/service-areas/${slug}`, destination: "/service-areas", permanent: true })),
-  { source: "/service-areas/corona-del-mar-ca", destination: "/service-areas/newport-beach-ca", permanent: true },
   { source: "/insights", destination: "/", permanent: true },
   { source: "/insights/:path*", destination: "/", permanent: true },
 ];

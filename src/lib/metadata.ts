@@ -15,7 +15,7 @@ export interface PageMetadataInput {
   title: string;
   /**
    * Omit to render no description, og:description, or twitter:description, so Google
-   * builds the snippet from the page (service pages and Newport Beach, item 16).
+   * builds the snippet from the page (service pages, item 16).
    */
   description?: string;
   /** Root-relative path, e.g. "/about". Resolved against metadataBase. */

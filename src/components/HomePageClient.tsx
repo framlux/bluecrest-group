@@ -5,15 +5,12 @@ import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import { serviceCategories, getServicesByCategory } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
-import { getPrimaryLocation } from "@/data/locations";
-import LocationCard from "@/components/LocationCard";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
 import HeroVideo from "@/components/HeroVideo";
 import CaseStudyCards from "@/components/CaseStudyCards";
 
 export default function HomePageClient() {
-  const primaryLocation = getPrimaryLocation();
 
   return (
     <>
@@ -228,7 +225,26 @@ export default function HomePageClient() {
           </ul>
 
           <div className="max-w-md mx-auto mb-10">
-            <LocationCard location={primaryLocation} />
+            <Link
+              href="/service-areas"
+              className="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
+            >
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src="/images/newport-beach-ca.webp"
+                  alt="Newport Beach, CA"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 448px"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
+                  Our Service Areas
+                </h3>
+                <p className="text-gray-600 text-sm">Orange County, Southern California, and clients in other states.</p>
+              </div>
+            </Link>
           </div>
         </div>
       </section>

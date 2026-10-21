@@ -12,11 +12,12 @@ describe("buildSitemapEntries", () => {
     expect(urls.join()).not.toContain("www.");
   });
 
-  it("includes privacy, terms, 14 services, and Newport Beach", () => {
+  it("includes privacy, terms, 14 services, and the service areas page, but no city page", () => {
     expect(urls).toContain(`${ORIGIN}/privacy`);
     expect(urls).toContain(`${ORIGIN}/terms`);
     expect(urls.filter((u) => u.startsWith(`${ORIGIN}/services/`))).toHaveLength(14);
-    expect(urls).toContain(`${ORIGIN}/service-areas/newport-beach-ca`);
+    expect(urls).toContain(`${ORIGIN}/service-areas`);
+    expect(urls.filter((u) => u.startsWith(`${ORIGIN}/service-areas/`))).toEqual([]);
   });
 
   it("includes the three case studies", () => {

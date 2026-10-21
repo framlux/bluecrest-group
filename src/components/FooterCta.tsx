@@ -6,7 +6,7 @@ import ContactCta from "@/components/ContactCta";
 
 /** Pages that already end on a form or their own closing call to action. */
 function endsWithOwnAsk(pathname: string) {
-  return ["/", "/contact", "/about"].includes(pathname) || pathname.startsWith("/case-studies/");
+  return ["/", "/contact", "/about", "/service-areas"].includes(pathname) || pathname.startsWith("/case-studies/");
 }
 
 /** The site's one footer call to action (item 10), skipped where the page has just asked. */

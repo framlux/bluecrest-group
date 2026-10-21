@@ -31,8 +31,8 @@ describe("removed wording stays removed (Oct 13 update list)", () => {
     banned.forEach((phrase) => expect(text, phrase).not.toContain(phrase));
   });
 
-  it('"nationwide" appears only in the homepage Who We Are section (item 12)', () => {
+  it('"nationwide" appears only in the homepage Who We Are section (item 12) and on Service Areas (Oct 21 update)', () => {
     const hits = files.filter((f) => /nationwide/i.test(readFileSync(f, "utf8")));
-    expect(hits).toEqual(["src/components/HomePageClient.tsx"]);
+    expect(hits.sort()).toEqual(["src/app/(public)/service-areas/page.tsx", "src/components/HomePageClient.tsx"]);
   });
 });

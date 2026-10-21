@@ -6,7 +6,7 @@ import ContactCta from "@/components/ContactCta";
 
 /** Pages that already show a contact form, where the desktop pop-up would only repeat it. */
 function hasInlineForm(pathname: string) {
-  return pathname === "/" || pathname === "/contact" || pathname.startsWith("/services/") || pathname.startsWith("/service-areas/");
+  return pathname === "/" || pathname === "/contact" || pathname.startsWith("/services/") || pathname === "/service-areas";
 }
 
 export default function StickyCTA() {

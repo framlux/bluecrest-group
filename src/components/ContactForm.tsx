@@ -11,13 +11,11 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 interface ContactFormProps {
   variant?: "default" | "compact";
   prefilledService?: string;
-  prefilledLocation?: string;
 }
 
 export default function ContactForm({
   variant = "default",
   prefilledService,
-  prefilledLocation,
 }: ContactFormProps) {
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +24,7 @@ export default function ContactForm({
     phone: "",
     projectType: prefilledService || "",
     timeline: "",
-    details: prefilledLocation ? `Interested in services for ${prefilledLocation}. ` : "",
+    details: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);

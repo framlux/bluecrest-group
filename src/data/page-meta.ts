@@ -33,8 +33,8 @@ export const pageMeta = {
   },
   serviceAreas: {
     path: "/service-areas",
-    title: "Service Areas",
-    description: `From ${city}, ${businessName} provides fractional CFO and accounting services to businesses throughout ${region}, California.`,
+    title: "Orange County Fractional CFO & Accounting",
+    description: `Based in ${city}, ${businessName} provides fractional CFO and accounting services to businesses throughout ${region} and Southern California.`,
   },
   privacy: {
     path: "/privacy",
