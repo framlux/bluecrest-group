@@ -5,6 +5,7 @@ import { siteConfig } from "@/data/site-config";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
 import { JsonLd } from "@/components/JsonLd";
+import ContactCta from "@/components/ContactCta";
 import { breadcrumbSchema, personSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata(pageMeta.about);
@@ -69,8 +70,8 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-5 text-gray-600">
                 <p className="text-lg">
-                  Many growing businesses reach a point where they need sophisticated
-                  financial leadership but are not ready for a full-time CFO. They
+                  Many growing businesses reach a point where they need senior financial
+                  expertise but are not ready for a full-time CFO. They
                   have outgrown basic bookkeeping but lack the strategic financial
                   guidance to reach the next level.
                 </p>
@@ -84,7 +85,7 @@ export default function AboutPage() {
                   Our approach is simple: understand your business deeply, provide
                   clear financial insights, and help you make better decisions. No
                   unnecessary complexity, no jargon-filled reports that sit unread.
-                  Just practical financial leadership that helps your business grow.
+                  Just practical advice that helps your business grow.
                 </p>
               </div>
             </div>
@@ -100,7 +101,7 @@ export default function AboutPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-white/90">Small and growing businesses, from startups to established companies, seeking strategic financial guidance.</span>
+                  <span className="text-white/90">Small and growing businesses, from startups to established companies</span>
                 </li>
                 <li className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center shrink-0">
@@ -172,6 +173,29 @@ export default function AboutPage() {
                     {paragraph}
                   </p>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA (Developer Update List item 8) */}
+      <section className="py-20 lg:py-28">
+        <div className="container-site">
+          <div className="bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-navy)] rounded-3xl p-10 lg:p-16 text-center text-white relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
+
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Ready to Get Started?
+              </h2>
+              <p className="text-xl text-white/90 mb-8">
+                Schedule a free 15-minute consultation to discuss how BlueCrest Group can
+                support your business with strategic financial leadership.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <ContactCta label="Contact Us" className="inline-flex items-center justify-center px-8 py-4 bg-white text-[var(--color-brand-blue)] rounded-full font-semibold hover:bg-gray-50 transition-colors shadow-lg" />
               </div>
             </div>
           </div>

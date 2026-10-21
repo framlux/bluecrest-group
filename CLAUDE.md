@@ -23,7 +23,7 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - **Email**: SendGrid (`@sendgrid/mail`) for contact form submissions
 - **Spam Protection**: Cloudflare Turnstile (widget in `ContactForm`, verified in `src/lib/turnstile.ts`)
 - **SEO**: Metadata is built with `buildMetadata()` in `src/lib/metadata.ts`, and JSON-LD with `src/lib/structured-data.ts`.
-- **CTAs**: Every call-to-action renders `<ContactCta>` (`src/lib/cta.ts` holds the "Book a 15-Min Call" label and href logic). Only the case study closing button passes `label="Contact Us"`; pages end on the footer's call to action rather than stacking their own above it. The contact form's submit button reads "Send Message".
+- **CTAs**: Every call-to-action renders `<ContactCta>` (`src/lib/cta.ts` holds the "Book a 15-Min Call" label and href logic). Only the About and case study closing buttons pass `label="Contact Us"`. The contact form's submit button reads "Send Message".
 - **Tag Manager**: GTM (`src/lib/gtm.ts`) loads from the root layout on every page: the script in `<head>`, the noscript iframe first in `<body>`.
 - **Meta descriptions**: The 14 service pages and Newport Beach render none. `buildMetadata()` without a `description` returns `description: null` so the layout default isn't inherited.
 - **Icons and previews**: favicon set, `apple-touch-icon.png`, `og-image-1200x630.png` (og/twitter image), and `logo-square-512.png` (JSON-LD logo) live at the root of `public/`.

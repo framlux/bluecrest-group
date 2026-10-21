@@ -89,7 +89,7 @@ export default function TermsPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
-                    Timely payment of fees as agreed upon in our service agreement
+                    Pay fees on time as agreed in your service agreement
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-[var(--color-brand-blue)] rounded-full mt-2.5 shrink-0"></div>
@@ -152,6 +152,13 @@ export default function TermsPage() {
               </div>
 
               <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Changes to Terms</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  We reserve the right to modify these Terms of Service at any time. We will notify existing clients of material changes. Continued use of our services after changes constitutes acceptance of the modified terms.
+                </p>
+              </div>
+
+              <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
                 <p className="text-gray-600 leading-relaxed mb-4">
                   If you have questions about these Terms of Service, please contact us at:
@@ -162,13 +169,6 @@ export default function TermsPage() {
                     Email: <a href={`mailto:${siteConfig.email}`} className="text-[var(--color-brand-blue)] hover:text-[var(--color-blue-dark)] transition-colors">{siteConfig.email}</a>
                   </p>
                 </div>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Changes to Terms</h2>
-                <p className="text-gray-600 leading-relaxed">
-                  We reserve the right to modify these Terms of Service at any time. We will notify existing clients of material changes. Continued use of our services after changes constitutes acceptance of the modified terms.
-                </p>
               </div>
             </div>
           </div>

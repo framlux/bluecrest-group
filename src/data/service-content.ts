@@ -141,7 +141,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Bookkeeping and Reconciliation Services",
       paragraphs: [
-        "Most bookkeeping services record transactions. We build books you can run your business on, and we treat your business like it matters. You work directly with experienced professionals, not a rotating cast of junior staff or an offshore team, so you always know who to call. We answer questions in plain language, respond quickly, and take the time to understand how your business actually runs.",
+        "We build books you can run your business on, not just a record of transactions, and we treat your business like it matters. You work directly with experienced professionals, not a rotating cast of junior staff or an offshore team, so you always know who to call. We answer questions in plain language, respond quickly, and take the time to understand how your business actually runs.",
         "We're invested in the long-term success of every business we work with, whether we meet in person or work entirely remotely. And as you grow, the same people who know your books can step in with controller and CFO-level support, so you never have to start over with someone new.",
       ],
       testimonial: "michael-royer",
@@ -201,7 +201,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Payroll and HR Services",
       paragraphs: [
         "Most payroll services stop at the paycheck. We connect payroll to the rest of your finances, so every payroll lands correctly in your books and you can see exactly what labor costs by location, department, or job. You work directly with experienced professionals who know your business, not a call center, with one point of contact for payroll, HR, and accounting questions.",
-        "Payroll runs through established partner platforms for reliable processing and tax filing, and we review every payroll before it goes out. As your team grows, your payroll, HR processes, and financial reporting grow with it, all handled by the same firm.",
+        "Payroll runs through established partner platforms for reliable processing and tax filing, and we review every payroll before it goes out. As your team grows, your payroll, HR processes, and financial reporting grow with it, with one team handling all three.",
       ],
     },
     faq: {
@@ -244,8 +244,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Merchant Processing Services",
       paragraphs: [
-        "Most merchant providers sell you a rate and disappear. We work with you from application forward. Because we prepare the financials underwriters review, businesses in high-risk industries start with a stronger application, and you have a direct contact through our ISO partnership instead of a call center.",
-        "And because we also handle accounting, your payment data doesn't stop at the deposit. Sales, fees, and deposits flow into your books, and we turn that data into insight on margins, pricing, and which products are driving your business.",
+        "We work with you from the application forward, not just at signup. Because we prepare the financials underwriters review, businesses in high-risk industries start with a stronger application, and you have a direct contact through our ISO partnership instead of a call center.",
+        "Your payment data doesn't stop at the deposit, either. Sales, fees, and deposits flow into your books, and we turn that data into insight on margins, pricing, and which products are driving your business.",
       ],
     },
     faq: {
@@ -291,7 +291,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our Software Setup and Migration Services",
       paragraphs: [
-        "Most software setups are handled by people who know the software but not the accounting. We're accountants first, so your system is built around how your books, reporting, and close actually need to work, not just how the software comes out of the box. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and when your needs go beyond accounting software, we can deliver custom integrations and a full technology stack.",
+        "We're accountants first, not just software specialists, so your system is built around how your books, reporting, and close actually need to work, not just how the software comes out of the box. We've implemented complex systems, including a 17-entity real estate portfolio with full historical migration, and when your needs go beyond accounting software, we can deliver custom integrations and a full technology stack.",
         "And when the project ends, you're not left on your own. The same firm that built your system can keep your books, run your close, and provide controller or CFO support, so the system keeps working the way it was designed.",
       ],
       testimonial: "lu-miller",
@@ -471,8 +471,8 @@ export const serviceContent: Record<string, ServiceContent> = {
     whyChoose: {
       heading: "Why Choose Our FP&A Services",
       paragraphs: [
-        "We build financial plans you'll use every month to run your business. FP&A is the core of our experience, with more than 15 years in corporate finance, FP&A, and accounting, so your plan is built on sound modeling and a real understanding of how your business makes money.",
-        "Because we also keep the books and close the month, your actual results are ready the moment it's time to compare them to plan, and the analysis comes from the same people who know your numbers. You get forecasts you can trust, explained in plain language, and a partner who helps you act on them.",
+        "We build financial plans you'll use every month to run your business. Planning and analysis is the core of our experience, backed by more than 15 years in corporate finance and accounting, so your plan is built on sound modeling and a real understanding of how your business makes money.",
+        "We keep your books and close the month, so your actual results are ready the moment it's time to compare them to plan. You get forecasts you can trust, explained in plain language, and a partner who helps you act on them.",
       ],
     },
     pricing: {
@@ -527,7 +527,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our Financial Modeling Services",
       paragraphs: [
         "We build models you'll actually use, not just present. Every model is designed so you can change an assumption and immediately see the impact, update it as your business evolves, and share it with a lender or investor with confidence. Our modeling experience spans growth planning, acquisitions, capital raises, and investment decisions, backed by more than 15 years in corporate finance and FP&A.",
-        "Because we also work inside your books, your model starts from accurate historical numbers, not rough estimates, and we can keep it updated with actual results long after it's delivered.",
+        "Your model starts from accurate historical numbers in books we work in every month, not rough estimates, and we can keep it updated with actual results long after it's delivered.",
       ],
     },
     faq: {
@@ -629,7 +629,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       heading: "Why Choose Our M&A Advisory Services",
       paragraphs: [
         "The financial work decides whether the deal you close is the deal you intended. We bring hands-on experience underwriting acquisitions, building deal models, and structuring financing, so the analysis behind your decision is rigorous and risks surface before closing, not after.",
-        "We work alongside your banker, broker, and attorneys rather than replacing them, keeping the financial workstream organized and on schedule. Because we also provide ongoing accounting and CFO support, the people who built your deal model are the same people who carry it through integration or transition.",
+        "We work alongside your banker, broker, and attorneys rather than replacing them, keeping the financial workstream organized and on schedule. The people who build your deal model also provide your ongoing accounting and CFO support, so they carry it through integration or transition.",
       ],
     },
     faq: {
@@ -704,7 +704,7 @@ export const serviceContent: Record<string, ServiceContent> = {
   },
 
   "sales-tax-compliance": {
-    intro: "Selling across multiple channels and states can create sales tax obligations well beyond your home state. We determine where you have obligations, register where required, reconcile sales across every channel, calculate what's owed, and prepare and file accurate quarterly returns on time, so you stay compliant everywhere you sell.",
+    intro: "Selling across multiple channels and states can create sales tax obligations well beyond your home state. We determine where you have obligations, register where required, reconcile sales across every channel, calculate what's owed, and prepare and file accurate returns on time, so you stay compliant everywhere you sell.",
     whatsIncluded: {
       heading: "What Our Sales Tax Compliance Services Include",
       bullets: [
@@ -726,7 +726,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       steps: [
         { heading: "Nexus Assessment", content: "We review your sales by state, inventory locations, and employee presence to determine where you owe sales tax." },
         { heading: "Registration", content: "We register your business with each required state and local tax agency." },
-        { heading: "Ongoing Compliance", content: "We reconcile sales across your channels, calculate what's owed, and prepare and file your quarterly returns and payments on time." },
+        { heading: "Ongoing Compliance", content: "We reconcile sales across your channels, calculate what's owed, and prepare and file your returns and payments on time." },
         { heading: "Monitoring and Updates", content: "We track changes in your sales footprint and tax rules and adjust your filings as needed." },
       ],
     },

@@ -134,20 +134,22 @@ export default async function CaseStudyPage({ params }: Props) {
               </ul>
             </div>
 
-            <p className="text-lg text-gray-600 mb-6">Facing a similar challenge? Let&apos;s talk about your business.</p>
-            <ContactCta
-              label="Contact Us"
-              className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg"
-            />
           </div>
         </div>
       </section>
 
-      {/* Other case studies */}
+      {/* Other case studies, then the page's own ask */}
       <section className="pb-20 lg:pb-28">
         <div className="container-site">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">More Client Results</h2>
           <CaseStudyCards excludeSlug={study.slug} />
+          <div className="mt-16 text-center">
+              <p className="text-lg text-gray-600 mb-6">Facing a similar challenge? We&apos;d be glad to hear about it.</p>
+              <ContactCta
+                label="Contact Us"
+                className="inline-flex items-center justify-center px-8 py-4 bg-[var(--color-brand-blue)] text-white rounded-full font-semibold hover:bg-[var(--color-blue-dark)] transition-colors shadow-lg"
+              />
+          </div>
         </div>
       </section>
 

@@ -5,7 +5,8 @@ import Image from "next/image";
 import { siteConfig } from "@/data/site-config";
 import { serviceCategories, getServicesByCategory } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
-import { getLocationImagePath, getPrimaryLocation } from "@/data/locations";
+import { getPrimaryLocation } from "@/data/locations";
+import LocationCard from "@/components/LocationCard";
 import ContactForm from "@/components/ContactForm";
 import ContactCta from "@/components/ContactCta";
 import HeroVideo from "@/components/HeroVideo";
@@ -62,7 +63,7 @@ export default function HomePageClient() {
             <div>
               <p className="text-lg leading-relaxed text-white/90">
                 {siteConfig.businessName} provides fractional CFO and accounting services to growing
-                businesses. Based in Orange County and serving clients nationwide, we partner with
+                businesses. Based in Orange County, we also work with clients nationwide and partner with
                 business owners and leadership teams to bring clarity, control, and confidence to their
                 financial direction.
               </p>
@@ -232,36 +233,8 @@ export default function HomePageClient() {
             ))}
           </ul>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
-            <Link
-              href={`/service-areas/${primaryLocation.slug}`}
-              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-soft hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
-            >
-              <div className="relative h-40 w-full overflow-hidden">
-                <Image
-                  src={getLocationImagePath(primaryLocation)}
-                  alt={`${primaryLocation.name}, ${primaryLocation.stateAbbr}`}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
-                  {primaryLocation.name}
-                </h3>
-                <p className="text-gray-600 text-sm line-clamp-2">{primaryLocation.shortDescription}</p>
-              </div>
-            </Link>
-            <Link
-              href="/service-areas"
-              className="group bg-slate-50 rounded-2xl border border-gray-100 p-8 flex flex-col justify-center hover:border-[var(--color-brand-blue)]/30 transition-all"
-            >
-              <h3 className="text-lg font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">
-                Service Areas
-              </h3>
-              <p className="text-gray-600 text-sm">The Orange County cities we serve.</p>
-            </Link>
+          <div className="max-w-md mx-auto mb-10">
+            <LocationCard location={primaryLocation} />
           </div>
         </div>
       </section>
@@ -281,7 +254,7 @@ export default function HomePageClient() {
               </div>
               <h2 className="text-5xl font-bold !text-white mb-6 leading-tight">
                 <Link href="/about" className="!text-white hover:!text-[var(--color-brand-gold)] transition-colors">
-                  Meet {siteConfig.founder.name}
+                  Meet {siteConfig.founder.name.split(" ")[0]}
                 </Link>
               </h2>
               <p className="text-2xl text-[var(--color-brand-gold)] mb-4 font-medium">

@@ -31,7 +31,7 @@ export default function NotFoundContent() {
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
                 The page you&apos;re looking for may have been moved, deleted, or doesn&apos;t exist.
-                Let&apos;s get you back on track with our financial services.
+                Let&apos;s get you back on track.
               </p>
             </div>
 

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getPrimaryLocation } from "@/data/locations";
+import LocationCard from "@/components/LocationCard";
 import { siteConfig } from "@/data/site-config";
 import { buildMetadata } from "@/lib/metadata";
 import { pageMeta } from "@/data/page-meta";
@@ -79,6 +80,12 @@ export default function ServiceAreasPage() {
                 </li>
               ))}
             </ul>
+            <p className="text-lg text-gray-600 mt-8">
+              {primaryLocation.name} is our home base, and we work with clients across the county in person or remotely.
+            </p>
+          </div>
+          <div className="max-w-md mx-auto mt-12">
+            <LocationCard location={primaryLocation} />
           </div>
         </div>
       </section>

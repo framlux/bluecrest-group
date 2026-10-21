@@ -114,10 +114,13 @@ export default async function LocationPage({ params }: Props) {
                     className="group bg-white rounded-2xl border border-gray-100 shadow-soft p-6 hover:shadow-lg hover:border-[var(--color-brand-blue)]/30 transition-all"
                   >
                     <h3 className="font-bold text-gray-900 group-hover:text-[var(--color-brand-blue)] transition-colors mb-2">{category.name}</h3>
-                    <p className="text-gray-600 text-sm">{category.description}.</p>
+                    <p className="text-gray-600 text-sm">{category.description}</p>
                   </Link>
                 ))}
               </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-12 mb-6">Client Results</h2>
+              <CaseStudyCards stacked />
             </div>
 
             {/* Sidebar */}
@@ -135,14 +138,6 @@ export default async function LocationPage({ params }: Props) {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Client Results */}
-      <section className="pb-20 lg:pb-28">
-        <div className="container-site">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Client Results</h2>
-          <CaseStudyCards />
         </div>
       </section>
 

@@ -44,7 +44,7 @@ export const services: Service[] = [
   {
     slug: "merchant-processing",
     name: "Merchant and Credit Card Processing",
-    shortDescription: "Merchant and credit card processing provided directly through our ISO partnership, including high-risk industries such as cannabis and peptides, so your business can accept card payments reliably.",
+    shortDescription: "Merchant and credit card processing provided directly through our ISO partnership, including high-risk industries such as cannabis, peptides, and iGaming, so your business can accept card payments reliably.",
     consultationPhrase: "merchant and credit card processing",
     category: "accounting",
     relatedSlugs: ["bookkeeping-and-reconciliation", "sales-tax-compliance", "accounting-system-setup"],
