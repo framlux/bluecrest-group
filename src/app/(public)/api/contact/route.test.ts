@@ -43,6 +43,16 @@ describe("POST /api/contact", () => {
     expect(sendConfirm).not.toHaveBeenCalled();
   });
 
+  it("500s and sends nothing when Turnstile rejects our secret", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    verify.mockRejectedValue(new Error("Turnstile rejected TURNSTILE_SECRET (invalid-input-secret)"));
+    const res = await POST(req(valid));
+    expect(res.status).toBe(500);
+    expect(sendInternal).not.toHaveBeenCalled();
+    expect(consoleError).toHaveBeenCalled();
+    consoleError.mockRestore();
+  });
+
   it("passes the token and client IP to Turnstile", async () => {
     await POST(req(valid));
     expect(verify).toHaveBeenCalledWith("tok", "1.2.3.4");

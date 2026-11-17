@@ -43,6 +43,22 @@ describe("verifyTurnstile", () => {
     expect(await verifyTurnstile("tok", undefined, down)).toBe(false);
   });
 
+  it.each(["invalid-input-secret", "missing-input-secret"])(
+    "throws when Cloudflare rejects the secret (%s) instead of failing the visitor",
+    async (code) => {
+      const f = vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: false, "error-codes": [code] })));
+      await expect(verifyTurnstile("tok", undefined, f)).rejects.toThrow(code);
+    }
+  );
+
+  it("logs the error codes when a visitor's token fails", async () => {
+    const consoleWarn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const f = vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: false, "error-codes": ["invalid-input-response"] })));
+    expect(await verifyTurnstile("tok", undefined, f)).toBe(false);
+    expect(consoleWarn).toHaveBeenCalledWith(expect.stringContaining("invalid-input-response"));
+    consoleWarn.mockRestore();
+  });
+
   it("throws when the secret is not configured", async () => {
     delete process.env.TURNSTILE_SECRET;
     await expect(verifyTurnstile("tok", undefined, vi.fn())).rejects.toThrow(/TURNSTILE_SECRET/);
