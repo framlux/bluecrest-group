@@ -6,8 +6,6 @@ import { serviceCategories, getServicesByCategory } from "@/data/services";
 import { siteConfig } from "@/data/site-config";
 import { isTurnstileFailed, TURNSTILE_TIMEOUT_MS } from "@/lib/turnstile-status";
 
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
-
 interface ContactFormProps {
   variant?: "default" | "compact";
   prefilledService?: string;
@@ -34,8 +32,10 @@ export default function ContactForm({
   const turnstileTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [turnstileErrored, setTurnstileErrored] = useState(false);
   const [turnstileElapsedMs, setTurnstileElapsedMs] = useState(0);
+  // The site key comes from the server at runtime (TURNSTILE_SITE_KEY), so pages stay static and the key isn't baked into the build.
+  const [siteKey, setSiteKey] = useState<string | undefined>(undefined);
   const turnstileFailed = isTurnstileFailed({
-    siteKey: TURNSTILE_SITE_KEY,
+    siteKey,
     errored: turnstileErrored,
     elapsedMs: turnstileElapsedMs,
     hasToken: Boolean(turnstileToken),
@@ -49,6 +49,15 @@ export default function ContactForm({
     };
     document.addEventListener("error", onScriptError, true);
     return () => document.removeEventListener("error", onScriptError, true);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/turnstile-config")
+      .then((res) => (res.ok ? res.json() : { siteKey: "" }))
+      .then((data: { siteKey?: string }) => { if (!cancelled) setSiteKey(data.siteKey ?? ""); })
+      .catch(() => { if (!cancelled) setSiteKey(""); });
+    return () => { cancelled = true; };
   }, []);
 
   // No token 15 seconds after mount: stop waiting and offer the email fallback.
@@ -279,10 +288,10 @@ export default function ContactForm({
         </div>
       )}
 
-      {TURNSTILE_SITE_KEY && (
+      {siteKey && (
         <Turnstile
           ref={turnstileRef}
-          siteKey={TURNSTILE_SITE_KEY}
+          siteKey={siteKey}
           onSuccess={handleTurnstileSuccess}
           onExpire={() => setTurnstileToken("")}
           onError={() => {

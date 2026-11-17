@@ -2,7 +2,8 @@
 export const TURNSTILE_TIMEOUT_MS = 15_000;
 
 interface TurnstileStatus {
-  siteKey: string;
+  /** Undefined while the key is still being fetched; empty when it is not configured or the fetch failed. */
+  siteKey: string | undefined;
   /** The widget or its script reported an error. */
   errored: boolean;
   /** Time since the form mounted without a token arriving. */
@@ -16,5 +17,5 @@ interface TurnstileStatus {
  */
 export function isTurnstileFailed({ siteKey, errored, elapsedMs, hasToken }: TurnstileStatus): boolean {
   if (hasToken) return false;
-  return !siteKey || errored || elapsedMs >= TURNSTILE_TIMEOUT_MS;
+  return siteKey === "" || errored || elapsedMs >= TURNSTILE_TIMEOUT_MS;
 }

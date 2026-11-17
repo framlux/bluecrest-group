@@ -21,7 +21,7 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - **Framework**: Next.js 15 App Router with React 19, TypeScript strict mode
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/postcss`
 - **Email**: SendGrid (`@sendgrid/mail`) for contact form submissions
-- **Spam Protection**: Cloudflare Turnstile (widget in `ContactForm`, verified in `src/lib/turnstile.ts`)
+- **Spam Protection**: Cloudflare Turnstile (widget in `ContactForm`, verified in `src/lib/turnstile.ts`). `ContactForm` fetches the site key from `/api/turnstile-config` at runtime, so form pages stay static and nothing is baked into the build.
 - **SEO**: Metadata is built with `buildMetadata()` in `src/lib/metadata.ts`, and JSON-LD with `src/lib/structured-data.ts`.
 - **CTAs**: Every call-to-action renders `<ContactCta>` (`src/lib/cta.ts` holds the "Book a 15-Min Call" label and href logic). Only the About and case study closing buttons pass `label="Contact Us"`. The footer's call to action (`FooterCta`) is skipped on pages that already end on a form or their own ask: Home, Contact, About, Service Areas, and case studies. The contact form's submit button reads "Send Message".
 - **Tag Manager**: GTM (`src/lib/gtm.ts`) loads from the root layout on every page: the script in `<head>`, the noscript iframe first in `<body>`.
@@ -55,7 +55,7 @@ Defined in `src/data/site-config.ts`: Primary Blue (#579cc6), Gold (#d69c50), Na
 ## Environment Variables
 
 Required in `.env.local`:
-- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` — Cloudflare Turnstile site key
+- `TURNSTILE_SITE_KEY` — Cloudflare Turnstile site key (public; served by `/api/turnstile-config`)
 - `SENDGRID_API_KEY` — SendGrid API key
 - `TURNSTILE_SECRET` — Cloudflare Turnstile server secret
 - `SENDGRID_TEMPLATE_ID` — SendGrid template for the internal lead notification
@@ -65,11 +65,11 @@ Required in `.env.local`:
 
 ## Docker Build
 
-The Dockerfile uses multi-stage build with `output: 'standalone'` in next.config.ts. Secrets are passed via `--mount=type=secret` at build time for the Next.js build step.
+The Dockerfile uses multi-stage build with `output: 'standalone'` in next.config.ts. The build takes no secrets or build args: every setting is a runtime env var on the pod. Avoid `NEXT_PUBLIC_*` variables, since Next.js bakes them in at build time.
 
 ## Deployment
 
-Prod runs the image digest pinned in `framlux/stack/clusters/prod/apps/bluecrest-web/base/deployment.yaml` (Argo CD). Pushing `prod` only builds the image. Runtime env and secrets live in that repo.
+Prod runs the image digest pinned in `framlux/stack/clusters/prod/apps/bluecrest-web/base/deployment.yaml` (Argo CD). Pushing `prod` only builds the image. All runtime env and secrets live in that repo, not in GitHub.
 
 ## Content switches
 

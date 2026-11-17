@@ -1,14 +1,6 @@
 import sgMail from '@sendgrid/mail';
 
-if (!process.env.SENDGRID_API_KEY) {
-  console.error('Missing SENDGRID_API_KEY environment variable');
-} else {
-  // Validate API key format (SendGrid API keys start with "SG.")
-  if (!process.env.SENDGRID_API_KEY.startsWith('SG.')) {
-    console.warn('SENDGRID_API_KEY does not appear to be in the correct format (should start with "SG.")');
-  }
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-}
+// The key is read when sending, not at import, so the image builds without it.
 
 function requireEnv(name: string): string {
   const value = process.env[name];

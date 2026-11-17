@@ -9,6 +9,11 @@ describe("isTurnstileFailed", () => {
     expect(isTurnstileFailed({ ...base, elapsedMs: TURNSTILE_TIMEOUT_MS - 1 })).toBe(false);
   });
 
+  it("waits while the site key is still being fetched", () => {
+    expect(isTurnstileFailed({ ...base, siteKey: undefined })).toBe(false);
+    expect(isTurnstileFailed({ ...base, siteKey: undefined, elapsedMs: TURNSTILE_TIMEOUT_MS })).toBe(true);
+  });
+
   it("fails when the site key is empty", () => {
     expect(isTurnstileFailed({ ...base, siteKey: "" })).toBe(true);
   });

@@ -30,13 +30,3 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/framlux/bluecrest/web:latest
-          secrets: |
-            SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}
-            TURNSTILE_SECRET=${{ secrets.TURNSTILE_SECRET }}
-            NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
-          build-args: |
-            SENDGRID_TEMPLATE_ID=${{ vars.SENDGRID_TEMPLATE_ID }}
-            SENDGRID_TEMPLATE_CONFIRMATION=${{ vars.SENDGRID_TEMPLATE_CONFIRMATION }}
-            SENDGRID_REPLY_TO=${{ vars.SENDGRID_REPLY_TO }}
-            SENDGRID_FROM_EMAIL=${{ vars.SENDGRID_FROM_EMAIL }}
-            SENDGRID_FROM_NAME=${{ vars.SENDGRID_FROM_NAME }}
