@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Brand headline font. Declared here instead of loading the cdnfonts stylesheet, which blocked rendering.
+ * The woff is preloaded in src/app/layout.tsx; keep both URLs in sync. */
+@font-face {
+  font-family: "Harabara Mais Demo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Harabara Mais Demo"), url("https://fonts.cdnfonts.com/s/67187/Harabara%20Mais%20Demo.woff") format("woff");
+}
+
 @theme {
   /* BlueCrest Brand Colors - Core Palette
    * Primary Blue (#579cc6): Clarity, stability, confidence - main brand color

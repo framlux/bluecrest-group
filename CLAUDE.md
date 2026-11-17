@@ -27,8 +27,7 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - **Tag Manager**: GTM (`src/lib/gtm.ts`) loads from the root layout on every page: the script in `<head>`, the noscript iframe first in `<body>`.
 - **Meta descriptions**: The 14 service pages render none. `buildMetadata()` without a `description` returns `description: null` so the layout default isn't inherited.
 - **Icons and previews**: favicon set, `apple-touch-icon.png`, `og-image-1200x630.png` (og/twitter image), and `logo-square-512.png` (JSON-LD logo) live at the root of `public/`.
-- **Analytics**: Vercel Analytics
-- **Font**: Poppins (Google Fonts) + Harabara Mais Demo (CDN) for brand headlines
+- **Font**: Poppins (`next/font/google`) + Harabara Mais Demo for brand headlines. Its `@font-face` is in `globals.css` and the woff is preloaded from fonts.cdnfonts.com in the root layout (no render-blocking stylesheet); keep the two URLs in sync. It is not self-hosted because the Demo license is unconfirmed.
 - **Path alias**: `@/*` maps to `./src/*`
 
 ### Key Directories
@@ -37,7 +36,7 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - `src/app/(portal)` — Client portal, off unless `PORTAL_ENABLED=true`. `src/middleware.ts` returns 404 for `/portal` and `/api/auth` while the flag is off, and lazily imports `@/lib/auth` after that check (a static import crashes the Edge runtime, because postgres needs Node `stream`).
 - `src/app/robots.ts` — Lives at the app root (not in a route group) because Next only serves robots from there
 - `src/app/not-found.tsx` — Root 404 for unknown URLs (they never reach a route group, so it repeats the Header/Footer chrome). `src/app/(public)/not-found.tsx` handles `notFound()` calls inside the group. Both render `src/components/NotFoundContent.tsx`.
-- `src/app/(public)/api/contact/route.ts` — Contact form API route (SendGrid + Turnstile verification). Returns 400 for missing fields, 403 when Turnstile fails, 502 when the internal notification fails, 500 for unexpected errors (malformed body, missing `TURNSTILE_SECRET`), and 200 otherwise (a failed customer confirmation is logged but still returns 200). `src/lib/email/sendgrid.ts` throws on a missing key, template, or recipients.
+- `src/app/(public)/api/contact/route.ts` — Contact form API route (SendGrid + Turnstile verification). Returns 400 for missing fields, 403 when Turnstile fails, 502 when the internal notification fails, 500 for unexpected errors (malformed body, a missing `TURNSTILE_SECRET` or one Cloudflare rejects), and 200 otherwise (a failed customer confirmation is logged but still returns 200). `src/lib/email/sendgrid.ts` throws on a missing key, template, or recipients.
 - `src/components/` — Shared components (Header, Footer, StickyCTA, ContactCta, ContactForm, CaseStudyCards, NotFoundContent, JsonLd)
 - `src/data/` — Static data: site config, services, service content, case studies, testimonials, page metadata (`page-meta.ts`), indexable static pages (`pages.ts`), redirects (`redirects.ts`)
 - `src/lib/metadata.ts`, `src/lib/structured-data.ts` — `buildMetadata()` and JSON-LD builders

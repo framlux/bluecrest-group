@@ -3,6 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { gtmHeadScript, gtmNoscriptSrc } from "@/lib/gtm";
 
+// Must match the @font-face src in globals.css.
+const HEADLINE_FONT_URL = "https://fonts.cdnfonts.com/s/67187/Harabara%20Mais%20Demo.woff";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -31,12 +34,8 @@ export default function RootLayout({
       <head>
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{ __html: gtmHeadScript }} />
-        <link rel="preconnect" href="https://fonts.cdnfonts.com" />
-        {/* Harabara Mais Demo - Brand headline font */}
-        <link
-          href="https://fonts.cdnfonts.com/css/harabara-mais-demo"
-          rel="stylesheet"
-        />
+        {/* Harabara Mais Demo, the brand headline font. Its @font-face lives in globals.css, so no stylesheet blocks rendering. */}
+        <link rel="preload" href={HEADLINE_FONT_URL} as="font" type="font/woff" crossOrigin="anonymous" />
       </head>
       <body className="min-h-screen flex flex-col antialiased">
         {/* Google Tag Manager (noscript) */}

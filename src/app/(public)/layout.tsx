@@ -7,7 +7,6 @@ import { siteConfig } from "@/data/site-config";
 import { pageMeta } from "@/data/page-meta";
 import { DEFAULT_OG_IMAGE } from "@/lib/metadata";
 import { businessSchema } from "@/lib/structured-data";
-import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -46,7 +45,6 @@ export default function PublicLayout({
       <main className="flex-1">{children}</main>
       <Footer />
       <StickyCTA />
-      <Analytics />
     </>
   );
 }
