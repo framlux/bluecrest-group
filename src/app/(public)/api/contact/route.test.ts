@@ -9,7 +9,6 @@ vi.mock("@/lib/email/sendgrid", () => ({
   sendCustomerConfirmation: sendConfirm,
 }));
 vi.mock("@/lib/turnstile", () => ({ verifyTurnstile: verify }));
-vi.mock("@/lib/brand", () => ({ getBrand: () => ({ company_name: "BlueCrest Group" }) }));
 
 import { POST } from "./route";
 
@@ -68,6 +67,13 @@ describe("POST /api/contact", () => {
   it("still 200s when only the customer confirmation fails", async () => {
     sendConfirm.mockRejectedValue(new Error("bounce"));
     expect((await POST(req(valid))).status).toBe(200);
+  });
+
+  it("passes a site path as the source page and drops anything else", async () => {
+    await POST(req({ ...valid, sourcePage: "/services/fractional-cfo" }));
+    expect(sendInternal.mock.calls[0][0].sourcePage).toBe("/services/fractional-cfo");
+    await POST(req({ ...valid, sourcePage: "https://evil.example/<script>" }));
+    expect(sendInternal.mock.calls[1][0].sourcePage).toBeUndefined();
   });
 
   it("200s on the happy path with both emails sent", async () => {

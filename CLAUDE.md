@@ -36,11 +36,10 @@ pnpm test             # Vitest (one run); pnpm test:watch to iterate
 - `src/app/(portal)` — Client portal, off unless `PORTAL_ENABLED=true`. `src/middleware.ts` returns 404 for `/portal` and `/api/auth` while the flag is off, and lazily imports `@/lib/auth` after that check (a static import crashes the Edge runtime, because postgres needs Node `stream`).
 - `src/app/robots.ts` — Lives at the app root (not in a route group) because Next only serves robots from there
 - `src/app/not-found.tsx` — Root 404 for unknown URLs (they never reach a route group, so it repeats the Header/Footer chrome). `src/app/(public)/not-found.tsx` handles `notFound()` calls inside the group. Both render `src/components/NotFoundContent.tsx`.
-- `src/app/(public)/api/contact/route.ts` — Contact form API route (SendGrid + Turnstile verification). Returns 400 for missing fields, 403 when Turnstile fails, 502 when the internal notification fails, 500 for unexpected errors (malformed body, a missing `TURNSTILE_SECRET` or one Cloudflare rejects), and 200 otherwise (a failed customer confirmation is logged but still returns 200). `src/lib/email/sendgrid.ts` throws on a missing key, template, or recipients.
+- `src/app/(public)/api/contact/route.ts` — Contact form API route (SendGrid + Turnstile verification). Returns 400 for missing fields, 403 when Turnstile fails, 502 when the internal notification fails, 500 for unexpected errors (malformed body, a missing `TURNSTILE_SECRET` or one Cloudflare rejects), and 200 otherwise (a failed customer confirmation is logged but still returns 200). `src/lib/email/sendgrid.ts` throws on a missing key, template, or recipients. Each SendGrid dynamic template gets its own data from `internalTemplateData()` / `customerTemplateData()`, whose keys must match the template's Handlebars tags; change both together.
 - `src/components/` — Shared components (Header, Footer, StickyCTA, ContactCta, ContactForm, CaseStudyCards, NotFoundContent, JsonLd)
 - `src/data/` — Static data: site config, services, service content, case studies, testimonials, page metadata (`page-meta.ts`), indexable static pages (`pages.ts`), redirects (`redirects.ts`)
 - `src/lib/metadata.ts`, `src/lib/structured-data.ts` — `buildMetadata()` and JSON-LD builders
-- `src/lib/brand.ts` — Brand config for email templates
 - `src/lib/email/` — Email template utilities
 - `src/utils/` — Icon components for services
 

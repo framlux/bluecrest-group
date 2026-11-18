@@ -1,4 +1,6 @@
 import sgMail from '@sendgrid/mail';
+import { siteConfig } from '@/data/site-config';
+import { formatUsPhone } from '@/lib/phone';
 
 // The key is read when sending, not at import, so the image builds without it.
 
@@ -14,123 +16,102 @@ export function getNotifyRecipients(): string[] {
   return raw.split(',').map((s) => s.trim()).filter(Boolean);
 }
 
-type Lead = {
+export type Lead = {
   name: string;
   email: string;
-  phone?: string;
-  phone_plain?: string;
-  company?: string;
+  phone: string;
   projectType: string;
-  projectDescription?: string;
+  company?: string;
   timeline?: string;
+  details?: string;
+  /** Path of the page the form was submitted from, e.g. "/services/fractional-cfo". */
+  sourcePage?: string;
+  submittedAt: Date;
 };
 
-type BrandData = {
-  // Email template fields
-  subject?: string;
-  preheader?: string;
-  company_name: string;
-  logo_url?: string;
-  city_state?: string;
-  brand_accent?: string;
-  cta_dark_bg?: string;
-  bg_color?: string;
-  text_dark?: string;
-  text_muted?: string;
-  text_body?: string;
-  text_faint?: string;
-  border_color?: string;
-  card_header_bg?: string;
-  hero_title?: string;
-  hero_subtitle?: string;
-  details_title?: string;
-  call_cta_label?: string;
-  call_phone?: string;
-  call_phone_plain?: string;
-  site_cta_label?: string;
-  site_url?: string;
-  address_line?: string;
-  footer_note?: string;
-  submitted_date?: string;
+const NOT_PROVIDED = '—';
 
-  // Legacy fields for backward compatibility
-  brand_title?: string;
-  brand_tagline?: string;
-  brand_dark_bg?: string;
-  brand_gold?: string;
-  supportPhone?: string;
-  supportEmail?: string;
-  service_area?: string;
-  portfolio_url?: string;
-  portfolio_blurb?: string;
-  intro_copy?: string;
-};
+/**
+ * Data for the internal notification template (SENDGRID_TEMPLATE_ID). Keys match the template's
+ * Handlebars tags. SendGrid escapes {{tags}}, so visitor input is safe to pass as is.
+ */
+export function internalTemplateData(lead: Lead) {
+  return {
+    submitted_at: `${lead.submittedAt.toLocaleString('en-US', {
+      timeZone: 'America/Los_Angeles',
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    })} PT`,
+    full_name: lead.name,
+    company: lead.company || NOT_PROVIDED,
+    email: lead.email,
+    // Also used as tel:{{phone}}, so keep it to digits and hyphens.
+    phone: formatUsPhone(lead.phone),
+    service_interest: lead.projectType,
+    source_page: lead.sourcePage ? `${siteConfig.url}${lead.sourcePage}` : NOT_PROVIDED,
+    inquiry_message: lead.details || NOT_PROVIDED,
+    // Not in the template yet; add a {{timeline}} row to show it.
+    timeline: lead.timeline || NOT_PROVIDED,
+  };
+}
 
-export async function sendCustomerConfirmation(brand: BrandData, lead: Lead) {
+/** Data for the customer confirmation template (SENDGRID_TEMPLATE_CONFIRMATION). Optional blocks use {{#if}}, so omit empty values. */
+export function customerTemplateData(lead: Lead) {
+  return {
+    first_name: lead.name.trim().split(/\s+/)[0] || undefined,
+    service_interest: lead.projectType,
+    inquiry_message: lead.details || undefined,
+  };
+}
+
+function sender() {
+  const email = process.env.SENDGRID_FROM_EMAIL || 'info@bluecrest-group.com';
+  return {
+    from: { email, name: process.env.SENDGRID_FROM_NAME || siteConfig.businessName },
+    replyTo: process.env.SENDGRID_REPLY_TO || email,
+  };
+}
+
+function logSendGridError(context: string, error: unknown) {
+  console.error(context, error);
+  const body = (error as { response?: { body?: unknown } } | null)?.response?.body;
+  if (body) console.error('SendGrid error details:', JSON.stringify(body, null, 2));
+}
+
+export async function sendCustomerConfirmation(lead: Lead) {
   sgMail.setApiKey(requireEnv('SENDGRID_API_KEY'));
 
-  const fromEmail = process.env.SENDGRID_FROM_EMAIL || brand.supportEmail || 'info@bluecrest-group.com';
-  const fromName = process.env.SENDGRID_FROM_NAME || brand.company_name;
-  const replyTo = process.env.SENDGRID_REPLY_TO || fromEmail;
-
-  const msg = {
-    to: lead.email,
-    from: { email: fromEmail, name: fromName },
-    replyTo: replyTo,
-    templateId: requireEnv('SENDGRID_TEMPLATE_CONFIRMATION'),
-    dynamicTemplateData: { ...brand, lead },
-  };
-
   try {
-    await sgMail.send(msg);
+    await sgMail.send({
+      to: lead.email,
+      ...sender(),
+      templateId: requireEnv('SENDGRID_TEMPLATE_CONFIRMATION'),
+      dynamicTemplateData: customerTemplateData(lead),
+    });
     console.log('Customer confirmation email sent to:', lead.email);
-  } catch (error: unknown) {
-    console.error('Failed to send customer confirmation email:', error);
-    if (error && typeof error === 'object' && 'response' in error) {
-      const sendGridError = error as { response?: { body?: unknown } };
-      if (sendGridError.response?.body) {
-        console.error('SendGrid error details:', JSON.stringify(sendGridError.response.body, null, 2));
-      }
-    }
+  } catch (error) {
+    logSendGridError('Failed to send customer confirmation email:', error);
     throw error;
   }
 }
 
-// Internal lead notification: one send per recipient (no cc/bcc)
-export async function sendInternalNotifications(brand: BrandData, lead: Lead) {
+// Internal lead notification: one send per recipient (no cc/bcc).
+export async function sendInternalNotifications(lead: Lead) {
   sgMail.setApiKey(requireEnv('SENDGRID_API_KEY'));
-
-  const fromEmail = process.env.SENDGRID_FROM_EMAIL || brand.supportEmail || 'info@bluecrest-group.com';
-  const fromName = process.env.SENDGRID_FROM_NAME || brand.company_name;
-  const replyTo = process.env.SENDGRID_REPLY_TO || fromEmail;
-  const recipients = getNotifyRecipients();
   const templateId = requireEnv('SENDGRID_TEMPLATE_ID');
-
+  const recipients = getNotifyRecipients();
   if (recipients.length === 0) {
     throw new Error('CONTACT_NOTIFY_TO has no valid recipients');
   }
 
-  const sends = recipients.map(email =>
-    sgMail.send({
-      to: email,
-      from: { email: fromEmail, name: fromName },
-      replyTo: replyTo,
-      templateId,
-      dynamicTemplateData: { ...brand, lead },
-    })
-  );
-
+  const dynamicTemplateData = internalTemplateData(lead);
   try {
-    await Promise.all(sends);
+    await Promise.all(
+      recipients.map((to) => sgMail.send({ to, ...sender(), templateId, dynamicTemplateData }))
+    );
     console.log('Internal notification emails sent to:', recipients.join(', '));
-  } catch (error: unknown) {
-    console.error('Failed to send internal notification emails:', error);
-    if (error && typeof error === 'object' && 'response' in error) {
-      const sendGridError = error as { response?: { body?: unknown } };
-      if (sendGridError.response?.body) {
-        console.error('SendGrid error details:', JSON.stringify(sendGridError.response.body, null, 2));
-      }
-    }
+  } catch (error) {
+    logSendGridError('Failed to send internal notification emails:', error);
     throw error;
   }
 }

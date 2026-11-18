@@ -104,7 +104,7 @@ export default function ContactForm({
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, turnstileToken }),
+        body: JSON.stringify({ ...formData, sourcePage: window.location.pathname, turnstileToken }),
       });
 
       if (!response.ok) throw new Error("Failed to submit form");

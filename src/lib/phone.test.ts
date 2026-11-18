@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { telHref } from "./phone";
+import { formatUsPhone, telHref } from "./phone";
 
 describe("telHref", () => {
   it("normalises US numbers", () => {
@@ -10,5 +10,16 @@ describe("telHref", () => {
   it("returns null for empty or malformed numbers", () => {
     expect(telHref("")).toBeNull();
     expect(telHref("555-0100")).toBeNull();
+  });
+});
+
+describe("formatUsPhone", () => {
+  it("formats 10- and 11-digit US numbers with hyphens", () => {
+    expect(formatUsPhone("(949) 555-0100")).toBe("949-555-0100");
+    expect(formatUsPhone("+1 949 555 0100")).toBe("949-555-0100");
+  });
+
+  it("returns anything else trimmed, unchanged", () => {
+    expect(formatUsPhone(" 555-0100 ")).toBe("555-0100");
   });
 });
