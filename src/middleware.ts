@@ -47,5 +47,8 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
 }
 
 export const config = {
+  // Node.js, not Edge: @/lib/auth pulls in postgres, nodemailer, and SendGrid, which need Node APIs.
+  // On Edge they fill the build with "Node.js API is not supported in the Edge Runtime" warnings.
+  runtime: "nodejs",
   matcher: ["/portal/:path*", "/api/auth/:path*"],
 };
